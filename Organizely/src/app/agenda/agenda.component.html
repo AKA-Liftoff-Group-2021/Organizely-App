@@ -1,4 +1,4 @@
-<h1>WEEK OF <span>March 8 - March 14, 2021</span></h1>
+<!-- <h1>WEEK OF <span>March 8 - March 14, 2021</span></h1>
 
 <button>Week</button>
 <button>Add</button>
@@ -13,4 +13,9 @@
     </li>
   </ul>
   <span *ngIf="coursesByDay[day.getDay()] === undefined">No events</span>
-</section>
+</section> -->
+
+<full-calendar
+  *ngIf="calendarVisible"
+  [options]="calendarOptions"
+></full-calendar>
