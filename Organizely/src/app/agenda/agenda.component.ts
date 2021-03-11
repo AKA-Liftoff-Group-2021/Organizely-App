@@ -3,6 +3,7 @@ import { COURSES } from '../shared/mock-data/mock-courses';
 import { Course } from '../shared/models/course.model';
 import { CalendarOptions } from '@fullcalendar/angular';
 import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullCalendar/timegrid';
 
 @Component({
   selector: 'app-agenda',
@@ -12,7 +13,12 @@ import listPlugin from '@fullcalendar/list';
 export class AgendaComponent implements OnInit {
   calendarVisible: boolean = true;
   calendarOptions: CalendarOptions = {
-    plugins: [listPlugin],
+    plugins: [listPlugin, timeGridPlugin],
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'listWeek,timeGridDay',
+    },
     initialView: 'listWeek',
     events: [
       {
