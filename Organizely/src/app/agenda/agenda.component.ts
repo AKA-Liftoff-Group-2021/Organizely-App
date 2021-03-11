@@ -80,18 +80,16 @@ export class AgendaComponent implements OnInit {
 
   ngOnInit(): void {
     // this.sortCoursesByDay();
-    // console.log(this.coursesByDay);
-    // console.log(this.calendarOptions['events'][0].extendedProps['semester']);
   }
 
-  sortCoursesByDay() {
-    this.dates.forEach((date) => {
-      let courseDayMatch = this.courses.find((course) =>
-        course.days.includes(date.getDay())
-      );
-      if (courseDayMatch !== undefined) {
-        this.coursesByDay[date.getDay()] = courseDayMatch;
-      }
-    });
-  }
+  // sortCoursesByDay() {
+  //   this.dates.forEach((date) => {
+  //     let courseDayMatch = this.courses.find((course) =>
+  //       course.days.includes(date.getDay())
+  //     );
+  //     if (courseDayMatch !== undefined) {
+  //       this.coursesByDay[date.getDay()] = courseDayMatch;
+  //     }
+  //   });
+  // }
 }
