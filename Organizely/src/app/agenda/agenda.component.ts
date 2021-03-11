@@ -16,8 +16,42 @@ export class AgendaComponent implements OnInit {
     initialView: 'listWeek',
     events: [
       {
-        title: 'LC101',
-        start: '2021-03-10T17:30:00',
+        title: 'Liftoff',
+        // start: '2021-03-01',
+        // end: '2021-04-27',
+        daysOfWeek: [1],
+        startTime: '17:30:00',
+        endTime: '20:30:00',
+        startRecur: '2021-03-01',
+        endRecur: '2021-04-27',
+        extendedProps: {
+          assignments: [
+            'Class 1 Reading',
+            'Class 1 Assignment',
+            'Class 1 Studio',
+          ],
+          semesterSeason: 'Winter',
+          semesterYear: 2021,
+        },
+      },
+      {
+        title: 'CoderGirl',
+        // start: '2020-08-01',
+        // end: '2021-02-25',
+        daysOfWeek: [1, 3],
+        startTime: '17:30:00',
+        endTime: '20:30:00',
+        startRecur: '2020-08-01',
+        endRecur: '2021-02-20',
+        extendedProps: {
+          assignments: [
+            'Class 3 Reading',
+            'Class 3 Assignment',
+            'Class 3 Studio',
+          ],
+          semesterSeason: 'Winter',
+          semesterYear: 2021,
+        },
       },
     ],
   };
@@ -41,6 +75,7 @@ export class AgendaComponent implements OnInit {
   ngOnInit(): void {
     // this.sortCoursesByDay();
     // console.log(this.coursesByDay);
+    // console.log(this.calendarOptions['events'][0].extendedProps['semester']);
   }
 
   sortCoursesByDay() {
