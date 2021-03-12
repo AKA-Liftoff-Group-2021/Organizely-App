@@ -1,0 +1,21 @@
+<!-- <h1>WEEK OF <span>March 8 - March 14, 2021</span></h1>
+
+<button>Week</button>
+<button>Add</button>
+
+<section *ngFor="let day of dates">
+  <h2>{{ day | date: "mediumDate" }}</h2>
+  <ul *ngIf="coursesByDay[day.getDay()] !== undefined">
+    <li>
+      {{ coursesByDay[day.getDay()].startTime }} -
+      {{ coursesByDay[day.getDay()].endTime }}
+      {{ coursesByDay[day.getDay()].name }}
+    </li>
+  </ul>
+  <span *ngIf="coursesByDay[day.getDay()] === undefined">No events</span>
+</section> -->
+
+<full-calendar
+  *ngIf="calendarVisible"
+  [options]="calendarOptions"
+></full-calendar>
