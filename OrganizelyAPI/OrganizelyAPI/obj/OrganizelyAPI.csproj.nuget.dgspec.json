@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[5.0.4, )"
             },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[5.0.4, )"
@@ -59,6 +63,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.4, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Utils": {
+              "target": "Package",
+              "version": "[5.0.2, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
