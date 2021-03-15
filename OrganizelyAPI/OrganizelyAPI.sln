@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizelyAPI", "OrganizelyAPI\OrganizelyAPI.csproj", "{DA964F05-3413-48D2-9576-8352C57BAD3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA964F05-3413-48D2-9576-8352C57BAD3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA964F05-3413-48D2-9576-8352C57BAD3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA964F05-3413-48D2-9576-8352C57BAD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA964F05-3413-48D2-9576-8352C57BAD3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F2E77E0-354A-4092-B863-AEF919115977}
+	EndGlobalSection
+EndGlobal
