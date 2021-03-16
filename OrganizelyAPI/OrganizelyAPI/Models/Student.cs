@@ -13,6 +13,7 @@ namespace OrganizelyAPI.Models
         [Key]                                                     // ctrl + . to select options to add namespaces
         public int StudentId { get; set; }
 
+        [Required]
         [Column(TypeName = "varchar(100)")]
         public string StudentName { get; set; }
     }
