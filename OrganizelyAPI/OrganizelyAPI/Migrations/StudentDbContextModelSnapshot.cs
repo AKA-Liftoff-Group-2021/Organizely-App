@@ -23,6 +23,7 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AssignmentName")
+                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.Property<int>("CourseId")
@@ -51,6 +52,7 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CourseName")
+                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("DateEnd")
@@ -63,6 +65,7 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("SemesterSeason")
+                        .IsRequired()
                         .HasColumnType("varchar(50)");
 
                     b.Property<int>("SemesterYear")
@@ -75,6 +78,7 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("TeacherName")
+                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("CourseId");
@@ -91,6 +95,7 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("StudentName")
+                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("StudentId");
@@ -114,6 +119,7 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("StudentTaskName")
+                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("Time")
