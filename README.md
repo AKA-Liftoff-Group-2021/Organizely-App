@@ -27,4 +27,4 @@ Organizely is a web application that allows users to:
 
 ## License
 
-[MIT License](LICENSE)
+[MIT License](https://github.com/AKA-Liftoff-Group-2021/Organizely-App/blob/main/LICENSE)
