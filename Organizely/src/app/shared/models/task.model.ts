@@ -1,7 +1,8 @@
-export interface Task {
-  id?: string;
-  name: string;
+export class Task {
+  taskNameId: string;
+  taskName: string;
   date: Date;
   time: string;
+  priority: string;
   deadline?: string;
 }

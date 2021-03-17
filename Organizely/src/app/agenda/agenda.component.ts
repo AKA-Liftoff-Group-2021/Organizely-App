@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { COURSES } from '../shared/mock-data/mock-courses';
+// import { COURSES } from '../shared/mock-data/mock-courses';
 import { Course } from '../shared/models/course.model';
 import { CalendarOptions } from '@fullcalendar/angular';
 import listPlugin from '@fullcalendar/list';
@@ -72,7 +72,7 @@ export class AgendaComponent implements OnInit {
     new Date(2021, 2, 13),
   ];
 
-  courses: Course[] = COURSES;
+  // courses: Course[] = COURSES;
 
   coursesByDay = {};
 
