@@ -44,7 +44,7 @@ export class ClassesPageComponent implements OnInit {
     });
   }
 
-  onCheckChange(event, index) {
+  onCheckChange(event) {
     const formArray: FormArray = this.addCourseForm.get(
       'daysOfWeek'
     ) as FormArray;
@@ -52,9 +52,11 @@ export class ClassesPageComponent implements OnInit {
     if (event.target.checked) {
       formArray.push(new FormControl(Number(event.target.value)));
     } else {
+      let i: number = 0;
+
       formArray.controls.forEach((control: FormControl) => {
-        if (control.value === event.target.value) {
-          formArray.removeAt(index);
+        if (control.value == event.target.value) {
+          formArray.removeAt(i);
           return;
         }
       });
