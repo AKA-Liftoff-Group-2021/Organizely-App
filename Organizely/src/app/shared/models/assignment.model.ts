@@ -1,10 +1,7 @@
-import { Course } from './course.model';
-
-export interface Assignment {
-  id?: string;
-  name: string;
+export class Assignment {
+  assignmentId: string;
+  assignmentName: string;
   date: Date;
   time: string;
-  deadline?: string;
-  course: Course;
+  deadline: string;
 }
