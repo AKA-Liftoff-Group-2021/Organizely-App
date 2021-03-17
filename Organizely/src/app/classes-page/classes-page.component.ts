@@ -44,8 +44,21 @@ export class ClassesPageComponent implements OnInit {
     });
   }
 
-  onCheckboxChange(event) {
-    console.log(event.target.value);
+  onCheckChange(event, index) {
+    const formArray: FormArray = this.addCourseForm.get(
+      'daysOfWeek'
+    ) as FormArray;
+
+    if (event.target.checked) {
+      formArray.push(new FormControl(Number(event.target.value)));
+    } else {
+      formArray.controls.forEach((control: FormControl) => {
+        if (control.value === event.target.value) {
+          formArray.removeAt(index);
+          return;
+        }
+      });
+    }
   }
 
   submit() {

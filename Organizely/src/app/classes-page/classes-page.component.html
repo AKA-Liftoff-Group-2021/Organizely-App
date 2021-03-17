@@ -28,9 +28,13 @@
 
   <br />
 
-  <label *ngFor="let day of dayNames">
+  <label *ngFor="let day of dayNames; let i = index">
     {{ day["name"] }}
-    <input type="checkbox" [value]="day['id']" />
+    <input
+      type="checkbox"
+      [value]="day['id']"
+      (change)="onCheckChange($event, i)"
+    />
     <br />
   </label>
 
