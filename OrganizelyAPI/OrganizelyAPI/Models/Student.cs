@@ -15,6 +15,14 @@ namespace OrganizelyAPI.Models
 
         [Required]
         [Column(TypeName = "varchar(100)")]
-        public string StudentName { get; set; }
+        public string Username { get; set; }
+
+        [Required]
+        [Column(TypeName = "varchar(100)")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Column(TypeName = "varchar(100)")]
+        public string LastName { get; set; }
     }
 }

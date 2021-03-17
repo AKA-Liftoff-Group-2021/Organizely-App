@@ -17,7 +17,6 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "varchar(100)")]
         public string CourseName { get; set; }
 
-        [Required]
         [Column(TypeName = "varchar(100)")]
         public string TeacherName { get; set; }
 
@@ -27,11 +26,17 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "datetime")]
         public DateTime EndTime { get; set; }
 
-        [Column(TypeName = "datetime")]
-        public DateTime DateStart { get; set; }
 
-        [Column(TypeName = "datetime")]
-        public DateTime DateEnd { get; set; }
+        //public List<int> DaysOfWeek { get; set; }
+
+
+        [Required]
+        [Column(TypeName = "varchar(100)")]
+        public string StartRecur { get; set; }
+
+        [Required]
+        [Column(TypeName = "varchar(100)")]
+        public string EndRecur { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(50)")]
@@ -44,5 +49,11 @@ namespace OrganizelyAPI.Models
         //[ForeignKey("Student")]
         public int StudentId { get; set; }
         public Student Student { get; set; }
+
+        //[Column(TypeName = "datetime")]
+        //public DateTime DateStart { get; set; }
+
+        //[Column(TypeName = "datetime")]
+        //public DateTime DateEnd { get; set; }
     }
 }

@@ -13,7 +13,9 @@ namespace OrganizelyAPI.Migrations
                 {
                     StudentId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    StudentName = table.Column<string>(type: "varchar(100)", nullable: false)
+                    Username = table.Column<string>(type: "varchar(100)", nullable: false),
+                    FirstName = table.Column<string>(type: "varchar(100)", nullable: false),
+                    LastName = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,11 +29,11 @@ namespace OrganizelyAPI.Migrations
                     CourseId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CourseName = table.Column<string>(type: "varchar(100)", nullable: false),
-                    TeacherName = table.Column<string>(type: "varchar(100)", nullable: false),
+                    TeacherName = table.Column<string>(type: "varchar(100)", nullable: true),
                     StartTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    DateStart = table.Column<DateTime>(type: "datetime", nullable: false),
-                    DateEnd = table.Column<DateTime>(type: "datetime", nullable: false),
+                    StartRecur = table.Column<string>(type: "varchar(100)", nullable: false),
+                    EndRecur = table.Column<string>(type: "varchar(100)", nullable: false),
                     SemesterSeason = table.Column<string>(type: "varchar(50)", nullable: false),
                     SemesterYear = table.Column<int>(type: "integer", nullable: false),
                     StudentId = table.Column<int>(type: "integer", nullable: false)
