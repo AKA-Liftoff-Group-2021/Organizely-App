@@ -3,13 +3,25 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-classes-page',
   templateUrl: './classes-page.component.html',
-  styleUrls: ['./classes-page.component.css']
+  styleUrls: ['./classes-page.component.css'],
 })
 export class ClassesPageComponent implements OnInit {
+  dayNames: string[] = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
 
-  constructor() { }
+  currentDate: Date = new Date();
+  currentYear = this.currentDate.getFullYear();
 
-  ngOnInit(): void {
-  }
+  semesterSeasons: string[] = ['Fall', 'Winter', 'Spring', 'Summer'];
 
+  constructor() {}
+
+  ngOnInit(): void {}
 }

@@ -1,1 +1,93 @@
-<p>classes-page works!</p>
+<form>
+  <label>Course Name</label>
+  <input type="text" />
+
+  <br />
+
+  <label>Start Time</label>
+  <input type="time" />
+
+  <br />
+
+  <label>End Time</label>
+  <input type="time" />
+
+  <br />
+
+  <label>Start Date</label>
+  <input type="date" />
+
+  <br />
+
+  <label>End Date</label>
+  <input type="date" />
+
+  <br />
+
+  <label>Days</label>
+
+  <br />
+
+  <label for="Sunday">{{ dayNames[0] }}</label>
+  <input type="checkbox" id="Sunday" name="Sunday" value="0" />
+
+  <br />
+
+  <label for="Monday">{{ dayNames[1] }}</label>
+  <input type="checkbox" id="Monday" name="Monday" value="1" />
+
+  <br />
+
+  <label for="Tuesday">{{ dayNames[2] }}</label>
+  <input type="checkbox" id="Tuesday" name="Tuesday" value="2" />
+
+  <br />
+
+  <label for="Wednesday">{{ dayNames[3] }}</label>
+  <input type="checkbox" id="Wednesday" name="Wednesday" value="3" />
+
+  <br />
+
+  <label for="Thursday">{{ dayNames[4] }}</label>
+  <input type="checkbox" id="Thursday" name="Thursday" value="4" />
+
+  <br />
+
+  <label for="Friday">{{ dayNames[5] }}</label>
+  <input type="checkbox" id="Friday" name="Friday" value="5" />
+
+  <br />
+
+  <label for="Saturday">{{ dayNames[6] }}</label>
+  <input type="checkbox" id="Saturday" name="Saturday" value="6" />
+
+  <br />
+
+  <!-- <div *ngFor="let day of dayNames; let i = index">
+    <label for="day">
+      {{ day }}
+      <input type="checkbox" name="day" id="day" value="i" />
+    </label>
+  </div> -->
+
+  <label>Semester Season</label>
+
+  <select name="" id="">
+    <option *ngFor="let season of semesterSeasons" value="season">
+      {{ season }}
+    </option>
+  </select>
+
+  <br />
+
+  <label>Semester Year</label>
+
+  <input type="number" [min]="currentYear" />
+
+  <br />
+
+  <label for="">Teacher's Name</label>
+  <input type="text" />
+
+  <button type="submit">Submit</button>
+</form>
