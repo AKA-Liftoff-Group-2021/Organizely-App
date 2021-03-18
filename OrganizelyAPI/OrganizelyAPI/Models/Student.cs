@@ -25,11 +25,9 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "varchar(100)")]
         public string LastName { get; set; }
 
-
         public ICollection<Course> Courses { get; set; }            // March 18, 2021
+        public ICollection<StudentTask> StudentTasks { get; set; }     // March 18, 2021
 
-
-        // TODO Should I add an ICollection of Assignments 
 
         //public override bool Equals(object obj)
         //{
