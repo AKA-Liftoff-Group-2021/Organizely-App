@@ -51,12 +51,14 @@ export class ClassesPageComponent implements OnInit {
 
     if (event.target.checked) {
       formArray.push(new FormControl(Number(event.target.value)));
+      console.log(formArray.value);
     } else {
-      let i: number = 0;
-
       formArray.controls.forEach((control: FormControl) => {
         if (control.value == event.target.value) {
-          formArray.removeAt(i);
+          formArray.removeAt(
+            formArray.value.findIndex((day) => day === control.value)
+          );
+          console.log(formArray.value);
           return;
         }
       });
