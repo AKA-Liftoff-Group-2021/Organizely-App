@@ -24,5 +24,8 @@ namespace OrganizelyAPI.Models
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string LastName { get; set; }
+
+
+        // TODO Should I add an ICollection of Assignments 
     }
 }

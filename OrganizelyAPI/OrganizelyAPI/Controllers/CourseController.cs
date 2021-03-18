@@ -25,7 +25,9 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
-            return await _context.Courses.ToListAsync();
+            return await _context.Courses
+                .Include(student => student.Student)            // TODO: Added march18
+                .ToListAsync();
         }
 
         // GET: api/Course/5
