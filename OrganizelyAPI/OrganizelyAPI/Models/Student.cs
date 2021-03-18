@@ -26,6 +26,20 @@ namespace OrganizelyAPI.Models
         public string LastName { get; set; }
 
 
+        public ICollection<Course> Courses { get; set; }            // March 18, 2021
+
+
         // TODO Should I add an ICollection of Assignments 
+
+        //public override bool Equals(object obj)
+        //{
+        //    return obj is Student @student &&
+        //           Id == @Student.StudentId;
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    return HashCode.Combine(Id);
+        //}
     }
 }
