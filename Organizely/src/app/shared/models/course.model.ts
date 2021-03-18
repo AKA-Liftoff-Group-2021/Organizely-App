@@ -1,5 +1,4 @@
 export class Course {
-  public courseId: string;
   public courseName: string;
   public startTime: string;
   public endTime: string;
@@ -11,7 +10,6 @@ export class Course {
   public teacherName?: string;
 
   constructor(
-    courseId: string,
     courseName: string,
     startTime: string,
     endTime: string,
@@ -22,7 +20,6 @@ export class Course {
     semesterYear: number,
     teacherName?: string
   ) {
-    this.courseId = courseId;
     this.courseName = courseName;
     this.startTime = startTime;
     this.endTime = endTime;
