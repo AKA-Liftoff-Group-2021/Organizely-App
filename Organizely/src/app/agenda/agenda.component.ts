@@ -29,13 +29,8 @@ export class AgendaComponent implements OnInit {
         startTime: '17:30:00',
         endTime: '20:30:00',
         startRecur: '2021-03-01',
-        endRecur: '2021-04-27',
+        endRecur: '2021-04-26',
         extendedProps: {
-          assignments: [
-            'Class 1 Reading',
-            'Class 1 Assignment',
-            'Class 1 Studio',
-          ],
           semesterSeason: 'Winter',
           semesterYear: 2021,
         },
@@ -50,11 +45,6 @@ export class AgendaComponent implements OnInit {
         startRecur: '2020-08-01',
         endRecur: '2021-02-20',
         extendedProps: {
-          assignments: [
-            'Class 3 Reading',
-            'Class 3 Assignment',
-            'Class 3 Studio',
-          ],
           semesterSeason: 'Winter',
           semesterYear: 2021,
         },
