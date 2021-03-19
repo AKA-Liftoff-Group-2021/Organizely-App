@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-classes-form',
@@ -24,7 +25,7 @@ export class ClassesFormComponent implements OnInit {
 
   addCourseForm: FormGroup;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -51,14 +52,12 @@ export class ClassesFormComponent implements OnInit {
 
     if (event.target.checked) {
       formArray.push(new FormControl(Number(event.target.value)));
-      console.log(formArray.value);
     } else {
       formArray.controls.forEach((control: FormControl) => {
         if (control.value == event.target.value) {
           formArray.removeAt(
             formArray.value.findIndex((day) => day === control.value)
           );
-          console.log(formArray.value);
           return;
         }
       });
@@ -67,5 +66,6 @@ export class ClassesFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.addCourseForm.value);
+    this.router.navigate(['/', 'organizely', 'classes']);
   }
 }
