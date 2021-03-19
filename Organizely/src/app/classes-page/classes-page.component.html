@@ -16,6 +16,7 @@
     <!-- TODO: Determine if we want to only display current semester here or entire list of courses -->
 
     <h2>Semester/Course Content</h2>
+    <button routerLink="/organizely/classform">Add Class</button>
 
     <table class="table table-hover">
       <caption>
@@ -32,7 +33,9 @@
         <tr *ngFor="let course of courses">
           <td>
             <span *ngFor="let day of course.daysOfWeek"
-              >{{ day }} {{ course.startTime }} - {{ course.endTime }} <br />
+              >{{ day | dayString }} {{ course.startTime | standardTime }} -
+              {{ course.endTime | standardTime }}
+              <br />
             </span>
           </td>
           <td>{{ course.courseName }}</td>
@@ -40,9 +43,8 @@
         </tr>
       </tbody>
     </table>
-
-    <button routerLink="/organizely/classform">Add Class</button>
   </div>
+
   <div id="schoolyear" class="tab-pane fade">
     <h2>Semester: Winter 2020</h2>
     <!-- TODO: Determine if we need an Add New Semester button since semester props are on Course model -->

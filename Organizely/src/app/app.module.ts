@@ -16,6 +16,8 @@ import { FocusZoneComponent } from './focus-zone/focus-zone.component';
 import { QuotesPageComponent } from './quotes-page/quotes-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClassesFormComponent } from './classes-form/classes-form.component';
+import { DayStringPipe } from './shared/day-string.pipe';
+import { StandardTimePipe } from './shared/standard-time.pipe';
 
 FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
 
@@ -31,6 +33,8 @@ FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
     FocusZoneComponent,
     QuotesPageComponent,
     ClassesFormComponent,
+    DayStringPipe,
+    StandardTimePipe,
   ],
   imports: [
     BrowserModule,
