@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullCalendar/timegrid';
@@ -32,9 +33,10 @@ FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FullCalendarModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule    
   ],
   providers: [],
   bootstrap: [AppComponent],
