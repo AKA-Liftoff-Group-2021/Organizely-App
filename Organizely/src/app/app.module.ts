@@ -15,6 +15,7 @@ import { CalendarPageComponent } from './calendar-page/calendar-page.component';
 import { FocusZoneComponent } from './focus-zone/focus-zone.component';
 import { QuotesPageComponent } from './quotes-page/quotes-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClassesFormComponent } from './classes-form/classes-form.component';
 
 FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
 
@@ -29,6 +30,7 @@ FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
     CalendarPageComponent,
     FocusZoneComponent,
     QuotesPageComponent,
+    ClassesFormComponent,
   ],
   imports: [
     BrowserModule,
