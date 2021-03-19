@@ -9,7 +9,7 @@ using OrganizelyAPI.Data;
 namespace OrganizelyAPI.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    [Migration("20210316200058_InitialCreate")]
+    [Migration("20210319192921_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
