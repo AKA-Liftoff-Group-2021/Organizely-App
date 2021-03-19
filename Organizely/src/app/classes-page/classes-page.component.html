@@ -1,1 +1,24 @@
-<button routerLink="/organizely/classform">Add Class</button>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#semester"
+      >Semester View</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#schoolyear"
+      >School Year View</a
+    >
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div id="semester" class="tab-pane fade in active show">
+    Semester Content
+    <button routerLink="/organizely/classform">Add Class</button>
+  </div>
+  <div id="schoolyear" class="tab-pane fade">
+    School Year Content
+    <!-- TODO: Determine if we need an Add New Semester button since semester props are on Course model -->
+    <button>Add New Semester</button>
+  </div>
+</div>
