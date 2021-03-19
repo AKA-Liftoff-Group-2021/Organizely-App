@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-// import { COURSES } from '../shared/mock-data/mock-courses';
-import { Course } from '../shared/models/course.model';
 import { CalendarOptions } from '@fullcalendar/angular';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullCalendar/timegrid';
+
+import { Course } from '../shared/models/course.model';
+import { COURSES } from '../shared/mock-data/mock-courses';
 
 @Component({
   selector: 'app-agenda',
@@ -20,66 +21,29 @@ export class AgendaComponent implements OnInit {
       right: 'listWeek,timeGridDay',
     },
     initialView: 'listWeek',
-    events: [
-      {
-        title: 'Liftoff',
-        // start: '2021-03-01',
-        // end: '2021-04-27',
-        daysOfWeek: [1],
-        startTime: '17:30:00',
-        endTime: '20:30:00',
-        startRecur: '2021-03-01',
-        endRecur: '2021-04-26',
-        extendedProps: {
-          semesterSeason: 'Winter',
-          semesterYear: 2021,
-        },
-      },
-      {
-        title: 'CoderGirl',
-        // start: '2020-08-01',
-        // end: '2021-02-25',
-        daysOfWeek: [1, 3],
-        startTime: '17:30:00',
-        endTime: '20:30:00',
-        startRecur: '2020-08-01',
-        endRecur: '2021-02-20',
-        extendedProps: {
-          semesterSeason: 'Winter',
-          semesterYear: 2021,
-        },
-      },
-    ],
+    events: [],
   };
 
-  dates: Date[] = [
-    new Date(2021, 2, 7),
-    new Date(2021, 2, 8),
-    new Date(2021, 2, 9),
-    new Date(2021, 2, 10),
-    new Date(2021, 2, 11),
-    new Date(2021, 2, 12),
-    new Date(2021, 2, 13),
-  ];
-
-  // courses: Course[] = COURSES;
-
-  coursesByDay = {};
+  courses: Course[] = COURSES;
 
   constructor() {}
 
   ngOnInit(): void {
-    // this.sortCoursesByDay();
+    for (let i = 0; i < this.courses.length; i++) {
+      this.calendarOptions.events[i] = {
+        title: this.courses[i].courseName,
+        // start: '2021-03-01',
+        // end: '2021-04-27',
+        daysOfWeek: this.courses[i].daysOfWeek,
+        startTime: this.courses[i].startTime,
+        endTime: this.courses[i].endTime,
+        startRecur: this.courses[i].startRecur,
+        endRecur: this.courses[i].endRecur,
+        extendedProps: {
+          semesterSeason: this.courses[i].semesterSeason,
+          semesterYear: this.courses[i].semesterYear,
+        },
+      };
+    }
   }
-
-  // sortCoursesByDay() {
-  //   this.dates.forEach((date) => {
-  //     let courseDayMatch = this.courses.find((course) =>
-  //       course.days.includes(date.getDay())
-  //     );
-  //     if (courseDayMatch !== undefined) {
-  //       this.coursesByDay[date.getDay()] = courseDayMatch;
-  //     }
-  //   });
-  // }
 }
