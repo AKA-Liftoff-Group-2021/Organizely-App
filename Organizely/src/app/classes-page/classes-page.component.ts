@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DataBaseAPIService } from '../data-base-api.service';
+import { Course } from '../shared/models/course.model';
 
 @Component({
   selector: 'app-classes-page',
@@ -66,7 +67,8 @@ export class ClassesPageComponent implements OnInit {
     }
   }
 
-  submit() {
-    this.dataBaseAPIService.postCourseForm(this.addCourseForm);
+  onSubmit() {
+    this.dataBaseAPIService.postCourseForm(this.addCourseForm.value);
+    console.log(this.addCourseForm.value);
   }
 }
