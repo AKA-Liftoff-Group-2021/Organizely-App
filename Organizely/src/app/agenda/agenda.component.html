@@ -1,5 +1,19 @@
-<div>
-  <button>Add Class</button>
+<div class="dropdown">
+  <button
+    class="btn btn-secondary dropdown-toggle"
+    type="button"
+    id="dropdownMenuButton"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    &#43; Add
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" routerLink="/organizely/classform">Class</a>
+    <a class="dropdown-item">Assignment</a>
+    <a class="dropdown-item">Task</a>
+  </div>
 </div>
 
 <full-calendar
