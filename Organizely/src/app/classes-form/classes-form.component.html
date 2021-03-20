@@ -1,70 +1,113 @@
-<form [formGroup]="addCourseForm" (ngSubmit)="onSubmit()">
-  <label for="courseName">Course Name</label>
-  <input type="text" id="courseName" formControlName="courseName" />
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Add Your Class</h2>
 
-  <br />
+      <form [formGroup]="addCourseForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="courseName">Course Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="courseName"
+            formControlName="courseName"
+          />
+        </div>
 
-  <label for="startTime">Start Time</label>
-  <input type="time" id="startTime" formControlName="startTime" />
+        <div class="form-group">
+          <label for="startTime">Start Time</label>
+          <input
+            type="time"
+            class="form-control"
+            id="startTime"
+            formControlName="startTime"
+          />
+        </div>
 
-  <br />
+        <div class="form-group">
+          <label for="endTime">End Time</label>
+          <input
+            type="time"
+            class="form-control"
+            id="endTime"
+            formControlName="endTime"
+          />
+        </div>
 
-  <label for="endTime">End Time</label>
-  <input type="time" id="endTime" formControlName="endTime" />
+        <div class="form-group">
+          <label for="startRecur">Start Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="startRecur"
+            formControlName="startRecur"
+          />
+        </div>
 
-  <br />
+        <div class="form-group">
+          <label for="endRecur">End Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="endRecur"
+            formControlName="endRecur"
+          />
+        </div>
 
-  <label for="startRecur">Start Date</label>
-  <input type="date" id="startRecur" formControlName="startRecur" />
+        <label>Days</label>
 
-  <br />
+        <div class="form-group">
+          <div class="form-check">
+            <span *ngFor="let day of dayNames">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                [id]="day['name'] + day['id']"
+                [value]="day['id']"
+                (change)="onCheckChange($event)"
+              />
+              <label class="form-check-label" [for]="day['name'] + day['id']">
+                {{ day["name"] }}
+              </label>
+              <br />
+            </span>
+          </div>
+        </div>
 
-  <label for="endRecur">End Date</label>
-  <input type="date" id="endRecur" formControlName="endRecur" />
+        <div class="form-group">
+          <label>Semester Season</label>
 
-  <br />
+          <select class="form-control" formControlName="semesterSeason">
+            <option *ngFor="let season of semesterSeasons" [value]="season">
+              {{ season }}
+            </option>
+          </select>
+        </div>
 
-  <label>Days</label>
+        <div class="form-group">
+          <label for="semesterYear">Semester Year</label>
 
-  <br />
+          <input
+            type="number"
+            class="form-control"
+            id="semesterYear"
+            formControlName="semesterYear"
+            [min]="currentYear"
+          />
+        </div>
 
-  <label *ngFor="let day of dayNames">
-    {{ day["name"] }}
-    <input
-      type="checkbox"
-      [value]="day['id']"
-      (change)="onCheckChange($event)"
-    />
-    <br />
-  </label>
+        <div class="form-group">
+          <label for="teacherName">Teacher's Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="teacherName"
+            formControlName="teacherName"
+          />
+        </div>
 
-  <br />
-
-  <label>Semester Season</label>
-
-  <select formControlName="semesterSeason">
-    <option *ngFor="let season of semesterSeasons" [value]="season">
-      {{ season }}
-    </option>
-  </select>
-
-  <br />
-
-  <label for="semesterYear">Semester Year</label>
-
-  <input
-    type="number"
-    id="semesterYear"
-    formControlName="semesterYear"
-    [min]="currentYear"
-  />
-
-  <br />
-
-  <label for="teacherName">Teacher's Name</label>
-  <input type="text" id="teacherName" formControlName="teacherName" />
-
-  <br />
-
-  <button type="submit">Submit</button>
-</form>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
