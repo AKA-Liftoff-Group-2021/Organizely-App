@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataBaseAPIService } from '../data-base-api.service';
 import { COURSES } from '../shared/mock-data/mock-courses';
 import { Course } from '../shared/models/course.model';
 
@@ -10,7 +11,7 @@ import { Course } from '../shared/models/course.model';
 export class ClassesPageComponent implements OnInit {
   courses: Course[] = COURSES;
 
-  constructor() {}
+  constructor(private dataBaseAPIService: DataBaseAPIService) {}
 
   ngOnInit(): void {}
 }
