@@ -1,22 +1,26 @@
 import { Course } from '../models/course.model';
 
-// export const COURSES: Course[] = [
-//   {
-//     id: '1',
-//     name: 'LC101',
-//     days: [1, 3],
-//     startTime: '5:30 PM',
-//     endTime: '8:30 PM',
-//     assignments: ['Class 1 Reading', 'Class 1 Assignment', 'Class 1 Studio'],
-//     semester: 'Winter',
-//   },
-//   {
-//     id: '2',
-//     name: 'CoderGirl',
-//     days: [2, 4],
-//     startTime: '5:30 PM',
-//     endTime: '8:30 PM',
-//     assignments: ['Class 5 Reading', 'Class 5 Assignment', 'Class 5 Studio'],
-//     semester: 'Winter',
-//   },
-// ];
+export const COURSES: Course[] = [
+  {
+    courseName: 'Liftoff',
+    startTime: '17:30:00',
+    endTime: '20:30:00',
+    startRecur: '2021-03-01',
+    endRecur: '2021-04-26',
+    daysOfWeek: [1],
+    semesterSeason: 'Winter',
+    semesterYear: 2021,
+    teacherName: 'Mike',
+  },
+  {
+    courseName: 'CoderGirl',
+    startTime: '17:30:00',
+    endTime: '20:30:00',
+    startRecur: '2020-08-01',
+    endRecur: '2021-02-20',
+    daysOfWeek: [1, 3],
+    semesterSeason: 'Fall',
+    semesterYear: 2020,
+    teacherName: 'Chetna',
+  },
+];
