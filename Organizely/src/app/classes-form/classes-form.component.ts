@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Course } from '../shared/models/course.model';
 
 @Component({
   selector: 'app-classes-form',
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./classes-form.component.css'],
 })
 export class ClassesFormComponent implements OnInit {
+  @ViewChild('f') addCourseForm: NgForm;
+
   dayNames: object[] = [
     { name: 'Sunday', id: 0 },
     { name: 'Monday', id: 1 },
@@ -18,46 +21,38 @@ export class ClassesFormComponent implements OnInit {
     { name: 'Saturday', id: 6 },
   ];
 
+  course: Course = {
+    courseName: null,
+    startTime: null,
+    endTime: null,
+    startRecur: null,
+    endRecur: null,
+    daysOfWeek: null,
+    semesterSeason: null,
+    semesterYear: null,
+    teacherName: null,
+  };
+
+  selectedDays: number[] = [];
+
   currentDate: Date = new Date();
   currentYear = this.currentDate.getFullYear();
 
   semesterSeasons: string[] = ['Fall', 'Winter', 'Spring', 'Summer'];
 
-  addCourseForm: FormGroup;
+  submitted: boolean = false;
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    this.initForm();
-  }
-
-  initForm() {
-    this.addCourseForm = new FormGroup({
-      courseName: new FormControl(null, Validators.required),
-      startTime: new FormControl(null, Validators.required),
-      endTime: new FormControl(null, Validators.required),
-      startRecur: new FormControl(null, Validators.required),
-      endRecur: new FormControl(null, Validators.required),
-      daysOfWeek: new FormArray([]),
-      semesterSeason: new FormControl(null, Validators.required),
-      semesterYear: new FormControl(null, Validators.required),
-      teacherName: new FormControl(null),
-    });
-  }
+  ngOnInit(): void {}
 
   onCheckChange(event) {
-    const formArray: FormArray = this.addCourseForm.get(
-      'daysOfWeek'
-    ) as FormArray;
-
     if (event.target.checked) {
-      formArray.push(new FormControl(Number(event.target.value)));
+      this.selectedDays.push(Number(event.target.value));
     } else {
-      formArray.controls.forEach((control: FormControl) => {
-        if (control.value == event.target.value) {
-          formArray.removeAt(
-            formArray.value.findIndex((day) => day === control.value)
-          );
+      this.selectedDays.forEach((day: number) => {
+        if (day === Number(event.target.value)) {
+          this.selectedDays.splice(this.selectedDays.indexOf(day), 1);
           return;
         }
       });
@@ -65,7 +60,20 @@ export class ClassesFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.addCourseForm.value);
+    this.submitted = true;
+
+    this.course.courseName = this.addCourseForm.value.courseName;
+    this.course.startTime = this.addCourseForm.value.startTime;
+    this.course.endTime = this.addCourseForm.value.endTime;
+    this.course.startRecur = this.addCourseForm.value.startRecur;
+    this.course.endRecur = this.addCourseForm.value.endRecur;
+    this.course.daysOfWeek = this.selectedDays;
+    this.course.semesterSeason = this.addCourseForm.value.semesterSeason;
+    this.course.semesterYear = this.addCourseForm.value.semesterYear;
+    this.course.teacherName = this.addCourseForm.value.teacherName;
+
+    console.log(this.course);
+
     this.router.navigate(['/', 'organizely', 'classes']);
   }
 }
