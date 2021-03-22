@@ -29,7 +29,7 @@ namespace OrganizelyAPI.ViewModels
 
         //[Required]
         //[Column(TypeName = "varchar(100)")]
-        public string DaysOfWeekStr { get; set; }
+        //public string DaysOfWeekStr { get; set; }
         public int[] DaysOfWeek { get; set; }
         //{
         //    get
@@ -64,6 +64,6 @@ namespace OrganizelyAPI.ViewModels
         public Student Student { get; set; }
 
 
-        public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021
+        // public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021
     }
 }

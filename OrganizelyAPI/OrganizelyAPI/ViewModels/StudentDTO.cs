@@ -26,7 +26,7 @@ namespace OrganizelyAPI.ViewModels
         [Column(TypeName = "varchar(100)")]
         public string LastName { get; set; }
 
-        public ICollection<Course> Courses { get; set; }           
-        public ICollection<StudentTask> StudentTasks { get; set; }
+       // public ICollection<Course> Courses { get; set; }           
+       // public ICollection<StudentTask> StudentTasks { get; set; }
     }
 }

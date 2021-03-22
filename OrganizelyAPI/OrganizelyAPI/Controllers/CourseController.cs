@@ -27,6 +27,7 @@ namespace OrganizelyAPI.Controllers
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
             return await _context.Courses
+                //.Include(c => c.DaysOfWeek = Array.ConvertAll(c.DaysOfWeek.Split(','), Int32.Parse))
                 .Include(student => student.Student)            // TODO: Added march18
                 .ToListAsync();
         }
@@ -79,9 +80,9 @@ namespace OrganizelyAPI.Controllers
         // POST: api/Course
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse(CourseDTO courseDTO)            //march 22
+        public async Task<ActionResult<CourseDTO>> PostCourse(CourseDTO courseDTO)            //march 22
         {
-            Student Student = _context.Students.Find(courseDTO.StudentId);          //march 22
+            Student theStudent = _context.Students.Find(courseDTO.StudentId);          //march 22
             Course newCourse = new Course
             {
                 CourseName = courseDTO.CourseName,
@@ -92,7 +93,8 @@ namespace OrganizelyAPI.Controllers
                 StartRecur = courseDTO.StartRecur,
                 EndRecur = courseDTO.EndRecur,
                 SemesterSeason = courseDTO.SemesterSeason,
-                SemesterYear = courseDTO.SemesterYear
+                SemesterYear = courseDTO.SemesterYear,
+                Student = theStudent
             };
 
             _context.Courses.Add(newCourse);
