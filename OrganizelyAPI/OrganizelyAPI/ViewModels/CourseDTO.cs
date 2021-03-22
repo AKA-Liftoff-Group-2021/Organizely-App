@@ -27,20 +27,21 @@ namespace OrganizelyAPI.ViewModels
         [Column(TypeName = "datetime")]
         public DateTime EndTime { get; set; }
 
-
+        //[Required]
+        //[Column(TypeName = "varchar(100)")]
         public string DaysOfWeekStr { get; set; }
-        public int[] DaysOfWeek
-        {
-            get
-            {
-                return Array.ConvertAll(DaysOfWeekStr.Split(','), Int32.Parse);
-            }
-            set
-            {
-                DaysOfWeek = value;
-                DaysOfWeekStr = String.Join(",", DaysOfWeek.Select(p => p.ToString()).ToArray());
-            }
-        }
+        public int[] DaysOfWeek { get; set; }
+        //{
+        //    get
+        //    {
+        //        return Array.ConvertAll(DaysOfWeekStr.Split(','), Int32.Parse);
+        //    }
+        //    set
+        //    {
+        //        DaysOfWeek = value;
+        //        DaysOfWeekStr = String.Join(",", DaysOfWeek.Select(d => d.ToString()).ToArray());
+        //    }
+        //}
 
         [Required]
         [Column(TypeName = "varchar(100)")]

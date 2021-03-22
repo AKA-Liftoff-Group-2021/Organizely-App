@@ -27,7 +27,9 @@ namespace OrganizelyAPI.Models
         public DateTime EndTime { get; set; }
 
 
-        public List<int> DaysOfWeek { get; set; }
+        [Required]
+        [Column(TypeName = "varchar(100)")]
+        public string DaysOfWeek { get; set; }
 
 
         [Required]
