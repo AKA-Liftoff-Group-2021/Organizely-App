@@ -27,7 +27,7 @@ namespace OrganizelyAPI.Models
         public DateTime EndTime { get; set; }
 
 
-        //public List<int> DaysOfWeek { get; set; }
+        public List<int> DaysOfWeek { get; set; }
 
 
         [Required]

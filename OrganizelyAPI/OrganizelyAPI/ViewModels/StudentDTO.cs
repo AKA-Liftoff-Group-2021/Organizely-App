@@ -7,5 +7,7 @@ namespace OrganizelyAPI.ViewModels
 {
     public class StudentDTO
     {
+
+
     }
 }
