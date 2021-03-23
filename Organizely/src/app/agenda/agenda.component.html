@@ -1,19 +1,20 @@
-<!-- <h1>WEEK OF <span>March 8 - March 14, 2021</span></h1>
-
-<button>Week</button>
-<button>Add</button>
-
-<section *ngFor="let day of dates">
-  <h2>{{ day | date: "mediumDate" }}</h2>
-  <ul *ngIf="coursesByDay[day.getDay()] !== undefined">
-    <li>
-      {{ coursesByDay[day.getDay()].startTime }} -
-      {{ coursesByDay[day.getDay()].endTime }}
-      {{ coursesByDay[day.getDay()].name }}
-    </li>
-  </ul>
-  <span *ngIf="coursesByDay[day.getDay()] === undefined">No events</span>
-</section> -->
+<div class="dropdown">
+  <button
+    class="btn btn-secondary dropdown-toggle"
+    type="button"
+    id="dropdownMenuButton"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    &#43; Add
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" routerLink="/organizely/classform">Class</a>
+    <a class="dropdown-item">Assignment</a>
+    <a class="dropdown-item">Task</a>
+  </div>
+</div>
 
 <full-calendar
   *ngIf="calendarVisible"
