@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj": {}
+    "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj": {
+    "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+        "projectUniqueName": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
         "projectName": "OrganizelyAPI",
-        "projectPath": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
-        "packagesPath": "C:\\Users\\Yoga 2 Mitchell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
+        "projectPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+        "packagesPath": "C:\\Users\\racir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Yoga 2 Mitchell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\racir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -95,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
