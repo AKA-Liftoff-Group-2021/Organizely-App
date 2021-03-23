@@ -1,70 +1,113 @@
-<form [formGroup]="addCourseForm" (ngSubmit)="submit()">
-  <label for="courseName">Course Name</label>
-  <input type="text" id="courseName" formControlName="courseName" />
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#semester"
+      >Semester View</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#schoolyear"
+      >School Year View</a
+    >
+  </li>
+</ul>
 
-  <br />
+<div class="tab-content">
+  <div id="semester" class="tab-pane fade in active show">
+    <!-- TODO: Determine if we want to only display current semester here or entire list of courses -->
 
-  <label for="startTime">Start Time</label>
-  <input type="time" id="startTime" formControlName="startTime" />
+    <h2>Semester/Course Content</h2>
+    <button routerLink="/organizely/classform">Add Class</button>
 
-  <br />
+    <table class="table table-hover">
+      <caption>
+        List of courses by semester
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Class Time</th>
+          <th scope="col">Class Name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses">
+          <td>
+            <span *ngFor="let day of course.daysOfWeek"
+              >{{ day | dayString }} {{ course.startTime | standardTime }} -
+              {{ course.endTime | standardTime }}
+              <br />
+            </span>
+          </td>
+          <td>{{ course.courseName }}</td>
+          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <label for="endTime">End Time</label>
-  <input type="time" id="endTime" formControlName="endTime" />
+  <div id="schoolyear" class="tab-pane fade">
+    <h2>Semester: Winter 2020</h2>
+    <!-- TODO: Determine if we need an Add New Semester button since semester props are on Course model -->
+    <button>Add New Semester</button>
+    <table class="table table-hover">
+      <caption>
+        List of courses by semester
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Class Time</th>
+          <th scope="col">Class Name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monday 8:30-10:00</td>
+          <td>Algebra</td>
+          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
+        </tr>
+        <tr>
+          <td>Monday 12:00-14:00</td>
+          <td>Math</td>
+          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
+        </tr>
+        <tr>
+          <td>Tuesday 8:00-9:00</td>
+          <td>Public Speaking</td>
+          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <br />
-
-  <label for="startRecur">Start Date</label>
-  <input type="date" id="startRecur" formControlName="startRecur" />
-
-  <br />
-
-  <label for="endRecur">End Date</label>
-  <input type="date" id="endRecur" formControlName="endRecur" />
-
-  <br />
-
-  <label>Days</label>
-
-  <br />
-
-  <label *ngFor="let day of dayNames">
-    {{ day["name"] }}
-    <input
-      type="checkbox"
-      [value]="day['id']"
-      (change)="onCheckChange($event)"
-    />
-    <br />
-  </label>
-
-  <br />
-
-  <label>Semester Season</label>
-
-  <select formControlName="semesterSeason">
-    <option *ngFor="let season of semesterSeasons" [value]="season">
-      {{ season }}
-    </option>
-  </select>
-
-  <br />
-
-  <label for="semesterYear">Semester Year</label>
-
-  <input
-    type="number"
-    id="semesterYear"
-    formControlName="semesterYear"
-    [min]="currentYear"
-  />
-
-  <br />
-
-  <label for="teacherName">Teacher's Name</label>
-  <input type="text" id="teacherName" formControlName="teacherName" />
-
-  <br />
-
-  <button type="submit">Submit</button>
-</form>
+    <h2>Semester: Spring 2021</h2>
+    <table class="table table-hover">
+      <caption>
+        List of courses by semester
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Class Time</th>
+          <th scope="col">Class Name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monday 8:30-10:00</td>
+          <td>Algebra</td>
+          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
+        </tr>
+        <tr>
+          <td>Monday 12:00-14:00</td>
+          <td>Math</td>
+          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
+        </tr>
+        <tr>
+          <td>Tuesday 8:00-9:00</td>
+          <td>Public Speaking</td>
+          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
