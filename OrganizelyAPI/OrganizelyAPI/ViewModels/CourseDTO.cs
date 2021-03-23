@@ -1,14 +1,15 @@
-﻿using System;
+﻿using OrganizelyAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OrganizelyAPI.Models
+namespace OrganizelyAPI.ViewModels
 {
     [Table("Course")]
-    public class Course
+    public class CourseDTO
     {
         [Key]                                                     // ctrl + . to select options to add namespaces
         public int CourseId { get; set; }
@@ -26,11 +27,10 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "datetime")]
         public DateTime EndTime { get; set; }
 
-        [Required]
-        [Column(TypeName = "varchar(100)")]
-        public string DaysOfWeek { get; set; }
-
-        //public int[] DaysOfWeek
+        //[Required]
+        //[Column(TypeName = "varchar(100)")]
+        //public string DaysOfWeekStr { get; set; }
+        public int[] DaysOfWeek { get; set; }
         //{
         //    get
         //    {
@@ -64,6 +64,6 @@ namespace OrganizelyAPI.Models
         public Student Student { get; set; }
 
 
-       // public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021
+        // public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021
     }
 }

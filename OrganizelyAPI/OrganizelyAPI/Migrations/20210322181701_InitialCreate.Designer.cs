@@ -9,7 +9,7 @@ using OrganizelyAPI.Data;
 namespace OrganizelyAPI.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    [Migration("20210316200058_InitialCreate")]
+    [Migration("20210322181701_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,11 +57,13 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime>("DateEnd")
-                        .HasColumnType("datetime");
+                    b.Property<string>("DaysOfWeek")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime>("DateStart")
-                        .HasColumnType("datetime");
+                    b.Property<string>("EndRecur")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime");
@@ -73,6 +75,10 @@ namespace OrganizelyAPI.Migrations
                     b.Property<int>("SemesterYear")
                         .HasColumnType("integer");
 
+                    b.Property<string>("StartRecur")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime");
 
@@ -80,7 +86,6 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("TeacherName")
-                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("CourseId");
@@ -96,7 +101,15 @@ namespace OrganizelyAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("StudentName")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using OrganizelyAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OrganizelyAPI.Models
+namespace OrganizelyAPI.ViewModels
 {
     [Table("Student")]
-    public class Student
+    public class StudentDTO
     {
         [Key]                                                     // ctrl + . to select options to add namespaces
         public int StudentId { get; set; }
@@ -25,19 +26,7 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "varchar(100)")]
         public string LastName { get; set; }
 
-        // public ICollection<Course> Courses { get; set; }            // March 18, 2021
-        // public ICollection<StudentTask> StudentTasks { get; set; }     // March 18, 2021
-
-
-        //public override bool Equals(object obj)
-        //{
-        //    return obj is Student @student &&
-        //           Id == @Student.StudentId;
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    return HashCode.Combine(Id);
-        //}
+       // public ICollection<Course> Courses { get; set; }           
+       // public ICollection<StudentTask> StudentTasks { get; set; }
     }
 }
