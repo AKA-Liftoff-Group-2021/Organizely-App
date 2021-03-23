@@ -7655,11 +7655,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\racir\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\Yoga 2 Mitchell\\.nuget\\packages\\": {}
+>>>>>>> 8e4b16bbd90884e53b13083aa40d87af15bb362b
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
       "projectName": "OrganizelyAPI",
       "projectPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
@@ -7668,6 +7673,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\racir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+      "projectUniqueName": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+      "projectName": "OrganizelyAPI",
+      "projectPath": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+      "packagesPath": "C:\\Users\\Yoga 2 Mitchell\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Yoga 2 Mitchell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 8e4b16bbd90884e53b13083aa40d87af15bb362b
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
