@@ -2,8 +2,8 @@ export class Course {
   public courseName: string;
   public startTime: string;
   public endTime: string;
-  public startRecur: string;
-  public endRecur: string;
+  public startRecur: Date;
+  public endRecur: Date;
   public daysOfWeek: number[];
   public semesterSeason: string;
   public semesterYear: number;
@@ -13,8 +13,8 @@ export class Course {
     courseName: string,
     startTime: string,
     endTime: string,
-    startRecur: string,
-    endRecur: string,
+    startRecur: Date,
+    endRecur: Date,
     daysOfWeek: number[],
     semesterSeason: string,
     semesterYear: number,

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataBaseAPIService } from '../data-base-api.service';
 import { Course } from '../shared/models/course.model';
 
 @Component({
@@ -42,7 +43,10 @@ export class ClassesFormComponent implements OnInit {
 
   submitted: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private dataBaseAPIService: DataBaseAPIService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -63,17 +67,57 @@ export class ClassesFormComponent implements OnInit {
     this.submitted = true;
 
     this.course.courseName = this.addCourseForm.value.courseName;
-    this.course.startTime = this.addCourseForm.value.startTime;
-    this.course.endTime = this.addCourseForm.value.endTime;
+    this.course.startTime = this.addCourseForm.value.startTime + ':00';
+    this.course.endTime = this.addCourseForm.value.endTime + ':00';
+
     this.course.startRecur = this.addCourseForm.value.startRecur;
     this.course.endRecur = this.addCourseForm.value.endRecur;
+
+    this.course.startRecur = this.convertToDate(
+      this.addCourseForm.value.startRecur,
+      'start'
+    );
+    this.course.endRecur = this.convertToDate(
+      this.addCourseForm.value.endRecur,
+      'end'
+    );
+
     this.course.daysOfWeek = this.selectedDays;
     this.course.semesterSeason = this.addCourseForm.value.semesterSeason;
     this.course.semesterYear = this.addCourseForm.value.semesterYear;
     this.course.teacherName = this.addCourseForm.value.teacherName;
 
-    console.log(this.course);
+    this.dataBaseAPIService
+      .postCourseForm(this.addCourseForm.value)
+      .subscribe((responseData) => {
+        console.log(responseData);
+      });
 
     this.router.navigate(['/', 'organizely', 'classes']);
+  }
+
+  convertToDate(dateString: string, type: string): Date {
+    let dateArr = dateString.split('-');
+
+    const year = Number(dateArr[0]);
+    const month = Number(dateArr[1]);
+    let day = Number(dateArr[2]);
+
+    let newDate = new Date(year, month, day);
+
+    newDate.setMonth(newDate.getMonth() - 1);
+
+    // let lastDayOfMonth = new Date(
+    //   newDate.getFullYear(),
+    //   newDate.getMonth() + 1,
+    //   0
+    // );
+
+    if (type === 'end') {
+      //TODO: Test for edge cases
+      newDate.setDate(newDate.getDate() + 1);
+    }
+
+    return newDate;
   }
 }
