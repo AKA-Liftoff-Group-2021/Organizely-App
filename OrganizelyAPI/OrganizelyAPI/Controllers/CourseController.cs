@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
+using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
@@ -25,7 +26,10 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
-            return await _context.Courses.ToListAsync();
+            return await _context.Courses
+                //.Include(c => c.DaysOfWeek = Array.ConvertAll(c.DaysOfWeek.Split(','), Int32.Parse))
+                .Include(student => student.Student)            // TODO: Added march18
+                .ToListAsync();
         }
 
         // GET: api/Course/5
@@ -76,12 +80,27 @@ namespace OrganizelyAPI.Controllers
         // POST: api/Course
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse(Course course)
+        public async Task<ActionResult<CourseDTO>> PostCourse(CourseDTO courseDTO)            //march 22
         {
-            _context.Courses.Add(course);
+            Student theStudent = _context.Students.Find(courseDTO.StudentId);          //march 22
+            Course newCourse = new Course
+            {
+                CourseName = courseDTO.CourseName,
+                TeacherName = courseDTO.TeacherName,
+                StartTime = courseDTO.StartTime,
+                EndTime = courseDTO.EndTime,
+                DaysOfWeek = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
+                StartRecur = courseDTO.StartRecur,
+                EndRecur = courseDTO.EndRecur,
+                SemesterSeason = courseDTO.SemesterSeason,
+                SemesterYear = courseDTO.SemesterYear,
+                Student = theStudent
+            };
+
+            _context.Courses.Add(newCourse);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCourse", new { id = course.CourseId }, course);
+            return CreatedAtAction("GetCourse", new { id = newCourse.CourseId }, newCourse);
         }
 
         // DELETE: api/Course/5
