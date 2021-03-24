@@ -43,9 +43,9 @@ namespace OrganizelyAPI.Controllers
             // .ToListAsync();
 
             // text.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
-            // var course = await _context.Courses.FindAsync(id);
+            //Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
 
-            var course = await _context.Courses.Include(c => c.Student).Select(c =>
+            var course = await _context.Courses.Include(s => s.Student).Select(c =>
                     new CourseDTO()
                     {
                         CourseId = c.CourseId,
@@ -58,6 +58,7 @@ namespace OrganizelyAPI.Controllers
                         EndRecur = c.EndRecur,
                         SemesterSeason = c.SemesterSeason,
                         SemesterYear = c.SemesterYear,
+                        StudentId = c.StudentId,
                         Student = c.Student
                     }).SingleOrDefaultAsync(c => c.CourseId == id);
 
