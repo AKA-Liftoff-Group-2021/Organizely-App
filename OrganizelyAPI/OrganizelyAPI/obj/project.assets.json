@@ -7655,19 +7655,58 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\user\\.nuget\\packages\\": {}
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "C:\\Users\\racir\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\Yoga 2 Mitchell\\.nuget\\packages\\": {}
+>>>>>>> 8e4b16bbd90884e53b13083aa40d87af15bb362b
+=======
+    "C:\\Users\\user\\.nuget\\packages\\": {}
+>>>>>>> 5a9eba965b3b273c54d0bf81031d5b680856e34c
+>>>>>>> d6e52585fb131ab249366b309ac73af528fda726
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+=======
+      "projectUniqueName": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+>>>>>>> 5a9eba965b3b273c54d0bf81031d5b680856e34c
+>>>>>>> d6e52585fb131ab249366b309ac73af528fda726
       "projectName": "OrganizelyAPI",
       "projectPath": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+<<<<<<< HEAD
+        "C:\\Users\\racir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+      "projectUniqueName": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+      "projectName": "OrganizelyAPI",
+      "projectPath": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+      "packagesPath": "C:\\Users\\Yoga 2 Mitchell\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Yoga 2 Mitchell\\Desktop\\CoderGirl2020\\Liftoff\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Yoga 2 Mitchell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 8e4b16bbd90884e53b13083aa40d87af15bb362b
+=======
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 5a9eba965b3b273c54d0bf81031d5b680856e34c
+>>>>>>> d6e52585fb131ab249366b309ac73af528fda726
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7751,5 +7790,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

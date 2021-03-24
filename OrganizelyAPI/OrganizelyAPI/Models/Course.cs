@@ -14,11 +14,8 @@ namespace OrganizelyAPI.Models
         public int CourseId { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(100)")]
         public string CourseName { get; set; }
 
-        [Required]
-        [Column(TypeName = "varchar(100)")]
         public string TeacherName { get; set; }
 
         [Column(TypeName = "datetime")]
@@ -27,22 +24,39 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "datetime")]
         public DateTime EndTime { get; set; }
 
-        [Column(TypeName = "datetime")]
-        public DateTime DateStart { get; set; }
+        [Required]
+        public string DaysOfWeek { get; set; }
+
+        //public int[] DaysOfWeek
+        //{
+        //    get
+        //    {
+        //        return Array.ConvertAll(DaysOfWeekStr.Split(','), Int32.Parse);
+        //    }
+        //    set
+        //    {
+        //        DaysOfWeek = value;
+        //        DaysOfWeekStr = String.Join(",", DaysOfWeek.Select(d => d.ToString()).ToArray());
+        //    }
+        //}
 
         [Column(TypeName = "datetime")]
-        public DateTime DateEnd { get; set; }
+        public DateTime StartRecur { get; set; }
+
+        [Column(TypeName = "datetime")]
+        public DateTime EndRecur { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(50)")]
         public string SemesterSeason { get; set; }
 
-        [Column(TypeName = "integer")]
         public int SemesterYear { get; set; }
 
-        [Column(TypeName = "integer")]
+        //[Column(TypeName = "integer")]
         //[ForeignKey("Student")]
         public int StudentId { get; set; }
         public Student Student { get; set; }
+
+
+       // public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021
     }
 }

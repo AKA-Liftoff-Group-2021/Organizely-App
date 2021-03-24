@@ -9,7 +9,11 @@ using OrganizelyAPI.Data;
 namespace OrganizelyAPI.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    [Migration("20210316200058_InitialCreate")]
+<<<<<<< HEAD:OrganizelyAPI/OrganizelyAPI/Migrations/20210319180610_InitialCreate.Designer.cs
+    [Migration("20210319180610_InitialCreate")]
+=======
+    [Migration("20210322181701_InitialCreate")]
+>>>>>>> b6d67a5e21f082602e491d978d6a9be396cf7626:OrganizelyAPI/OrganizelyAPI/Migrations/20210322181701_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,11 +61,13 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime>("DateEnd")
-                        .HasColumnType("datetime");
+                    b.Property<string>("DaysOfWeek")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime>("DateStart")
-                        .HasColumnType("datetime");
+                    b.Property<string>("EndRecur")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime");
@@ -73,6 +79,10 @@ namespace OrganizelyAPI.Migrations
                     b.Property<int>("SemesterYear")
                         .HasColumnType("integer");
 
+                    b.Property<string>("StartRecur")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime");
 
@@ -80,7 +90,6 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("TeacherName")
-                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("CourseId");
@@ -96,7 +105,15 @@ namespace OrganizelyAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("StudentName")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
@@ -122,7 +139,7 @@ namespace OrganizelyAPI.Migrations
 
                     b.Property<string>("StudentTaskName")
                         .IsRequired()
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(30)");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime");
