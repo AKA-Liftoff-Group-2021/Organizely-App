@@ -43,8 +43,8 @@ namespace OrganizelyAPI.Controllers
                        EndRecur = c.EndRecur,
                        SemesterSeason = c.SemesterSeason,
                        SemesterYear = c.SemesterYear,
-                       //StudentId = c.StudentId,
-                       //Student = c.Student
+                       StudentId = c.StudentId,
+                       Student = c.Student
                    }).ToListAsync();
 
             return course;
