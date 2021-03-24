@@ -24,8 +24,8 @@ namespace OrganizelyAPI.ViewModels
         [Column(TypeName = "datetime")]
         public DateTime EndTime { get; set; }
 
-        [Required]
-        public string DaysOfWeekStr { get; set; }
+        //[Required]
+        //public string DaysOfWeekStr { get; set; }
 
         [NotMapped]
         public string[] DaysOfWeek { get; set; }

@@ -33,7 +33,7 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/Course/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
             // TODO: Include student so it doesn't show as null ?
             //.Include(c => c.DaysOfWeek = Array.ConvertAll(c.DaysOfWeek.Split(','), Int32.Parse))
@@ -43,18 +43,22 @@ namespace OrganizelyAPI.Controllers
             // .ToListAsync();
 
             // text.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
-            var course = await _context.Courses.FindAsync(id);
+            // var course = await _context.Courses.FindAsync(id);
 
-            //var book = await _context.Courses.Include(b => b.Author).Select(c =>
-            //        new CourseDto()
-            //        {
-            //            Id = b.Id,
-            //            Title = b.Title,
-            //            Year = b.Year,
-            //            Price = b.Price,
-            //            AuthorName = b.Author.Name,
-            //            Genre = b.Genre
-            //        }).SingleOrDefaultAsync(b => b.Id == id);
+            var course = await _context.Courses.Include(c => c.Student).Select(c =>
+                    new CourseDTO()
+                    {
+                        CourseId = c.CourseId,
+                        CourseName = c.CourseName,
+                        TeacherName = c.TeacherName,
+                        StartTime = c.StartTime,
+                        EndTime = c.EndTime,
+                        DaysOfWeek = c.DaysOfWeekStr.Split(',', System.StringSplitOptions.RemoveEmptyEntries),
+                        StartRecur = c.StartRecur,
+                        EndRecur = c.EndRecur,
+                        SemesterSeason = c.SemesterSeason,
+                        SemesterYear = c.SemesterYear,
+                    }).SingleOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
             {
