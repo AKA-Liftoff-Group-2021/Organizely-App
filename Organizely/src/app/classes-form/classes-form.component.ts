@@ -10,7 +10,8 @@ import { Course } from '../shared/models/course.model';
   styleUrls: ['./classes-form.component.css'],
 })
 export class ClassesFormComponent implements OnInit {
-  @ViewChild('f') addCourseForm: NgForm;
+  // @ViewChild('f') addCourseForm: NgForm;
+
 
   dayNames: object[] = [
     { name: 'Sunday', id: 0 },
@@ -63,10 +64,15 @@ export class ClassesFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(courseForm: NgForm) {
     this.submitted = true;
+    const value = courseForm.value;
+    const newCourse = new Course(value.courseName, this.convertToDate(value.startTime, 'startTime'), this.convertToDate(value.endTime, 'endTime'), this.convertToDate(value.startRecur, 'start'), this.convertToDate(value.endRecur, 'end'), value.daysOfWeek, value.semesterSeason, value.semesterYear, value.teacherName);
+    this.dataBaseAPIService.postCourseForm(newCourse);
 
-    this.course.courseName = this.addCourseForm.value.courseName;
+    console.log(newCourse);
+
+   /*  this.course.courseName = this.addCourseForm.value.courseName;
     this.course.startTime = this.addCourseForm.value.startTime + ':00';
     this.course.endTime = this.addCourseForm.value.endTime + ':00';
 
@@ -85,13 +91,9 @@ export class ClassesFormComponent implements OnInit {
     this.course.daysOfWeek = this.selectedDays;
     this.course.semesterSeason = this.addCourseForm.value.semesterSeason;
     this.course.semesterYear = this.addCourseForm.value.semesterYear;
-    this.course.teacherName = this.addCourseForm.value.teacherName;
+    this.course.teacherName = this.addCourseForm.value.teacherName; */
 
-    this.dataBaseAPIService
-      .postCourseForm(this.addCourseForm.value)
-      .subscribe((responseData) => {
-        console.log(responseData);
-      });
+    
 
     this.router.navigate(['/', 'organizely', 'classes']);
   }

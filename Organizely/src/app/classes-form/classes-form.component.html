@@ -3,7 +3,7 @@
     <div class="col">
       <h2>Add Your Course</h2>
 
-      <form (ngSubmit)="onSubmit()" #f="ngForm">
+      <form (ngSubmit)="onSubmit(courseForm)" #courseForm="ngForm">
         <div class="form-group">
           <label for="courseName">Course Name</label>
           <input
