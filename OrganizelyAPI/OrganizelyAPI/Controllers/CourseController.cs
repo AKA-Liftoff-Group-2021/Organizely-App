@@ -42,7 +42,19 @@ namespace OrganizelyAPI.Controllers
             // .Include(s => s.Student)
             // .ToListAsync();
 
+            // text.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
             var course = await _context.Courses.FindAsync(id);
+
+            //var book = await _context.Courses.Include(b => b.Author).Select(c =>
+            //        new CourseDto()
+            //        {
+            //            Id = b.Id,
+            //            Title = b.Title,
+            //            Year = b.Year,
+            //            Price = b.Price,
+            //            AuthorName = b.Author.Name,
+            //            Genre = b.Genre
+            //        }).SingleOrDefaultAsync(b => b.Id == id);
 
             if (course == null)
             {
@@ -95,7 +107,7 @@ namespace OrganizelyAPI.Controllers
                 TeacherName = courseDTO.TeacherName,
                 StartTime = courseDTO.StartTime,
                 EndTime = courseDTO.EndTime,
-                DaysOfWeek = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
+                DaysOfWeekStr = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
                 StartRecur = courseDTO.StartRecur,
                 EndRecur = courseDTO.EndRecur,
                 SemesterSeason = courseDTO.SemesterSeason,
