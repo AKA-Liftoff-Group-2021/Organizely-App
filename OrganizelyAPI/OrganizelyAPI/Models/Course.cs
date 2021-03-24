@@ -25,9 +25,10 @@ namespace OrganizelyAPI.Models
         public DateTime EndTime { get; set; }
 
         [Required]
-        public string DaysOfWeek { get; set; }
+        public string DaysOfWeekStr { get; set; }
 
-        //public int[] DaysOfWeek
+        [NotMapped]
+        public string[] DaysOfWeek { get; set; }
         //{
         //    get
         //    {
