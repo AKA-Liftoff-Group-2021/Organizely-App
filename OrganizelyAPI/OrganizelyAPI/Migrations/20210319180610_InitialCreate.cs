@@ -53,7 +53,7 @@ namespace OrganizelyAPI.Migrations
                 {
                     StudentTaskId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    StudentTaskName = table.Column<string>(type: "varchar(100)", nullable: false),
+                    StudentTaskName = table.Column<string>(type: "varchar(30)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime", nullable: false),
                     Time = table.Column<DateTime>(type: "datetime", nullable: false),
                     Deadline = table.Column<DateTime>(type: "datetime", nullable: true),
