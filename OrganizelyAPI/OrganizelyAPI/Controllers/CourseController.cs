@@ -24,11 +24,30 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/Course
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            return await _context.Courses
-                .Include(s => s.Student)            // TODO: Added march18
-                .ToListAsync();
+            //return await _context.Courses
+            //    .Include(s => s.Student)            // TODO: Added march18
+            //    .ToListAsync();
+
+            var course = await _context.Courses.Include(s => s.Student).Select(c =>
+                   new CourseDTO()
+                   {
+                       CourseId = c.CourseId,
+                       CourseName = c.CourseName,
+                       TeacherName = c.TeacherName,
+                       StartTime = c.StartTime,
+                       EndTime = c.EndTime,
+                       DaysOfWeek = c.DaysOfWeekStr.Split(',', System.StringSplitOptions.RemoveEmptyEntries),
+                       StartRecur = c.StartRecur,
+                       EndRecur = c.EndRecur,
+                       SemesterSeason = c.SemesterSeason,
+                       SemesterYear = c.SemesterYear,
+                       //StudentId = c.StudentId,
+                       //Student = c.Student
+                   }).ToListAsync();
+
+            return course;
         }
 
         // GET: api/Course/5
@@ -106,7 +125,7 @@ namespace OrganizelyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(CourseDTO courseDTO)            //march 22
         {
-            Student theStudent = _context.Students.Find(courseDTO.StudentId);          //march 22
+            Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
             Course newCourse = new Course
             {
                 CourseName = courseDTO.CourseName,
