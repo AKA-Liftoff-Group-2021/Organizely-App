@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataBaseAPIService } from '../data-base-api.service';
 import { Course } from '../shared/models/course.model';
 
 @Component({
@@ -42,7 +43,7 @@ export class ClassesFormComponent implements OnInit {
 
   submitted: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dataBaseAPIService: DataBaseAPIService) {}
 
   ngOnInit(): void {}
 
@@ -71,6 +72,8 @@ export class ClassesFormComponent implements OnInit {
     this.course.semesterSeason = this.addCourseForm.value.semesterSeason;
     this.course.semesterYear = this.addCourseForm.value.semesterYear;
     this.course.teacherName = this.addCourseForm.value.teacherName;
+
+    this.dataBaseAPIService.postCourseForm(this.addCourseForm.value);
 
     console.log(this.course);
 
