@@ -1,7 +1,7 @@
 export class Course {
   public courseName: string;
-  public startTime: Date;
-  public endTime: Date;
+  public startTime: string;
+  public endTime: string;
   public startRecur: Date;
   public endRecur: Date;
   public daysOfWeek: number[];
@@ -11,8 +11,8 @@ export class Course {
 
   constructor(
     courseName: string,
-    startTime: Date,
-    endTime: Date,
+    startTime: string,
+    endTime: string,
     startRecur: Date,
     endRecur: Date,
     daysOfWeek: number[],

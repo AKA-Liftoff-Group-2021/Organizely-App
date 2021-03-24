@@ -67,7 +67,7 @@ export class ClassesFormComponent implements OnInit {
   onSubmit(courseForm: NgForm) {
     this.submitted = true;
     const value = courseForm.value;
-    const newCourse = new Course(value.courseName, this.convertToDate(value.startTime, 'startTime'), this.convertToDate(value.endTime, 'endTime'), this.convertToDate(value.startRecur, 'start'), this.convertToDate(value.endRecur, 'end'), value.daysOfWeek, value.semesterSeason, value.semesterYear, value.teacherName);
+    const newCourse = new Course(value.courseName, value.startTime + ':00', value.endTime + ':00', this.convertToDate(value.startRecur, 'start'), this.convertToDate(value.endRecur, 'end'), value.daysOfWeek, value.semesterSeason, value.semesterYear, value.teacherName);
     this.dataBaseAPIService.postCourseForm(newCourse);
 
     console.log(newCourse);
