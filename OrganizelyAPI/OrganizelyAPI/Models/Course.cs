@@ -27,8 +27,8 @@ namespace OrganizelyAPI.Models
         [Required]
         public string DaysOfWeekStr { get; set; }
 
-        [NotMapped]
-        public string[] DaysOfWeek { get; set; }
+        //[NotMapped]
+        //public string[] DaysOfWeek { get; set; }
         //{
         //    get
         //    {

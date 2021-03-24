@@ -58,6 +58,7 @@ namespace OrganizelyAPI.Controllers
                         EndRecur = c.EndRecur,
                         SemesterSeason = c.SemesterSeason,
                         SemesterYear = c.SemesterYear,
+                        Student = c.Student
                     }).SingleOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
