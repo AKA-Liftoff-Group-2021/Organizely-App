@@ -70,10 +70,15 @@ export class ClassesFormComponent implements OnInit {
     this.course.startTime = this.addCourseForm.value.startTime + ':00';
     this.course.endTime = this.addCourseForm.value.endTime + ':00';
 
+    // Returns "Invalid Date" if user uses arrow keys to move to last day of a month
+
     this.course.startRecur = this.convertToDate(
       this.addCourseForm.value.startRecur,
       'start'
     );
+
+    // Returns "Invalid Date" if user uses arrow keys to move to last day of a month
+
     this.course.endRecur = this.convertToDate(
       this.addCourseForm.value.endRecur,
       'end'
@@ -97,21 +102,12 @@ export class ClassesFormComponent implements OnInit {
     let dateArr = dateString.split('-');
 
     const year = Number(dateArr[0]);
-    const month = Number(dateArr[1]);
-    let day = Number(dateArr[2]);
+    const month = Number(dateArr[1]) - 1;
+    const day = Number(dateArr[2]);
 
     let newDate = new Date(year, month, day);
 
-    newDate.setMonth(newDate.getMonth() - 1);
-
-    // let lastDayOfMonth = new Date(
-    //   newDate.getFullYear(),
-    //   newDate.getMonth() + 1,
-    //   0
-    // );
-
     if (type === 'end') {
-      //TODO: Test for edge cases
       newDate.setDate(newDate.getDate() + 1);
     }
 
