@@ -24,16 +24,35 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/Course
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            return await _context.Courses
-                .Include(s => s.Student)            // TODO: Added march18
-                .ToListAsync();
+            //return await _context.Courses
+            //    .Include(s => s.Student)            // TODO: Added march18
+            //    .ToListAsync();
+
+            var course = await _context.Courses.Include(s => s.Student).Select(c =>
+                   new CourseDTO()
+                   {
+                       CourseId = c.CourseId,
+                       CourseName = c.CourseName,
+                       TeacherName = c.TeacherName,
+                       StartTime = c.StartTime,
+                       EndTime = c.EndTime,
+                       DaysOfWeek = c.DaysOfWeekStr.Split(',', System.StringSplitOptions.RemoveEmptyEntries),
+                       StartRecur = c.StartRecur,
+                       EndRecur = c.EndRecur,
+                       SemesterSeason = c.SemesterSeason,
+                       SemesterYear = c.SemesterYear,
+                       StudentId = c.StudentId,
+                       Student = c.Student
+                   }).ToListAsync();
+
+            return course;
         }
 
         // GET: api/Course/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
             // TODO: Include student so it doesn't show as null ?
             //.Include(c => c.DaysOfWeek = Array.ConvertAll(c.DaysOfWeek.Split(','), Int32.Parse))
@@ -42,7 +61,25 @@ namespace OrganizelyAPI.Controllers
             // .Include(s => s.Student)
             // .ToListAsync();
 
-            var course = await _context.Courses.FindAsync(id);
+            // text.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
+            //Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
+
+            var course = await _context.Courses.Include(s => s.Student).Select(c =>
+                    new CourseDTO()
+                    {
+                        CourseId = c.CourseId,
+                        CourseName = c.CourseName,
+                        TeacherName = c.TeacherName,
+                        StartTime = c.StartTime,
+                        EndTime = c.EndTime,
+                        DaysOfWeek = c.DaysOfWeekStr.Split(',', System.StringSplitOptions.RemoveEmptyEntries),
+                        StartRecur = c.StartRecur,
+                        EndRecur = c.EndRecur,
+                        SemesterSeason = c.SemesterSeason,
+                        SemesterYear = c.SemesterYear,
+                        StudentId = c.StudentId,
+                        Student = c.Student
+                    }).SingleOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
             {
@@ -88,14 +125,14 @@ namespace OrganizelyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(CourseDTO courseDTO)            //march 22
         {
-            Student theStudent = _context.Students.Find(courseDTO.StudentId);          //march 22
+            Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
             Course newCourse = new Course
             {
                 CourseName = courseDTO.CourseName,
                 TeacherName = courseDTO.TeacherName,
                 StartTime = courseDTO.StartTime,
                 EndTime = courseDTO.EndTime,
-                DaysOfWeek = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
+                DaysOfWeekStr = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
                 StartRecur = courseDTO.StartRecur,
                 EndRecur = courseDTO.EndRecur,
                 SemesterSeason = courseDTO.SemesterSeason,

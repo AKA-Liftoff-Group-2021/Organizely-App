@@ -7655,11 +7655,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Kaja\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\racir\\.nuget\\packages\\": {}
+>>>>>>> landing-page
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Kaja\\Desktop\\Coder_Girl\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
       "projectName": "OrganizelyAPI",
       "projectPath": "C:\\Users\\Kaja\\Desktop\\Coder_Girl\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
@@ -7668,6 +7673,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Kaja\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+      "projectUniqueName": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+      "projectName": "OrganizelyAPI",
+      "projectPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+      "packagesPath": "C:\\Users\\racir\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\racir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> landing-page
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

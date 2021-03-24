@@ -1,8 +1,13 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
+<<<<<<< HEAD
       "C:\\Users\\Kaja\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\Kaja\\.nuget\\packages"
+=======
+      "C:\\Users\\racir\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\racir\\.nuget\\packages"
+>>>>>>> landing-page
     ]
   }
 }

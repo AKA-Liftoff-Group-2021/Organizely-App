@@ -18,16 +18,17 @@ namespace OrganizelyAPI.Models
 
         public string TeacherName { get; set; }
 
-        [Column(TypeName = "datetime")]
-        public DateTime StartTime { get; set; }
-
-        [Column(TypeName = "datetime")]
-        public DateTime EndTime { get; set; }
+        [Required]
+        public string StartTime { get; set; }
 
         [Required]
-        public string DaysOfWeek { get; set; }
+        public string EndTime { get; set; }
 
-        //public int[] DaysOfWeek
+        [Required]
+        public string DaysOfWeekStr { get; set; }
+
+        //[NotMapped]
+        //public string[] DaysOfWeek { get; set; }
         //{
         //    get
         //    {
