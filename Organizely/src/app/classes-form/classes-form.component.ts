@@ -43,14 +43,10 @@ export class ClassesFormComponent implements OnInit {
 
   submitted: boolean = false;
 
-<<<<<<< HEAD
-  constructor(private router: Router, private dataBaseAPIService: DataBaseAPIService) {}
-=======
   constructor(
     private router: Router,
     private dataBaseAPIService: DataBaseAPIService
   ) {}
->>>>>>> e0119610b38d5a347f5eb8f34b2f6f7ecea75a90
 
   ngOnInit(): void {}
 
@@ -91,17 +87,11 @@ export class ClassesFormComponent implements OnInit {
     this.course.semesterYear = this.addCourseForm.value.semesterYear;
     this.course.teacherName = this.addCourseForm.value.teacherName;
 
-<<<<<<< HEAD
-    this.dataBaseAPIService.postCourseForm(this.addCourseForm.value);
-
-    console.log(this.course);
-=======
     this.dataBaseAPIService
       .postCourseForm(this.addCourseForm.value)
       .subscribe((responseData) => {
         console.log(responseData);
       });
->>>>>>> e0119610b38d5a347f5eb8f34b2f6f7ecea75a90
 
     this.router.navigate(['/', 'organizely', 'classes']);
   }
