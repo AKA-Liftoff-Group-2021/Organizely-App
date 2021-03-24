@@ -27,8 +27,7 @@ namespace OrganizelyAPI.Controllers
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
             return await _context.Courses
-                //.Include(c => c.DaysOfWeek = Array.ConvertAll(c.DaysOfWeek.Split(','), Int32.Parse))
-                .Include(student => student.Student)            // TODO: Added march18
+                .Include(s => s.Student)            // TODO: Added march18
                 .ToListAsync();
         }
 
@@ -36,6 +35,13 @@ namespace OrganizelyAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
+            // TODO: Include student so it doesn't show as null ?
+            //.Include(c => c.DaysOfWeek = Array.ConvertAll(c.DaysOfWeek.Split(','), Int32.Parse))
+            //var course = await _context.Courses   // returns a list so this is wrong
+            //  .Where(c => c.CourseId == id)
+            // .Include(s => s.Student)
+            // .ToListAsync();
+
             var course = await _context.Courses.FindAsync(id);
 
             if (course == null)
@@ -80,7 +86,7 @@ namespace OrganizelyAPI.Controllers
         // POST: api/Course
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CourseDTO>> PostCourse(CourseDTO courseDTO)            //march 22
+        public async Task<ActionResult<Course>> PostCourse(CourseDTO courseDTO)            //march 22
         {
             Student theStudent = _context.Students.Find(courseDTO.StudentId);          //march 22
             Course newCourse = new Course

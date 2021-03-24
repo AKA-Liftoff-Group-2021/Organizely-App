@@ -133,7 +133,7 @@ namespace OrganizelyAPI.Migrations
 
                     b.Property<string>("StudentTaskName")
                         .IsRequired()
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(30)");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime");

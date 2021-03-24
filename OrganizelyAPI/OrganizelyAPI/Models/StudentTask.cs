@@ -14,7 +14,7 @@ namespace OrganizelyAPI.Models
         public int StudentTaskId { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(100)")]
+        [Column(TypeName = "varchar(30)")]
         public string StudentTaskName { get; set; }
 
         [Column(TypeName = "datetime")]

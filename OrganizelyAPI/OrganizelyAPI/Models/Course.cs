@@ -14,10 +14,8 @@ namespace OrganizelyAPI.Models
         public int CourseId { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(100)")]
         public string CourseName { get; set; }
 
-        [Column(TypeName = "varchar(100)")]
         public string TeacherName { get; set; }
 
         [Column(TypeName = "datetime")]
@@ -27,7 +25,6 @@ namespace OrganizelyAPI.Models
         public DateTime EndTime { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(100)")]
         public string DaysOfWeek { get; set; }
 
         //public int[] DaysOfWeek
@@ -43,22 +40,18 @@ namespace OrganizelyAPI.Models
         //    }
         //}
 
-        [Required]
-        [Column(TypeName = "varchar(100)")]
-        public string StartRecur { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime StartRecur { get; set; }
+
+        [Column(TypeName = "datetime")]
+        public DateTime EndRecur { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(100)")]
-        public string EndRecur { get; set; }
-
-        [Required]
-        [Column(TypeName = "varchar(50)")]
         public string SemesterSeason { get; set; }
 
-        [Column(TypeName = "integer")]
         public int SemesterYear { get; set; }
 
-        [Column(TypeName = "integer")]
+        //[Column(TypeName = "integer")]
         //[ForeignKey("Student")]
         public int StudentId { get; set; }
         public Student Student { get; set; }
