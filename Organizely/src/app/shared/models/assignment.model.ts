@@ -1,18 +1,12 @@
 export class Assignment {
   public assignmentName: string;
-  public date: Date;
-  public time: string;
-  public deadline: string;
+  public dueDate: Date;
 
   constructor(
     assignmentName: string,
-    date: Date,
-    time: string,
-    deadline: string
+    dueDate: Date
   ) {
     this.assignmentName = assignmentName;
-    this.date = date;
-    this.time = time;
-    this.deadline = deadline;
+    this.dueDate = dueDate;
   }
 }

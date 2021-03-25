@@ -18,16 +18,17 @@ namespace OrganizelyAPI.Models
 
         public string TeacherName { get; set; }
 
-        [Column(TypeName = "datetime")]
-        public DateTime StartTime { get; set; }
-
-        [Column(TypeName = "datetime")]
-        public DateTime EndTime { get; set; }
+        [Required]
+        public string StartTime { get; set; }
 
         [Required]
-        public string DaysOfWeek { get; set; }
+        public string EndTime { get; set; }
 
-        //public int[] DaysOfWeek
+        [Required]
+        public string DaysOfWeekStr { get; set; }
+
+        //[NotMapped]
+        //public string[] DaysOfWeek { get; set; }
         //{
         //    get
         //    {
@@ -53,8 +54,8 @@ namespace OrganizelyAPI.Models
 
         //[Column(TypeName = "integer")]
         //[ForeignKey("Student")]
-        public int StudentId { get; set; }
-        public Student Student { get; set; }
+        //public int StudentId { get; set; }            // temporarily hide until user sign up is set up
+        //public Student Student { get; set; }
 
 
        // public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021

@@ -1,21 +1,11 @@
 export class Task {
   public taskName: string;
-  public date: Date;
-  public time: string;
   public priority: string;
-  public deadline?: string;
+  public dueDate?: Date;
 
-  constructor(
-    taskName: string,
-    date: Date,
-    time: string,
-    priority: string,
-    deadline?: string
-  ) {
+  constructor(taskName: string, priority: string, dueDate?: Date) {
     this.taskName = taskName;
-    this.date = date;
-    this.time = time;
     this.priority = priority;
-    this.deadline = deadline;
+    this.dueDate = dueDate;
   }
 }

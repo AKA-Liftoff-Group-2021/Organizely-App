@@ -18,16 +18,17 @@ namespace OrganizelyAPI.ViewModels
 
         public string TeacherName { get; set; }
 
-        [Column(TypeName = "datetime")]
-        public DateTime StartTime { get; set; }
+        [Required]
+        public string StartTime { get; set; }
 
-        [Column(TypeName = "datetime")]
-        public DateTime EndTime { get; set; }
+        [Required]
+        public string EndTime { get; set; }
 
         //[Required]
-        //[Column(TypeName = "varchar(100)")]
         //public string DaysOfWeekStr { get; set; }
-        public int[] DaysOfWeek { get; set; }
+
+        [NotMapped]
+        public string[] DaysOfWeek { get; set; }
         //{
         //    get
         //    {
@@ -52,8 +53,8 @@ namespace OrganizelyAPI.ViewModels
         public int SemesterYear { get; set; }
 
         //[ForeignKey("Student")]
-        public int StudentId { get; set; }
-        public Student Student { get; set; }
+        //public int StudentId { get; set; }              // temporarily hide until user sign up is set up
+        //public Student Student { get; set; }
 
 
         // public ICollection<Assignment> Assignments { get; set; }  // March 18, 2021, deleted as this might cause circular references
