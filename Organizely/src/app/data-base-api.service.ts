@@ -14,7 +14,10 @@ export class DataBaseAPIService {
   postCourseForm(course: Course) {
     this.http.post<Course>(this.courseURL, course)
     .subscribe((response) => {
-      console.log(response);
+      console.log(response)
+    },
+    (error) => {                              //Error callback
+      console.error(error);
     });
 }
 }

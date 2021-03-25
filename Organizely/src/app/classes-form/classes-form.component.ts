@@ -81,9 +81,10 @@ export class ClassesFormComponent implements OnInit {
     this.submitted = true;
     const value = courseForm.value;
     const newCourse = new Course(value.courseName, value.startTime + ':00', value.endTime + ':00', this.convertToDate(value.startRecur, 'start'), this.convertToDate(value.endRecur, 'end'), this.selectedDays, value.semesterSeason, value.semesterYear, value.teacherName);
+    console.log(newCourse);
     this.dataBaseAPIService.postCourseForm(newCourse);
 
-    console.log(newCourse);
+   
 
    /*  this.course.courseName = this.addCourseForm.value.courseName;
     this.course.startTime = this.addCourseForm.value.startTime + ':00';
