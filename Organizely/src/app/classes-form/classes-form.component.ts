@@ -13,13 +13,13 @@ export class ClassesFormComponent implements OnInit {
   @ViewChild('f') addCourseForm: NgForm;
 
   dayNames: object[] = [
-    { name: 'Sunday', id: 0 },
-    { name: 'Monday', id: 1 },
-    { name: 'Tuesday', id: 2 },
-    { name: 'Wednesday', id: 3 },
-    { name: 'Thursday', id: 4 },
-    { name: 'Friday', id: 5 },
-    { name: 'Saturday', id: 6 },
+    { name: 'Sunday', id: '0' },
+    { name: 'Monday', id: '1' },
+    { name: 'Tuesday', id: '2' },
+    { name: 'Wednesday', id: '3' },
+    { name: 'Thursday', id: '4' },
+    { name: 'Friday', id: '5' },
+    { name: 'Saturday', id: '6' },
   ];
 
   course: Course = {
@@ -34,7 +34,7 @@ export class ClassesFormComponent implements OnInit {
     teacherName: null,
   };
 
-  selectedDays: number[] = [];
+  selectedDays: string[] = [];
 
   currentDate: Date = new Date();
   currentYear = this.currentDate.getFullYear();
@@ -52,10 +52,10 @@ export class ClassesFormComponent implements OnInit {
 
   onCheckChange(event) {
     if (event.target.checked) {
-      this.selectedDays.push(Number(event.target.value));
+      this.selectedDays.push(event.target.value);
     } else {
-      this.selectedDays.forEach((day: number) => {
-        if (day === Number(event.target.value)) {
+      this.selectedDays.forEach((day) => {
+        if (day === event.target.value) {
           this.selectedDays.splice(this.selectedDays.indexOf(day), 1);
           return;
         }
@@ -70,13 +70,15 @@ export class ClassesFormComponent implements OnInit {
     this.course.startTime = this.addCourseForm.value.startTime + ':00';
     this.course.endTime = this.addCourseForm.value.endTime + ':00';
 
-    this.course.startRecur = this.addCourseForm.value.startRecur;
-    this.course.endRecur = this.addCourseForm.value.endRecur;
+    // Returns "Invalid Date" if user uses arrow keys to move to last day of a month
 
     this.course.startRecur = this.convertToDate(
       this.addCourseForm.value.startRecur,
       'start'
     );
+
+    // Returns "Invalid Date" if user uses arrow keys to move to last day of a month
+
     this.course.endRecur = this.convertToDate(
       this.addCourseForm.value.endRecur,
       'end'
@@ -100,21 +102,12 @@ export class ClassesFormComponent implements OnInit {
     let dateArr = dateString.split('-');
 
     const year = Number(dateArr[0]);
-    const month = Number(dateArr[1]);
-    let day = Number(dateArr[2]);
+    const month = Number(dateArr[1]) - 1;
+    const day = Number(dateArr[2]);
 
     let newDate = new Date(year, month, day);
 
-    newDate.setMonth(newDate.getMonth() - 1);
-
-    // let lastDayOfMonth = new Date(
-    //   newDate.getFullYear(),
-    //   newDate.getMonth() + 1,
-    //   0
-    // );
-
     if (type === 'end') {
-      //TODO: Test for edge cases
       newDate.setDate(newDate.getDate() + 1);
     }
 

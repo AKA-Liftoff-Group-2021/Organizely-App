@@ -32,9 +32,9 @@ export class AgendaComponent implements OnInit {
     for (let i = 0; i < this.courses.length; i++) {
       this.calendarOptions.events[i] = {
         title: this.courses[i].courseName,
-        // start: '2021-03-01',
-        // end: '2021-04-27',
-        daysOfWeek: this.courses[i].daysOfWeek,
+        daysOfWeek: this.courses[i].daysOfWeek.map((day) => {
+          return Number(day);
+        }),
         startTime: this.courses[i].startTime,
         endTime: this.courses[i].endTime,
         startRecur: this.courses[i].startRecur,
