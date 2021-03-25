@@ -30,7 +30,7 @@ namespace OrganizelyAPI.Controllers
             //    .Include(s => s.Student)            // TODO: Added march18
             //    .ToListAsync();
 
-            var course = await _context.Courses.Include(s => s.Student).Select(c =>
+            var course = await _context.Courses.Select(c =>     //Include(s => s.Student)
                    new CourseDTO()
                    {
                        CourseId = c.CourseId,
@@ -43,8 +43,8 @@ namespace OrganizelyAPI.Controllers
                        EndRecur = c.EndRecur,
                        SemesterSeason = c.SemesterSeason,
                        SemesterYear = c.SemesterYear,
-                       StudentId = c.StudentId,
-                       Student = c.Student
+                       //StudentId = c.StudentId,
+                       //Student = c.Student
                    }).ToListAsync();
 
             return course;
@@ -64,7 +64,7 @@ namespace OrganizelyAPI.Controllers
             // text.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
             //Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
 
-            var course = await _context.Courses.Include(s => s.Student).Select(c =>
+            var course = await _context.Courses.Select(c =>             //.Include(s => s.Student)
                     new CourseDTO()
                     {
                         CourseId = c.CourseId,
@@ -77,8 +77,8 @@ namespace OrganizelyAPI.Controllers
                         EndRecur = c.EndRecur,
                         SemesterSeason = c.SemesterSeason,
                         SemesterYear = c.SemesterYear,
-                        StudentId = c.StudentId,
-                        Student = c.Student
+                        //StudentId = c.StudentId,
+                        //Student = c.Student
                     }).SingleOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
@@ -125,7 +125,7 @@ namespace OrganizelyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(CourseDTO courseDTO)            //march 22
         {
-            Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
+            //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
             Course newCourse = new Course
             {
                 CourseName = courseDTO.CourseName,
@@ -137,7 +137,7 @@ namespace OrganizelyAPI.Controllers
                 EndRecur = courseDTO.EndRecur,
                 SemesterSeason = courseDTO.SemesterSeason,
                 SemesterYear = courseDTO.SemesterYear,
-                Student = theStudent
+                //Student = theStudent
             };
 
             _context.Courses.Add(newCourse);

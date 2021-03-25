@@ -53,8 +53,8 @@ namespace OrganizelyAPI.ViewModels
         public int SemesterYear { get; set; }
 
         //[ForeignKey("Student")]
-        public int StudentId { get; set; }
-        public Student Student { get; set; }
+        //public int StudentId { get; set; }              // temporarily hide until user sign up is set up
+        //public Student Student { get; set; }
 
 
         // public ICollection<Assignment> Assignments { get; set; }  // March 18, 2021, deleted as this might cause circular references
