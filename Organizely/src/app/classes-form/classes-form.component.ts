@@ -35,7 +35,7 @@ export class ClassesFormComponent implements OnInit {
     teacherName: null,
   };
 
-  selectedDays: number[] = [];
+  selectedDays: string[] = [];
 
   currentDate: Date = new Date();
   currentYear = this.currentDate.getFullYear();
@@ -51,7 +51,7 @@ export class ClassesFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onCheckChange(event) {
+  /* onCheckChange(event) {
     if (event.target.checked) {
       this.selectedDays.push(Number(event.target.value));
     } else {
@@ -62,12 +62,25 @@ export class ClassesFormComponent implements OnInit {
         }
       });
     }
+  } */
+
+  onCheckChange(event) {
+    if (event.target.checked) {
+      this.selectedDays.push(event.target.value);
+    } else {
+      this.selectedDays.forEach((day: string) => {
+        if (day === event.target.value) {
+          this.selectedDays.splice(this.selectedDays.indexOf(day), 1);
+          return;
+        }
+      });
+    }
   }
 
   onSubmit(courseForm: NgForm) {
     this.submitted = true;
     const value = courseForm.value;
-    const newCourse = new Course(value.courseName, value.startTime + ':00', value.endTime + ':00', this.convertToDate(value.startRecur, 'start'), this.convertToDate(value.endRecur, 'end'), value.daysOfWeek, value.semesterSeason, value.semesterYear, value.teacherName);
+    const newCourse = new Course(value.courseName, value.startTime + ':00', value.endTime + ':00', this.convertToDate(value.startRecur, 'start'), this.convertToDate(value.endRecur, 'end'), this.selectedDays, value.semesterSeason, value.semesterYear, value.teacherName);
     this.dataBaseAPIService.postCourseForm(newCourse);
 
     console.log(newCourse);
