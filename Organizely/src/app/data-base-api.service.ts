@@ -11,7 +11,10 @@ export class DataBaseAPIService {
 
   constructor(private http: HttpClient) {}
 
-  postCourseForm(form: Object) {
-    return this.http.post<Object>(this.courseURL, form);
-  }
+  postCourseForm(course: Course) {
+    this.http.post<Course>(this.courseURL, course)
+    .subscribe((response) => {
+      console.log(response);
+    });
+}
 }
