@@ -3,7 +3,7 @@
     <div class="col">
       <h2>Add A Task</h2>
 
-      <form (ngSubmit)="onSubmit()" #f="ngForm">
+      <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
         <div class="form-group">
           <label for="taskName">Task Name</label>
           <input

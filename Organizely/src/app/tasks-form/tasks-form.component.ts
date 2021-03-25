@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Task } from '../shared/models/task.model';
@@ -9,15 +9,7 @@ import { Task } from '../shared/models/task.model';
   styleUrls: ['./tasks-form.component.css'],
 })
 export class TasksFormComponent implements OnInit {
-  @ViewChild('f') addTaskForm: NgForm;
-
   priorityOptions: string[] = ['Low', 'Medium', 'High'];
-
-  studentTask: Task = {
-    taskName: null,
-    priority: null,
-    dueDate: null,
-  };
 
   submitted: boolean = false;
 
@@ -25,14 +17,13 @@ export class TasksFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {
+  onSubmit(taskForm: NgForm) {
     this.submitted = true;
 
-    this.studentTask.taskName = this.addTaskForm.value.taskName;
-    this.studentTask.priority = this.addTaskForm.value.priority;
-    this.studentTask.dueDate = this.addTaskForm.value.dueDate;
+    const value = taskForm.value;
+    const newTask = new Task(value.taskName, value.priority, value.dueDate);
 
-    console.log(this.studentTask);
+    console.log(newTask);
 
     this.router.navigate(['/', 'organizely', 'tasks']);
   }
