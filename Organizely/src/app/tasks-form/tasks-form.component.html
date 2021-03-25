@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Add A Task</h2>
+
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="form-group">
+          <label for="taskName">Task Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="taskName"
+            ngModel
+            name="taskName"
+            required
+            #taskName="ngModel"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="priority">Priority</label>
+
+          <select
+            name="priority"
+            id="priority"
+            class="form-control"
+            ngModel
+            required
+            #priority="ngModel"
+          >
+            <option *ngFor="let priority of priorityOptions" [value]="priority">
+              {{ priority }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dueDate">Due Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="dueDate"
+            ngModel
+            name="dueDate"
+            required
+            #dueDate="ngModel"
+          />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
