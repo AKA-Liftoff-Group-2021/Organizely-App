@@ -10,7 +10,7 @@ namespace OrganizelyAPI.ViewModels
 {
     public class CourseDTO
     {
-        [Key]                                                     // ctrl + . to select options to add namespaces
+        [Key]                                                    
         public int CourseId { get; set; }
 
         [Required]
@@ -24,22 +24,9 @@ namespace OrganizelyAPI.ViewModels
         [Required]
         public string EndTime { get; set; }
 
-        //[Required]
-        //public string DaysOfWeekStr { get; set; }
-
         [NotMapped]
         public string[] DaysOfWeek { get; set; }
-        //{
-        //    get
-        //    {
-        //        return Array.ConvertAll(DaysOfWeekStr.Split(','), Int32.Parse);
-        //    }
-        //    set
-        //    {
-        //        DaysOfWeek = value;
-        //        DaysOfWeekStr = String.Join(",", DaysOfWeek.Select(d => d.ToString()).ToArray());
-        //    }
-        //}
+
 
         [Column(TypeName = "datetime")]
         public DateTime StartRecur { get; set; }

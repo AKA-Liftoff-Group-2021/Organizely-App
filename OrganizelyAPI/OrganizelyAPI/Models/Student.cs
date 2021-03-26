@@ -10,7 +10,7 @@ namespace OrganizelyAPI.Models
     [Table("Student")]
     public class Student
     {
-        [Key]                                                     // ctrl + . to select options to add namespaces
+        [Key]                                                    
         public int StudentId { get; set; }
 
         [Required]

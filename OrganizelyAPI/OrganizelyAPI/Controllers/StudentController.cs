@@ -21,12 +21,12 @@ namespace OrganizelyAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Student
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
-        {
-            return await _context.Students.ToListAsync();
-        }
+        // GET: api/Student   --- Probably not needed since we're not getting a list of students
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+        //{
+        //    return await _context.Students.ToListAsync();
+        //}
 
         // GET: api/Student/5
         [HttpGet("{id}")]

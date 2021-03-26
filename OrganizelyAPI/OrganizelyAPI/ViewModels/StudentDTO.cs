@@ -11,7 +11,7 @@ namespace OrganizelyAPI.ViewModels
    
     public class StudentDTO
     {
-        [Key]                                                     // ctrl + . to select options to add namespaces
+        [Key]                                                    
         public int StudentId { get; set; }
 
         [Required]
