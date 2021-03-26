@@ -90,7 +90,7 @@ namespace OrganizelyAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(course).State = EntityState.Modified;
+            _context.Entry(course).State = EntityState.Modified; // https://stackoverflow.com/questions/54274166/how-does-ef-core-modified-entity-state-behave
 
             try
             {
