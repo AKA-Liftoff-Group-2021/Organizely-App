@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TASKS } from './mock-data/mock-tasks';
 import { Task } from './models/task.model';
 
 @Injectable({
@@ -8,15 +7,11 @@ import { Task } from './models/task.model';
 })
 export class TasksService {
   taskURL = 'https://localhost:44394/api/StudentTask';
-  // tasks: Task[];
-  tasks: Task[] = TASKS;
 
   constructor(private http: HttpClient) {}
 
   // getTasks() {
-  //   this.http.get<Task[]>(this.taskURL).subscribe((tasks) => {
-  //     this.tasks = tasks;
-  //   });
+  //   return this.http.get<Task[]>(this.taskURL);
   // }
 
   postTaskForm(task: Task) {
@@ -25,7 +20,7 @@ export class TasksService {
         console.log(response);
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
