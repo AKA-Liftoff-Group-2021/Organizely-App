@@ -39,7 +39,7 @@ namespace OrganizelyAPI.Controllers
                 return NotFound();
             }
 
-            return student;
+            return Ok(student);
         }
 
         // PUT: api/Student/5

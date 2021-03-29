@@ -11,7 +11,9 @@ using Microsoft.OpenApi.Models;
 using OrganizelyAPI.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace OrganizelyAPI
@@ -32,8 +34,17 @@ namespace OrganizelyAPI
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "OrganizelyAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Title = "OrganizelyAPI", 
+                    Description = "A RESTful Web API built with C#/.NET that allows you to work with Organizely web application data.", 
+                    Version = "v1",
+                });
             });
+
+            // generate the xml docs that will drive the swagger docs
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
             services.AddDbContext<StudentDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));

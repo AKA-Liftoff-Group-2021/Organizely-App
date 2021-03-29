@@ -22,6 +22,8 @@ namespace OrganizelyAPI.Controllers
             _context = context;
         }
 
+        //<summary> Returns all courses associated with a student ID</summary>
+
         // GET: api/Course
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
@@ -50,6 +52,7 @@ namespace OrganizelyAPI.Controllers
             return Ok(course);
         }
 
+        //<summary> Returns course details for a given id</summary>
         // GET: api/Course/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDTO>> GetCourse(int id)
