@@ -31,7 +31,7 @@ namespace OrganizelyAPI.Controllers
             var course = await _context.Courses.Select(c =>     //Include(s => s.Student)
                    new CourseDTO()
                    {
-                       //CourseId = c.CourseId,
+                       CourseId = c.CourseId,
                        CourseName = c.CourseName,
                        TeacherName = c.TeacherName,
                        StartTime = c.StartTime,
@@ -61,7 +61,7 @@ namespace OrganizelyAPI.Controllers
             var course = await _context.Courses.Select(c =>             //.Include(s => s.Student)
                     new CourseDTO()
                     {
-                        //CourseId = c.CourseId,
+                        CourseId = c.CourseId,
                         CourseName = c.CourseName,
                         TeacherName = c.TeacherName,
                         StartTime = c.StartTime,
@@ -86,14 +86,30 @@ namespace OrganizelyAPI.Controllers
         // PUT: api/Course/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse(int id, Course course)
+        public async Task<IActionResult> PutCourse(int id, [FromBody] CourseDTO courseDTO)
         {
-            if (id != course.CourseId)
+            //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);         
+            Course courseToUpdate = await _context.Courses.FindAsync(id);
+            if (id != courseDTO.CourseId)
             {
-                return BadRequest();
+                return BadRequest("Request ID does not match any course.");
+            }
+            else
+            {
+                courseToUpdate.CourseName = courseDTO.CourseName;
+                courseToUpdate.TeacherName = courseDTO.TeacherName;
+                courseToUpdate.StartTime = courseDTO.StartTime;
+                courseToUpdate.EndTime = courseDTO.EndTime;
+                courseToUpdate.DaysOfWeekStr = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray());
+                courseToUpdate.StartRecur = courseDTO.StartRecur;
+                courseToUpdate.EndRecur = courseDTO.EndRecur;
+                courseToUpdate.SemesterSeason = courseDTO.SemesterSeason;
+                courseToUpdate.SemesterYear = courseDTO.SemesterYear;
+                //Student = theStudent
             }
 
-            _context.Entry(course).State = EntityState.Modified; // https://stackoverflow.com/questions/54274166/how-does-ef-core-modified-entity-state-behave
+
+            _context.Entry(courseToUpdate).State = EntityState.Modified; // https://stackoverflow.com/questions/54274166/how-does-ef-core-modified-entity-state-behave
 
             try
             {

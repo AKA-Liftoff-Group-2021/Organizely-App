@@ -49,7 +49,7 @@ namespace OrganizelyAPI.Controllers
         {
             if (id != student.StudentId)
             {
-                return BadRequest();
+                return BadRequest("Request ID does not match any student.");
             }
 
             _context.Entry(student).State = EntityState.Modified;
