@@ -15,15 +15,15 @@ namespace OrganizelyAPI.ViewModels
         public int StudentId { get; set; }
 
         [Required]
-        //[Column(TypeName = "varchar(100)")]
+        [MaxLength(20), MinLength(2)]
         public string Username { get; set; }
 
         [Required]
-        //[Column(TypeName = "varchar(100)")]
+        [MaxLength(50), MinLength(2)]
         public string FirstName { get; set; }
 
         [Required]
-        //[Column(TypeName = "varchar(100)")]
+        [MaxLength(50), MinLength(2)]
         public string LastName { get; set; }
 
        // public ICollection<Course> Courses { get; set; }           
