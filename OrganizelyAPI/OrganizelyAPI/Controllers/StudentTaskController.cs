@@ -43,7 +43,6 @@ namespace OrganizelyAPI.Controllers
         }
 
         // PUT: api/StudentTask/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudentTask(int id, StudentTask studentTask)
         {
@@ -74,7 +73,6 @@ namespace OrganizelyAPI.Controllers
         }
 
         // POST: api/StudentTask
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<StudentTask>> PostStudentTask(StudentTask studentTask)
         {

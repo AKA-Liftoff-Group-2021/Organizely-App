@@ -10,24 +10,23 @@ namespace OrganizelyAPI.Models
     [Table("Assignment")]
     public class Assignment
     {
-        [Key]                                                     // ctrl + . to select options to add namespaces
+        [Key]                                                    
         public int AssignmentId { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string AssignmentName { get; set; }
 
-        [Column(TypeName = "datetime")]
+        /*[Column(TypeName = "datetime")]
         public DateTime Date { get; set; }
 
         [Column(TypeName = "datetime")]
-        public DateTime Time { get; set; }
-
+        public DateTime Time { get; set; }*/
+        [Required]
         [Column(TypeName = "datetime")]
-        public DateTime Deadline { get; set; }
+        public DateTime DueDate { get; set; }
 
-        [Column(TypeName = "integer")]
-        //[ForeignKey]
+        [Column(TypeName = "integer")]  
         public int CourseId { get; set; }
         public Course Course { get; set; }
     }

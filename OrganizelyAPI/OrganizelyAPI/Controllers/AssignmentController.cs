@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
+using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
@@ -23,29 +24,44 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/Assignment
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignments()
+        public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAssignments()
         {
-            return await _context.Assignments.ToListAsync();
+            var assignment = await _context.Assignments.Select(c =>
+            new AssignmentDTO()
+            {
+                AssignmentId = c.AssignmentId,
+                AssignmentName = c.AssignmentName,
+                DueDate = c.DueDate,
+
+            }).ToListAsync();
+
+            return assignment;
         }
 
         // GET: api/Assignment/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Assignment>> GetAssignment(int id)
+        public async Task<ActionResult<AssignmentDTO>> GetAssignment(int id)
         {
-            var assignment = await _context.Assignments.FindAsync(id);
+            //var assignment = await _context.Assignments.FindAsync(id);
+            var assignment = await _context.Assignments.Select(c =>
+                        new AssignmentDTO()
+                        {
+                            AssignmentId = c.AssignmentId,
+                            AssignmentName = c.AssignmentName,
+                            DueDate = c.DueDate,
+
+                        }).SingleOrDefaultAsync(c => c.AssignmentId == id);
 
             if (assignment == null)
             {
                 return NotFound();
             }
-
             return assignment;
         }
 
         // PUT: api/Assignment/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAssignment(int id, Assignment assignment)
+        public async Task<IActionResult> PutAssignment(int id, AssignmentDTO assignment)
         {
             if (id != assignment.AssignmentId)
             {
@@ -74,14 +90,17 @@ namespace OrganizelyAPI.Controllers
         }
 
         // POST: api/Assignment
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Assignment>> PostAssignment(Assignment assignment)
+        public async Task<ActionResult<AssignmentDTO>> PostAssignment(AssignmentDTO assignmentDTO)
         {
-            _context.Assignments.Add(assignment);
+            Assignment newAssignment = new Assignment
+            {
+                AssignmentName = assignmentDTO.AssignmentName,
+            };
+            _context.Assignments.Add(newAssignment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAssignment", new { id = assignment.AssignmentId }, assignment);
+            return CreatedAtAction("GetAssignment", new { id = newAssignment.AssignmentId }, assignmentDTO);
         }
 
         // DELETE: api/Assignment/5
