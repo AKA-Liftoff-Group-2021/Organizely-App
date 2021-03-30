@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
+using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
@@ -23,9 +24,16 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/Student/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        public async Task<ActionResult<StudentDTO>> GetStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var student = await _context.Students.Select(s =>            // student == studentDTO
+                   new StudentDTO()                                              // DTO?
+                   {
+                       StudentId = s.StudentId,
+                       Username = s.Username,
+                       FirstName = s.FirstName,
+                       LastName = s.LastName,
+                    }).SingleOrDefaultAsync(s => s.StudentId == id);
 
             if (student == null)
             {
@@ -38,14 +46,19 @@ namespace OrganizelyAPI.Controllers
         // PUT: api/Student/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        public async Task<IActionResult> PutStudent(int id, [FromBody] StudentDTO studentdto)
         {
-            if (id != student.StudentId)
+            Student studentToUpdate = await _context.Students.FindAsync(id);
+            if (id != studentToUpdate.StudentId)
             {
                 return BadRequest("Request ID does not match any student.");
             }
 
-            _context.Entry(student).State = EntityState.Modified;
+            studentToUpdate.Username = studentdto.Username;
+            studentToUpdate.FirstName = studentdto.FirstName;
+            studentToUpdate.LastName = studentdto.LastName;
+
+            _context.Entry(studentToUpdate).State = EntityState.Modified;
 
             try
             {
@@ -67,14 +80,19 @@ namespace OrganizelyAPI.Controllers
         }
 
         // POST: api/Student
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult<Student>> PostStudent([FromBody] StudentDTO studentdto)
         {
-            _context.Students.Add(student);
+            Student newStudent = new Student
+            {
+                Username = studentdto.Username,
+                FirstName = studentdto.FirstName,
+                LastName = studentdto.LastName
+            };
+            _context.Students.Add(newStudent);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudent", new { id = student.StudentId }, student);
+            return CreatedAtAction("GetStudent", new { id = newStudent.StudentId }, newStudent);
         }
 
         // DELETE: api/Student/5

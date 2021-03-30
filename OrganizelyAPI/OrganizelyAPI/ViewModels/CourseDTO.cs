@@ -30,7 +30,6 @@ namespace OrganizelyAPI.ViewModels
         [MaxLength(7)]
         public string[] DaysOfWeek { get; set; }
 
-
         [Column(TypeName = "datetime")]
         public DateTime StartRecur { get; set; }
 

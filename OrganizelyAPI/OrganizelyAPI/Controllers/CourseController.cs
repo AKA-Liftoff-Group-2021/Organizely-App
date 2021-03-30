@@ -61,7 +61,7 @@ namespace OrganizelyAPI.Controllers
             var course = await _context.Courses.Select(c =>             //.Include(s => s.Student)
                     new CourseDTO()
                     {
-                        CourseId = c.CourseId,
+                        CourseId = c.CourseId,              
                         CourseName = c.CourseName,
                         TeacherName = c.TeacherName,
                         StartTime = c.StartTime,
