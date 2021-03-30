@@ -14,7 +14,7 @@ namespace OrganizelyAPI.ViewModels
 
         public DateTime TaskDueDate { get; set; }
 
-        public int StudentId { get; set; }
-        public Student Student { get; set; }
+        /*public int StudentId { get; set; } <<(Hidden until sign up is completed)
+        public Student Student { get; set; }*/
     }
 }
