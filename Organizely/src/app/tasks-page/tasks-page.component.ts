@@ -19,7 +19,21 @@ export class TasksPageComponent implements OnInit {
     // this.tasksService.getTasks().subscribe(tasks => this.tasks = tasks);
   }
 
-  styleBadge(dueDate: Date): string {
+  stylePriorityBadge(priority: string): string {
+    let badgeStyle: string = 'badge-success';
+
+    if (priority === 'Medium') {
+      badgeStyle = 'badge-warning';
+    }
+
+    if (priority === 'High') {
+      badgeStyle = 'badge-danger';
+    }
+
+    return badgeStyle;
+  }
+
+  styleDueDateBadge(dueDate: Date): string {
     let badgeStyle: string = 'badge-primary';
     let current: Date = new Date(this.currentDate);
     let due: Date = new Date(dueDate);

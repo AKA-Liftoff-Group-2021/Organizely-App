@@ -13,20 +13,14 @@
       >
         {{ task.taskName }}
         &nbsp;
-        <span
-          class="badge"
-          [ngClass]="{
-            'badge-success': task.priority === 'Low',
-            'badge-warning': task.priority === 'Medium',
-            'badge-danger': task.priority === 'High'
-          }"
-          >{{ task.priority }}</span
-        >
+        <span class="badge" [ngClass]="stylePriorityBadge(task.priority)">{{
+          task.priority
+        }}</span>
         &nbsp;
         <span
           *ngIf="task.dueDate !== undefined"
           class="badge"
-          [ngClass]="styleBadge(task.dueDate)"
+          [ngClass]="styleDueDateBadge(task.dueDate)"
           >{{ task.dueDate | date: "fullDate" }}</span
         >
       </li>
