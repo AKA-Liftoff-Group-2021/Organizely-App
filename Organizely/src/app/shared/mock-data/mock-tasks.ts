@@ -9,6 +9,6 @@ export const TASKS: Task[] = [
   {
     taskName: 'Practice coding',
     priority: 'High',
-    dueDate: new Date(2021, 2, 15),
+    dueDate: new Date(2021, 2, 29),
   },
 ];
