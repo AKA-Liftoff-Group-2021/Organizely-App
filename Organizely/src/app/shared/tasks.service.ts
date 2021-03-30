@@ -10,9 +10,9 @@ export class TasksService {
 
   constructor(private http: HttpClient) {}
 
-  // getTasks() {
-  //   return this.http.get<Task[]>(this.taskURL);
-  // }
+  getTasks() {
+    return this.http.get<Task[]>(this.taskURL);
+  }
 
   postTaskForm(task: Task) {
     this.http.post<Task>(this.taskURL, task).subscribe(
