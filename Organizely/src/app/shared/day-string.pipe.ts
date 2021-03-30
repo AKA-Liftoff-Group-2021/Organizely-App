@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'dayString',
 })
 export class DayStringPipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: string): string {
     const weekdays = [
       'Sunday',
       'Monday',
@@ -16,6 +16,6 @@ export class DayStringPipe implements PipeTransform {
       'Sunday',
     ];
 
-    return weekdays[value];
+    return weekdays[Number(value)];
   }
 }

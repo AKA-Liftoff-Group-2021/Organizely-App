@@ -1,0 +1,38 @@
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>Add Your Assignment</h2>
+<br>
+        <form (ngSubmit)="onSubmit(assignmentForm)" #assignmentForm="ngForm">
+          <div class="form-group">
+            <label for="assignmentName">Assignment Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="assignmentName"
+              ngModel
+              name="assignmentName"
+              required
+              #assignmentName="ngModel"
+            />
+          </div>
+  
+          <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="dueDate"
+              ngModel
+              name="dueDate"
+              required
+              #dueDate="ngModel"
+            />
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>

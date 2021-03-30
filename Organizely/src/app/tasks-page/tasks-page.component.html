@@ -1,1 +1,29 @@
-<p>tasks-page works!</p>
+<h2>Tasks</h2>
+
+<button class="btn btn-primary" routerLink="/organizely/taskform">
+  Add Task
+</button>
+
+<div class="row">
+  <div class="col">
+    <ul class="list-group">
+      <li
+        *ngFor="let task of tasks; let i = index"
+        class="list-group-item justify-content-start"
+      >
+        {{ task.taskName }}
+        &nbsp;
+        <span class="badge" [ngClass]="stylePriorityBadge(task.priority)">{{
+          task.priority
+        }}</span>
+        &nbsp;
+        <span
+          *ngIf="task.dueDate !== undefined"
+          class="badge"
+          [ngClass]="styleDueDateBadge(task.dueDate)"
+          >{{ task.dueDate | date: "fullDate" }}</span
+        >
+      </li>
+    </ul>
+  </div>
+</div>

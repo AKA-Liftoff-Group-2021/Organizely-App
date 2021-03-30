@@ -1,4 +1,4 @@
-# Organizely-App
+# Organizely
 
 ## Overview
 

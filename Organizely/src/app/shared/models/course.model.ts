@@ -4,7 +4,7 @@ export class Course {
   public endTime: string;
   public startRecur: Date;
   public endRecur: Date;
-  public daysOfWeek: number[];
+  public daysOfWeek: string[];
   public semesterSeason: string;
   public semesterYear: number;
   public teacherName?: string;
@@ -15,7 +15,7 @@ export class Course {
     endTime: string,
     startRecur: Date,
     endRecur: Date,
-    daysOfWeek: number[],
+    daysOfWeek: string[],
     semesterSeason: string,
     semesterYear: number,
     teacherName?: string
