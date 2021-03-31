@@ -31,6 +31,7 @@ export class TasksFormComponent implements OnInit {
     );
 
     this.tasksService.postTaskForm(newTask);
+    console.log(newTask);
 
     this.router.navigate(['/', 'organizely', 'tasks']);
   }
