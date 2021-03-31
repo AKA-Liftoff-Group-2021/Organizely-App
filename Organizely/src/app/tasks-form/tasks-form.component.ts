@@ -14,7 +14,7 @@ export class TasksFormComponent implements OnInit {
 
   submitted: boolean = false;
 
-  constructor(private router: Router, public tasksService: TasksService) {}
+  constructor(private router: Router, private tasksService: TasksService) {}
 
   ngOnInit(): void {}
 
