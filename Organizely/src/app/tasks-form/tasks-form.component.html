@@ -5,21 +5,21 @@
 
       <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
         <div class="form-group">
-          <label for="taskName">Task Name</label>
+          <label for="studentTaskName">Task Name</label>
 
           <input
             type="text"
             class="form-control"
-            id="taskName"
+            id="studentTaskName"
             ngModel
-            name="taskName"
+            name="studentTaskName"
             required
             #taskName="ngModel"
           />
 
           <span
             class="form-text validation-msg"
-            *ngIf="!taskName.valid && taskName.touched"
+            *ngIf="!studentTaskName.valid && studentTaskName.touched"
             >Please enter a task.</span
           >
         </div>
@@ -49,21 +49,21 @@
         </div>
 
         <div class="form-group">
-          <label for="dueDate">Due Date</label>
+          <label for="taskDueDate">Due Date</label>
 
           <input
             type="date"
             class="form-control"
-            id="dueDate"
+            id="taskDueDate"
             ngModel
-            name="dueDate"
+            name="taskDueDate"
             required
             #dueDate="ngModel"
           />
 
           <span
             class="form-text validation-msg"
-            *ngIf="!dueDate.valid && dueDate.touched"
+            *ngIf="!taskDueDate.valid && taskDueDate.touched"
             >Please select a date.</span
           >
         </div>
