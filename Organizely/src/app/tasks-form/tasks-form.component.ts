@@ -22,7 +22,11 @@ export class TasksFormComponent implements OnInit {
     this.submitted = true;
 
     const value = taskForm.value;
-    const newTask = new Task(value.taskName, value.priority, value.dueDate);
+    const newTask = new Task(
+      value.studentTaskName,
+      value.priority,
+      value.taskDueDate
+    );
 
     this.tasksService.postTaskForm(newTask);
 

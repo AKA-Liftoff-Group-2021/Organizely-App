@@ -5,13 +5,13 @@
 
       <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
         <div class="form-group">
-          <label for="taskName">Task Name</label>
+          <label for="studentTaskName">Task Name</label>
           <input
             type="text"
             class="form-control"
-            id="taskName"
+            id="studentTaskName"
             ngModel
-            name="taskName"
+            name="studentTaskName"
             required
             #taskName="ngModel"
           />
@@ -35,13 +35,13 @@
         </div>
 
         <div class="form-group">
-          <label for="dueDate">Due Date</label>
+          <label for="taskDueDate">Due Date</label>
           <input
             type="date"
             class="form-control"
-            id="dueDate"
+            id="taskDueDate"
             ngModel
-            name="dueDate"
+            name="taskDueDate"
             required
             #dueDate="ngModel"
           />

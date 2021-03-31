@@ -1,11 +1,11 @@
 export class Task {
-  public taskName: string;
+  public studentTaskName: string;
   public priority: string;
-  public dueDate?: Date;
+  public taskDueDate?: Date;
 
-  constructor(taskName: string, priority: string, dueDate?: Date) {
-    this.taskName = taskName;
+  constructor(studentTaskName: string, priority: string, taskDueDate?: Date) {
+    this.studentTaskName = studentTaskName;
     this.priority = priority;
-    this.dueDate = dueDate;
+    this.taskDueDate = taskDueDate;
   }
 }
