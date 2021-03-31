@@ -10,9 +10,6 @@ import { Course } from '../shared/models/course.model';
   styleUrls: ['./classes-form.component.css'],
 })
 export class ClassesFormComponent implements OnInit {
-  // @ViewChild('f') addCourseForm: NgForm;
-
-
   dayNames: object[] = [
     { name: 'Sunday', id: '0' },
     { name: 'Monday', id: '1' },
@@ -51,19 +48,6 @@ export class ClassesFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  /* onCheckChange(event) {
-    if (event.target.checked) {
-      this.selectedDays.push(event.target.value);
-    } else {
-      this.selectedDays.forEach((day) => {
-        if (day === event.target.value) {
-          this.selectedDays.splice(this.selectedDays.indexOf(day), 1);
-          return;
-        }
-      });
-    }
-  } */
-
   onCheckChange(event) {
     if (event.target.checked) {
       this.selectedDays.push(event.target.value);
@@ -79,37 +63,24 @@ export class ClassesFormComponent implements OnInit {
 
   onSubmit(courseForm: NgForm) {
     this.submitted = true;
+
     const value = courseForm.value;
-    const newCourse = new Course(value.courseName, value.startTime + ':00', value.endTime + ':00', this.convertToDate(value.startRecur, 'start'), this.convertToDate(value.endRecur, 'end'), this.selectedDays, value.semesterSeason, value.semesterYear, value.teacherName);
+
+    const newCourse = new Course(
+      value.courseName,
+      value.startTime + ':00',
+      value.endTime + ':00',
+      this.convertToDate(value.startRecur, 'start'),
+      this.convertToDate(value.endRecur, 'end'),
+      this.selectedDays,
+      value.semesterSeason,
+      value.semesterYear,
+      value.teacherName
+    );
+
     console.log(newCourse);
-    this.dataBaseAPIService.postCourseForm(newCourse);
 
-   
-
-   /*  this.course.courseName = this.addCourseForm.value.courseName;
-    this.course.startTime = this.addCourseForm.value.startTime + ':00';
-    this.course.endTime = this.addCourseForm.value.endTime + ':00';
-
-    // Returns "Invalid Date" if user uses arrow keys to move to last day of a month
-
-    this.course.startRecur = this.convertToDate(
-      this.addCourseForm.value.startRecur,
-      'start'
-    );
-
-    // Returns "Invalid Date" if user uses arrow keys to move to last day of a month
-
-    this.course.endRecur = this.convertToDate(
-      this.addCourseForm.value.endRecur,
-      'end'
-    );
-
-    this.course.daysOfWeek = this.selectedDays;
-    this.course.semesterSeason = this.addCourseForm.value.semesterSeason;
-    this.course.semesterYear = this.addCourseForm.value.semesterYear;
-    this.course.teacherName = this.addCourseForm.value.teacherName; */
-
-    
+    // this.dataBaseAPIService.postCourseForm(newCourse);
 
     this.router.navigate(['/', 'organizely', 'classes']);
   }
