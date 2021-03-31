@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Task } from '../shared/models/task.model';
 import { TasksService } from '../shared/tasks.service';
 
+import convertToDate from '../shared/utils/convertToDate';
+
 @Component({
   selector: 'app-tasks-form',
   templateUrl: './tasks-form.component.html',
@@ -22,9 +24,14 @@ export class TasksFormComponent implements OnInit {
     this.submitted = true;
 
     const value = taskForm.value;
-    const newTask = new Task(value.taskName, value.priority, value.dueDate);
+    const newTask = new Task(
+      value.taskName,
+      value.priority,
+      convertToDate(value.dueDate, 'due')
+    );
 
     this.tasksService.postTaskForm(newTask);
+    console.log(newTask);
 
     this.router.navigate(['/', 'organizely', 'tasks']);
   }

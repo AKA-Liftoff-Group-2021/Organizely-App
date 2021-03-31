@@ -6,6 +6,7 @@
       <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
         <div class="form-group">
           <label for="taskName">Task Name</label>
+
           <input
             type="text"
             class="form-control"
@@ -15,6 +16,12 @@
             required
             #taskName="ngModel"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!taskName.valid && taskName.touched"
+            >Please enter a task.</span
+          >
         </div>
 
         <div class="form-group">
@@ -28,14 +35,22 @@
             required
             #priority="ngModel"
           >
+            <option value="" disabled>...</option>
             <option *ngFor="let priority of priorityOptions" [value]="priority">
               {{ priority }}
             </option>
           </select>
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!priority.valid && priority.touched"
+            >Please select a priority.</span
+          >
         </div>
 
         <div class="form-group">
           <label for="dueDate">Due Date</label>
+
           <input
             type="date"
             class="form-control"
@@ -45,9 +60,21 @@
             required
             #dueDate="ngModel"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!dueDate.valid && dueDate.touched"
+            >Please select a date.</span
+          >
         </div>
 
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!taskForm.valid"
+        >
+          Submit
+        </button>
       </form>
     </div>
   </div>
