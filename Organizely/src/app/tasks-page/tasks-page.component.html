@@ -11,17 +11,17 @@
         *ngFor="let task of tasks; let i = index"
         class="list-group-item justify-content-start"
       >
-        {{ task.taskName }}
+        {{ task.studentTaskName }}
         &nbsp;
         <span class="badge" [ngClass]="stylePriorityBadge(task.priority)">{{
           task.priority
         }}</span>
         &nbsp;
         <span
-          *ngIf="task.dueDate !== undefined"
+          *ngIf="task.taskDueDate !== undefined"
           class="badge"
-          [ngClass]="styleDueDateBadge(task.dueDate)"
-          >{{ task.dueDate | date: "fullDate" }}</span
+          [ngClass]="styleDueDateBadge(task.taskDueDate)"
+          >{{ task.taskDueDate | date: "fullDate" }}</span
         >
       </li>
     </ul>

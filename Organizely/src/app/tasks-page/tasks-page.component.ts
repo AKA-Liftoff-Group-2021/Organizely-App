@@ -17,6 +17,7 @@ export class TasksPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.tasksService.getTasks().subscribe((tasks) => {
+      // TODO: Find a way inform the task-page component about tasks changes without needing to reload the page
       this.tasks = tasks;
     });
   }
