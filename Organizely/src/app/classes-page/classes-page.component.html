@@ -1,3 +1,18 @@
+<br />
+<h1 style="text-align: center">Classes</h1>
+<br />
+
+<button
+  style="float: right; margin-right: 7px"
+  class="btn btn-dark"
+  routerLink="/organizely/classform"
+>
+  Add Class
+</button>
+
+<br />
+<br />
+
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#semester"
@@ -16,9 +31,6 @@
     <!-- TODO: Determine if we want to only display current semester here or entire list of courses -->
 
     <h2>Semester/Course Content</h2>
-    <button routerLink="/organizely/classform" class="btn btn-dark">
-      Add Class
-    </button>
 
     <table class="table table-hover">
       <caption>
@@ -48,40 +60,10 @@
   </div>
 
   <div id="schoolyear" class="tab-pane fade">
-    <h2>Semester: Winter 2020</h2>
-    <!-- TODO: Determine if we need an Add New Semester button since semester props are on Course model -->
-    <button>Add New Semester</button>
-    <table class="table table-hover">
-      <caption>
-        List of courses by semester
-      </caption>
-      <thead>
-        <tr>
-          <th scope="col">Class Time</th>
-          <th scope="col">Class Name</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Monday 8:30-10:00</td>
-          <td>Algebra</td>
-          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
-        </tr>
-        <tr>
-          <td>Monday 12:00-14:00</td>
-          <td>Math</td>
-          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
-        </tr>
-        <tr>
-          <td>Tuesday 8:00-9:00</td>
-          <td>Public Speaking</td>
-          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- TODO: Add function to display semester of courses that exist in the database -->
 
-    <h2>Semester: Spring 2021</h2>
+    <h2>Semester: Winter 2020</h2>
+
     <table class="table table-hover">
       <caption>
         List of courses by semester
