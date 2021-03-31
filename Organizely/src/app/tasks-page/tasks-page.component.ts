@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TASKS } from '../shared/mock-data/mock-tasks';
 import { Task } from '../shared/models/task.model';
 import { TasksService } from '../shared/tasks.service';
 
@@ -11,12 +10,15 @@ import { TasksService } from '../shared/tasks.service';
 export class TasksPageComponent implements OnInit {
   currentDate: Date = new Date();
 
-  tasks: Task[] = TASKS;
+  tasks: Task[];
+  // tasks: Task[] = TASKS;
 
   constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
-    // this.tasksService.getTasks().subscribe(tasks => this.tasks = tasks);
+    this.tasksService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks;
+    });
   }
 
   stylePriorityBadge(priority: string): string {
