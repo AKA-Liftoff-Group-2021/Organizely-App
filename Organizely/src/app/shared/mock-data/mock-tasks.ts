@@ -2,13 +2,13 @@ import { Task } from '../models/task.model';
 
 export const TASKS: Task[] = [
   {
-    taskName: 'Do homework',
+    studentTaskName: 'Do homework',
     priority: 'High',
-    dueDate: new Date(2021, 3, 5),
+    taskDueDate: new Date(2021, 3, 5),
   },
   {
-    taskName: 'Practice coding',
+    studentTaskName: 'Practice coding',
     priority: 'High',
-    dueDate: new Date(2021, 2, 29),
+    taskDueDate: new Date(2021, 2, 29),
   },
 ];
