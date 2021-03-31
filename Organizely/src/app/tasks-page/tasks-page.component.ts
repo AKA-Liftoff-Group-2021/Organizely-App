@@ -13,7 +13,7 @@ export class TasksPageComponent implements OnInit {
   tasks: Task[];
   // tasks: Task[] = TASKS;
 
-  constructor(public tasksService: TasksService) {}
+  constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
     this.tasksService.getTasks().subscribe((tasks) => {
