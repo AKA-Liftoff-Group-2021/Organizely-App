@@ -80,7 +80,7 @@ export class ClassesFormComponent implements OnInit {
 
     console.log(newCourse);
 
-    // this.dataBaseAPIService.postCourseForm(newCourse);
+    this.dataBaseAPIService.postCourseForm(newCourse);
 
     this.router.navigate(['/', 'organizely', 'classes']);
   }
