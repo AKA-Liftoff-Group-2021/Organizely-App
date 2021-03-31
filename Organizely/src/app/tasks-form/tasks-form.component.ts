@@ -30,8 +30,9 @@ export class TasksFormComponent implements OnInit {
       convertToDate(value.dueDate, 'due')
     );
 
-    this.tasksService.postTaskForm(newTask);
     console.log(newTask);
+
+    this.tasksService.postTaskForm(newTask);
 
     this.router.navigate(['/', 'organizely', 'tasks']);
   }
