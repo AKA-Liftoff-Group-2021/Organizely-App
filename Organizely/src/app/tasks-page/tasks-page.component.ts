@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../shared/models/task.model';
+import { TASKS } from '../shared/mock-data/mock-tasks';
 import { TasksService } from '../shared/tasks.service';
 
 @Component({

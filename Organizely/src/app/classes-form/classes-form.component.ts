@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataBaseAPIService } from '../data-base-api.service';
+import { CoursesService } from '../shared/courses.service';
 import { Course } from '../shared/models/course.model';
 
 @Component({
@@ -41,10 +41,7 @@ export class ClassesFormComponent implements OnInit {
 
   submitted: boolean = false;
 
-  constructor(
-    private router: Router,
-    private dataBaseAPIService: DataBaseAPIService
-  ) {}
+  constructor(private router: Router, private coursesService: CoursesService) {}
 
   ngOnInit(): void {}
 
@@ -80,7 +77,7 @@ export class ClassesFormComponent implements OnInit {
 
     console.log(newCourse);
 
-    this.dataBaseAPIService.postCourseForm(newCourse);
+    this.coursesService.postCourseForm(newCourse);
 
     this.router.navigate(['/', 'organizely', 'classes']);
   }
