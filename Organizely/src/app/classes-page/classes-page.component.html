@@ -45,7 +45,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let course of courses">
-          <td>
+          <td (click)="printCourseId(course.courseId)">
             <span *ngFor="let day of course.daysOfWeek"
               >{{ day | dayString }} {{ course.startTime | standardTime }} -
               {{ course.endTime | standardTime }}

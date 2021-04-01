@@ -21,6 +21,7 @@ export class ClassesFormComponent implements OnInit {
   ];
 
   course: Course = {
+    courseId: null,
     courseName: null,
     startTime: null,
     endTime: null,
@@ -64,6 +65,7 @@ export class ClassesFormComponent implements OnInit {
     const value = courseForm.value;
 
     const newCourse = new Course(
+      value.courseId,
       value.courseName,
       value.startTime + ':00',
       value.endTime + ':00',

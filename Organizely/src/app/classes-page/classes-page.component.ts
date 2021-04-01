@@ -19,4 +19,8 @@ export class ClassesPageComponent implements OnInit {
       this.courses = courses;
     });
   }
+
+  printCourseId(id: number) {
+    console.log(id);
+  }
 }
