@@ -120,6 +120,7 @@
               name="daysOfWeek"
               class="form-check-input"
               #daysOfWeek="ngModel"
+              [checked]="this.selectedDays.includes(day['id'])"
               [id]="day['name'] + day['id']"
               [value]="day['id']"
               (change)="onCheckChange($event)"

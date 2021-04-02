@@ -70,7 +70,11 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
         .subscribe(
           (course) => {
             this.currentCourse = course;
+            this.currentCourseId = course.courseId;
             console.log(this.currentCourse);
+            this.currentCourse['daysOfWeek'].forEach((day) => {
+              this.selectedDays.push(day);
+            });
           },
           (error) => {
             console.error(error);
@@ -97,6 +101,30 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(courseForm: NgForm) {
+    if (courseForm.value.courseId === null) {
+      this.addCourse(courseForm);
+    } else {
+      this.updateCourse(courseForm);
+    }
+  }
+
+  convertToDate(dateString: string, type: string): Date {
+    let dateArr = dateString.split('-');
+
+    const year = Number(dateArr[0]);
+    const month = Number(dateArr[1]) - 1;
+    const day = Number(dateArr[2]);
+
+    let newDate = new Date(year, month, day);
+
+    if (type === 'end') {
+      newDate.setDate(newDate.getDate() + 1);
+    }
+
+    return newDate;
+  }
+
+  addCourse(courseForm: NgForm) {
     this.submitted = true;
 
     const value = courseForm.value;
@@ -121,20 +149,40 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     this.router.navigate(['/', 'organizely', 'classes']);
   }
 
-  convertToDate(dateString: string, type: string): Date {
-    let dateArr = dateString.split('-');
+  updateCourse(courseForm: NgForm) {
+    if (confirm('Are you sure you want to update this course?')) {
+      this.submitted = true;
 
-    const year = Number(dateArr[0]);
-    const month = Number(dateArr[1]) - 1;
-    const day = Number(dateArr[2]);
+      const value = courseForm.value;
 
-    let newDate = new Date(year, month, day);
+      const updatedCourse = new Course(
+        this.currentCourseId,
+        value.courseName,
+        value.startTime + ':00',
+        value.endTime + ':00',
+        this.convertToDate(value.startRecur, 'start'),
+        this.convertToDate(value.endRecur, 'end'),
+        this.selectedDays,
+        value.semesterSeason,
+        value.semesterYear,
+        value.teacherName
+      );
 
-    if (type === 'end') {
-      newDate.setDate(newDate.getDate() + 1);
+      console.log(updatedCourse);
+
+      this.coursesService
+        .updateCourse(updatedCourse.courseId, updatedCourse)
+        .subscribe(
+          (res) => {
+            console.log(res);
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+
+      this.router.navigate(['/', 'organizely', 'classes']);
     }
-
-    return newDate;
   }
 
   ngOnDestroy() {

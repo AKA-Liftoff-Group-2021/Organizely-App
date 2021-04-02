@@ -29,7 +29,9 @@ export class CoursesService {
     );
   }
 
-  updateCourse() {}
+  updateCourse(courseId: number, course: Course) {
+    return this.http.put(`${this.courseURL}/${courseId}`, course);
+  }
 
   deleteCourse(courseId: number) {
     return this.http.delete(`${this.courseURL}/${courseId}`);
