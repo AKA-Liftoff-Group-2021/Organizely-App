@@ -24,4 +24,8 @@ export class CoursesService {
       }
     );
   }
+
+  deleteCourse(courseId: number) {
+    return this.http.delete(`${this.courseURL}/${courseId}`);
+  }
 }
