@@ -60,17 +60,22 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
+      if (params['id'] === undefined) {
+        return;
+      }
       this.course.courseId = +params['id'];
 
-      this.coursesService.getCourse(this.course.courseId).subscribe(
-        (course) => {
-          this.currentCourse = course;
-          console.log(this.currentCourse);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+      this.courseSubscription = this.coursesService
+        .getCourse(this.course.courseId)
+        .subscribe(
+          (course) => {
+            this.currentCourse = course;
+            console.log(this.currentCourse);
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
     });
   }
 
@@ -133,6 +138,8 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.courseSubscription.unsubscribe();
+    if (this.courseSubscription !== undefined) {
+      this.courseSubscription.unsubscribe();
+    }
   }
 }
