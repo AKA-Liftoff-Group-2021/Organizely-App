@@ -20,10 +20,6 @@ export class ClassesPageComponent implements OnInit {
     });
   }
 
-  printCourseId(id: number) {
-    console.log(id);
-  }
-
   onDeleteCourse(id: number) {
     if (confirm('Are you sure you want to delete this course?')) {
       this.coursesService.deleteCourse(id).subscribe(

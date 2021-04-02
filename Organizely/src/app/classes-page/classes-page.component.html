@@ -46,7 +46,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let course of courses">
-          <td (click)="printCourseId(course.courseId)">
+          <td>
             <span *ngFor="let day of course.daysOfWeek"
               >{{ day | dayString }} {{ course.startTime | standardTime }} -
               {{ course.endTime | standardTime }}
@@ -55,7 +55,10 @@
           </td>
           <td>{{ course.courseName }}</td>
           <td>
-            <button class="btn btn-dark">
+            <button
+              class="btn btn-dark"
+              routerLink="/organizely/classform/{{ course.courseId }}"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
