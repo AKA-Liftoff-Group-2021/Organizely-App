@@ -22,6 +22,7 @@ import { ClassesFormComponent } from './classes-form/classes-form.component';
 import { DayStringPipe } from './shared/day-string.pipe';
 import { StandardTimePipe } from './shared/standard-time.pipe';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
+import { AssignmentsFormComponent } from './assignments-form/assignments-form.component';
 
 FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
 
@@ -40,6 +41,7 @@ FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
     DayStringPipe,
     StandardTimePipe,
     TasksFormComponent,
+    AssignmentsFormComponent,
   ],
   imports: [
     BrowserModule,

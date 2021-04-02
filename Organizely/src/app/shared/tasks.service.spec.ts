@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataBaseAPIService } from './data-base-api.service';
+import { TasksService } from './tasks.service';
 
-describe('DataBaseAPIService', () => {
-  let service: DataBaseAPIService;
+describe('TasksService', () => {
+  let service: TasksService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DataBaseAPIService);
+    service = TestBed.inject(TasksService);
   });
 
   it('should be created', () => {

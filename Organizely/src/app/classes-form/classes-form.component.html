@@ -6,6 +6,7 @@
       <form (ngSubmit)="onSubmit(courseForm)" #courseForm="ngForm">
         <div class="form-group">
           <label for="courseName">Course Name</label>
+
           <input
             type="text"
             class="form-control"
@@ -15,10 +16,17 @@
             required
             #courseName="ngModel"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!courseName.valid && courseName.touched"
+            >Please enter a course name.</span
+          >
         </div>
 
         <div class="form-group">
           <label for="startTime">Start Time</label>
+
           <input
             type="time"
             class="form-control"
@@ -28,10 +36,17 @@
             required
             #startTime="ngModel"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!startTime.valid && startTime.touched"
+            >Please enter a start time.</span
+          >
         </div>
 
         <div class="form-group">
           <label for="endTime">End Time</label>
+
           <input
             type="time"
             class="form-control"
@@ -41,10 +56,17 @@
             required
             #endTime="ngModel"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!endTime.valid && endTime.touched"
+            >Please enter an end time.</span
+          >
         </div>
 
         <div class="form-group">
           <label for="startRecur">Start Date</label>
+
           <input
             type="date"
             class="form-control"
@@ -54,10 +76,17 @@
             required
             #startRecur="ngModel"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!startRecur.valid && startRecur.touched"
+            >Please enter the first day of the course.</span
+          >
         </div>
 
         <div class="form-group">
           <label for="endRecur">End Date</label>
+
           <input
             type="date"
             class="form-control"
@@ -67,6 +96,12 @@
             required
             #endRecur="ngModel"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!endRecur.valid && endRecur.touched"
+            >Please enter the last day of the course.</span
+          >
         </div>
 
         <label for="daysOfWeek">Days</label>
@@ -89,6 +124,14 @@
             </label>
             <br />
           </span>
+
+          <br />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="this.selectedDays.length === 0"
+            >Please check day(s) of the course.</span
+          >
         </div>
 
         <div class="form-group">
@@ -102,10 +145,17 @@
             required
             #semesterSeason="ngModel"
           >
+            <option value="" disabled>...</option>
             <option *ngFor="let season of semesterSeasons" [value]="season">
               {{ season }}
             </option>
           </select>
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!semesterSeason.valid && semesterSeason.touched"
+            >Please select the semester's season.</span
+          >
         </div>
 
         <div class="form-group">
@@ -121,10 +171,17 @@
             required
             #semesterYear="ngModel"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!semesterYear.valid && semesterYear.touched"
+            >Please select the semester's year.</span
+          >
         </div>
 
         <div class="form-group">
           <label for="teacherName">Teacher's Name</label>
+
           <input
             type="text"
             class="form-control"
@@ -135,9 +192,21 @@
             #teacherName="ngModel"
             (change)="onCheckChange($event)"
           />
+
+          <span
+            class="form-text validation-msg"
+            *ngIf="!teacherName.valid && teacherName.touched"
+            >Please select your teacher's name.</span
+          >
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!courseForm.valid"
+        >
+          Submit
+        </button>
       </form>
     </div>
   </div>

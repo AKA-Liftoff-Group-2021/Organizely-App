@@ -7655,19 +7655,43 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\racir\\.nuget\\packages\\": {}
+=======
+<<<<<<< HEAD
+    "C:\\Users\\user\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\Kaja\\.nuget\\packages\\": {}
+>>>>>>> 0153b58266e75c7ffbf8c8847d02b2ced8f073c5
+>>>>>>> b294096f2113b47e0ca0a41063d1faae8cd47aee
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+=======
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+=======
+      "projectUniqueName": "C:\\Users\\Kaja\\Desktop\\Coder_Girl\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+>>>>>>> 0153b58266e75c7ffbf8c8847d02b2ced8f073c5
+>>>>>>> b294096f2113b47e0ca0a41063d1faae8cd47aee
       "projectName": "OrganizelyAPI",
       "projectPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
       "packagesPath": "C:\\Users\\racir\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\racir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+<<<<<<< HEAD
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\Kaja\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 0153b58266e75c7ffbf8c8847d02b2ced8f073c5
+>>>>>>> b294096f2113b47e0ca0a41063d1faae8cd47aee
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7751,5 +7775,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
+<<<<<<< HEAD
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
+=======
   }
+>>>>>>> 0153b58266e75c7ffbf8c8847d02b2ced8f073c5
 }

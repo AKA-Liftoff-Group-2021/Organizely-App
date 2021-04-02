@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TASKS } from '../shared/mock-data/mock-tasks';
 import { Task } from '../shared/models/task.model';
+import { TASKS } from '../shared/mock-data/mock-tasks';
+import { TasksService } from '../shared/tasks.service';
 
 @Component({
   selector: 'app-tasks-page',
@@ -8,9 +9,51 @@ import { Task } from '../shared/models/task.model';
   styleUrls: ['./tasks-page.component.css'],
 })
 export class TasksPageComponent implements OnInit {
-  tasks: Task[] = TASKS;
+  currentDate: Date = new Date();
 
-  constructor() {}
+  tasks: Task[];
+  // tasks: Task[] = TASKS;
 
-  ngOnInit(): void {}
+  constructor(private tasksService: TasksService) {}
+
+  ngOnInit(): void {
+    this.tasksService.getTasks().subscribe((tasks) => {
+      // TODO: Find a way inform the task-page component about tasks changes without needing to reload the page
+      this.tasks = tasks;
+    });
+  }
+
+  stylePriorityBadge(priority: string): string {
+    let badgeStyle: string = 'badge-success';
+
+    if (priority === 'Medium') {
+      badgeStyle = 'badge-warning';
+    }
+
+    if (priority === 'High') {
+      badgeStyle = 'badge-danger';
+    }
+
+    return badgeStyle;
+  }
+
+  styleDueDateBadge(dueDate: Date): string {
+    let badgeStyle: string = 'badge-primary';
+    let current: Date = new Date(this.currentDate);
+    let due: Date = new Date(dueDate);
+
+    current.setHours(0, 0, 0, 0);
+
+    let same: boolean = current.getTime() === due.getTime();
+
+    if (same) {
+      badgeStyle = 'badge-warning';
+    }
+
+    if (current > due) {
+      badgeStyle = 'badge-danger';
+    }
+
+    return badgeStyle;
+  }
 }

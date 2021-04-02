@@ -1,40 +1,27 @@
 <h2>Tasks</h2>
 
-<button class="btn btn-primary" routerLink="/organizely/taskform">
-  Add Task
-</button>
+<button class="btn btn-dark" routerLink="/organizely/taskform">Add Task</button>
 
 <div class="row">
-  <div class="col-4">
-    <div class="list-group" id="list-tab" role="tablist">
-      <a
-        class="list-group-item list-group-item-action"
-        [id]="'list-task-list' + i"
-        data-toggle="list"
-        [href]="'#list-task' + i"
-        role="tab"
-        [attr.aria-controls]="'task' + i"
+  <div class="col">
+    <ul class="list-group">
+      <li
         *ngFor="let task of tasks; let i = index"
+        class="list-group-item justify-content-start"
       >
-        {{ task.taskName }}</a
-      >
-    </div>
-  </div>
-
-  <div class="col-8">
-    <div class="tab-content" id="nav-tabContent">
-      <div
-        class="tab-pane fade"
-        [id]="'list-task' + i"
-        role="tabpanel"
-        [attr.aria-labelledby]="'list-task-list' + i"
-        *ngFor="let task of tasks; let i = index"
-      >
-        <ul>
-          <li>Priority: {{ task.priority }}</li>
-          <li>Due Date: {{ task.dueDate | date: "fullDate" }}</li>
-        </ul>
-      </div>
-    </div>
+        {{ task.studentTaskName }}
+        &nbsp;
+        <span class="badge" [ngClass]="stylePriorityBadge(task.priority)">{{
+          task.priority
+        }}</span>
+        &nbsp;
+        <span
+          *ngIf="task.taskDueDate !== undefined"
+          class="badge"
+          [ngClass]="styleDueDateBadge(task.taskDueDate)"
+          >{{ task.taskDueDate | date: "fullDate" }}</span
+        >
+      </li>
+    </ul>
   </div>
 </div>

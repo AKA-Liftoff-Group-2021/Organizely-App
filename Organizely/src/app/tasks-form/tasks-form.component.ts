@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Task } from '../shared/models/task.model';
+import { TasksService } from '../shared/tasks.service';
+
+import convertToDate from '../shared/utils/convertToDate';
 
 @Component({
   selector: 'app-tasks-form',
@@ -13,7 +16,7 @@ export class TasksFormComponent implements OnInit {
 
   submitted: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tasksService: TasksService) {}
 
   ngOnInit(): void {}
 
@@ -21,8 +24,13 @@ export class TasksFormComponent implements OnInit {
     this.submitted = true;
 
     const value = taskForm.value;
-    const newTask = new Task(value.taskName, value.priority, value.dueDate);
+    const newTask = new Task(
+      value.studentTaskName,
+      value.priority,
+      convertToDate(value.taskDueDate, 'due')
+    );
 
+    this.tasksService.postTaskForm(newTask);
     console.log(newTask);
 
     this.router.navigate(['/', 'organizely', 'tasks']);
