@@ -72,7 +72,7 @@
             class="form-control"
             id="startRecur"
             [ngModel]="
-              currentCourse ? convertDateFormat(currentCourse.startRecur) : null
+              currentCourse ? changeDateFormat(currentCourse.startRecur) : null
             "
             name="startRecur"
             required
@@ -95,7 +95,7 @@
             id="endRecur"
             ngModel
             [ngModel]="
-              currentCourse ? convertDateFormat(currentCourse.endRecur) : null
+              currentCourse ? changeDateFormat(currentCourse.endRecur) : null
             "
             name="endRecur"
             required
