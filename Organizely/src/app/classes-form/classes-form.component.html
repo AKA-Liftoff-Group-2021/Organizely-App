@@ -11,7 +11,7 @@
             type="text"
             class="form-control"
             id="courseName"
-            ngModel
+            [ngModel]="currentCourse ? currentCourse.courseName : null"
             name="courseName"
             required
             #courseName="ngModel"
@@ -31,7 +31,7 @@
             type="time"
             class="form-control"
             id="startTime"
-            ngModel
+            [ngModel]="currentCourse ? currentCourse.startTime : null"
             name="startTime"
             required
             #startTime="ngModel"
@@ -51,7 +51,7 @@
             type="time"
             class="form-control"
             id="endTime"
-            ngModel
+            [ngModel]="currentCourse ? currentCourse.endTime : null"
             name="endTime"
             required
             #endTime="ngModel"
@@ -71,7 +71,9 @@
             type="date"
             class="form-control"
             id="startRecur"
-            ngModel
+            [ngModel]="
+              currentCourse ? convertDateFormat(currentCourse.startRecur) : null
+            "
             name="startRecur"
             required
             #startRecur="ngModel"
@@ -92,6 +94,9 @@
             class="form-control"
             id="endRecur"
             ngModel
+            [ngModel]="
+              currentCourse ? convertDateFormat(currentCourse.endRecur) : null
+            "
             name="endRecur"
             required
             #endRecur="ngModel"
@@ -115,6 +120,7 @@
               name="daysOfWeek"
               class="form-check-input"
               #daysOfWeek="ngModel"
+              [checked]="this.selectedDays.includes(day['id'])"
               [id]="day['name'] + day['id']"
               [value]="day['id']"
               (change)="onCheckChange($event)"
@@ -140,7 +146,7 @@
           <select
             id="semesterSeason"
             class="form-control"
-            ngModel
+            [ngModel]="currentCourse ? currentCourse.semesterSeason : null"
             name="semesterSeason"
             required
             #semesterSeason="ngModel"
@@ -165,7 +171,7 @@
             type="number"
             class="form-control"
             id="semesterYear"
-            ngModel
+            [ngModel]="currentCourse ? currentCourse.semesterYear : null"
             name="semesterYear"
             [min]="currentYear"
             required
@@ -186,7 +192,7 @@
             type="text"
             class="form-control"
             id="teacherName"
-            ngModel
+            [ngModel]="currentCourse ? currentCourse.teacherName : null"
             name="teacherName"
             required
             #teacherName="ngModel"

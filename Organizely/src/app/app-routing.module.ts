@@ -17,13 +17,14 @@ const routes: Routes = [
   { path: 'organizely/home', component: AgendaComponent },
   { path: 'organizely/classes', component: ClassesPageComponent },
   { path: 'organizely/classform', component: ClassesFormComponent },
+  { path: 'organizely/classform/:id', component: ClassesFormComponent },
   { path: 'organizely/assignments', component: AssignmentsPageComponent },
-  { path: 'organizely/assignmentform', component: AssignmentsFormComponent},
+  { path: 'organizely/assignmentform', component: AssignmentsFormComponent },
   { path: 'organizely/tasks', component: TasksPageComponent },
   { path: 'organizely/taskform', component: TasksFormComponent },
   { path: 'organizely/calendar', component: CalendarPageComponent },
   { path: 'organizely/focus-zone', component: FocusZoneComponent },
-  { path: 'organizely/quotes', component: QuotesPageComponent }
+  { path: 'organizely/quotes', component: QuotesPageComponent },
 ];
 
 @NgModule({
