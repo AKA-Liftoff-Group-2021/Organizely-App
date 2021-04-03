@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'organizely/assignmentform', component: AssignmentsFormComponent },
   { path: 'organizely/tasks', component: TasksPageComponent },
   { path: 'organizely/taskform', component: TasksFormComponent },
+  { path: 'organizely/taskform/:id', component: TasksFormComponent },
   { path: 'organizely/calendar', component: CalendarPageComponent },
   { path: 'organizely/focus-zone', component: FocusZoneComponent },
   { path: 'organizely/quotes', component: QuotesPageComponent },

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Task } from '../shared/models/task.model';
-import { TasksService } from '../shared/tasks.service';
+import { StudentTask } from '../shared/models/student-task.model';
+import { StudentTasksService } from '../shared/student-tasks.service';
 
 import convertToDate from '../shared/utils/convertToDate';
 
@@ -16,21 +16,25 @@ export class TasksFormComponent implements OnInit {
 
   submitted: boolean = false;
 
-  constructor(private router: Router, private tasksService: TasksService) {}
+  constructor(
+    private router: Router,
+    private studentTasksService: StudentTasksService
+  ) {}
 
   ngOnInit(): void {}
 
-  onSubmit(taskForm: NgForm) {
+  onSubmit(studentTaskForm: NgForm) {
     this.submitted = true;
 
-    const value = taskForm.value;
-    const newTask = new Task(
+    const value = studentTaskForm.value;
+    const newTask = new StudentTask(
+      value.studentTaskId,
       value.studentTaskName,
       value.priority,
       convertToDate(value.taskDueDate, 'due')
     );
 
-    this.tasksService.postTaskForm(newTask);
+    this.studentTasksService.createStudentTask(newTask);
     console.log(newTask);
 
     this.router.navigate(['/', 'organizely', 'tasks']);
