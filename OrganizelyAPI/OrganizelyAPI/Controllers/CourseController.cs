@@ -11,6 +11,7 @@ using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase

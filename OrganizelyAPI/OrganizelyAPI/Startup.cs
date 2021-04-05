@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OrganizelyAPI.Data;
+using OrganizelyAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,6 +50,9 @@ namespace OrganizelyAPI
             services.AddDbContext<StudentDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDefaultIdentity<Student>()
+                .AddEntityFrameworkStores<StudentDbContext>();
+
             services.AddCors();
         }
 
@@ -76,6 +80,7 @@ namespace OrganizelyAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
