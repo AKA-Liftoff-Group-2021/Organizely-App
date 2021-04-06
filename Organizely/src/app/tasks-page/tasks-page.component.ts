@@ -70,6 +70,7 @@ export class TasksPageComponent implements OnInit {
     if (confirm('Are you sure you want to delete this task?')) {
       this.studentTasksService.deleteStudentTask(id).subscribe(
         (response) => {
+          // TODO: Determine why this returns 'null'
           console.log(response);
           this.getStudentTasks();
         },
