@@ -45,7 +45,7 @@ export class TasksFormComponent implements OnInit, OnDestroy {
             console.log(this.currentStudentTask);
           },
           (error) => {
-            console.error(error);
+            console.log(error);
           }
         );
     });
@@ -64,8 +64,6 @@ export class TasksFormComponent implements OnInit, OnDestroy {
   }
 
   addStudentTask(studentTaskForm: NgForm) {
-    this.submitted = true;
-
     const value = studentTaskForm.value;
 
     const newTask = new StudentTask(
@@ -75,17 +73,20 @@ export class TasksFormComponent implements OnInit, OnDestroy {
       convertToDate(value.taskDueDate, 'due')
     );
 
-    console.log(newTask);
-
-    this.studentTasksService.createStudentTask(newTask);
-
-    this.router.navigate(['/', 'organizely', 'tasks']);
+    this.studentTasksService.createStudentTask(newTask).subscribe(
+      (response) => {
+        console.log(response);
+        this.submitted = true;
+        this.router.navigate(['/', 'organizely', 'tasks']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   updateStudentTask(studentTaskForm: NgForm) {
     if (confirm('Are you sure you want to update this task?')) {
-      this.submitted = true;
-
       const value = studentTaskForm.value;
 
       const updatedStudentTask = new StudentTask(
@@ -95,21 +96,19 @@ export class TasksFormComponent implements OnInit, OnDestroy {
         convertToDate(value.taskDueDate, 'due')
       );
 
-      console.log(updatedStudentTask);
-
       this.studentTasksService
         .updateStudentTask(updatedStudentTask.studentTaskId, updatedStudentTask)
         .subscribe(
-          (res) => {
+          (response) => {
             // TODO: Determine why this returns 'null'
-            console.log(res);
+            console.log(response);
+            this.submitted = true;
+            this.router.navigate(['/', 'organizely', 'tasks']);
           },
-          (err) => {
-            console.error(err);
+          (error) => {
+            console.log(error);
           }
         );
-
-      this.router.navigate(['/', 'organizely', 'tasks']);
     }
   }
 

@@ -17,9 +17,19 @@ export class TasksPageComponent implements OnInit {
   constructor(private studentTasksService: StudentTasksService) {}
 
   ngOnInit(): void {
-    this.studentTasksService.getStudentTasks().subscribe((studentTasks) => {
-      this.studentTasks = studentTasks;
-    });
+    this.getStudentTasks();
+  }
+
+  getStudentTasks() {
+    this.studentTasksService.getStudentTasks().subscribe(
+      (data) => {
+        this.studentTasks = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   stylePriorityBadge(priority: string): string {
@@ -59,11 +69,12 @@ export class TasksPageComponent implements OnInit {
   onDeleteStudentTask(id: number) {
     if (confirm('Are you sure you want to delete this task?')) {
       this.studentTasksService.deleteStudentTask(id).subscribe(
-        (res) => {
-          this.studentTasksService.getStudentTasks();
+        (response) => {
+          console.log(response);
+          this.getStudentTasks();
         },
-        (err) => {
-          console.error(err);
+        (error) => {
+          console.error(error);
         }
       );
     }
