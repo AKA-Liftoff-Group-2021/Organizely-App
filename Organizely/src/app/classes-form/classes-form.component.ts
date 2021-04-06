@@ -109,8 +109,6 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
   }
 
   addCourse(courseForm: NgForm) {
-    this.submitted = true;
-
     const value = courseForm.value;
 
     const newCourse = new Course(
@@ -126,17 +124,20 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
       value.teacherName
     );
 
-    console.log(newCourse);
-
-    this.coursesService.createCourse(newCourse);
-
-    this.router.navigate(['/', 'organizely', 'classes']);
+    this.coursesService.createCourse(newCourse).subscribe(
+      (response) => {
+        console.log(response);
+        this.submitted = true;
+        this.router.navigate(['/', 'organizely', 'classes']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   updateCourse(courseForm: NgForm) {
     if (confirm('Are you sure you want to update this course?')) {
-      this.submitted = true;
-
       const value = courseForm.value;
 
       const updatedCourse = new Course(
@@ -152,21 +153,19 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
         value.teacherName
       );
 
-      console.log(updatedCourse);
-
       this.coursesService
         .updateCourse(updatedCourse.courseId, updatedCourse)
         .subscribe(
-          (res) => {
+          (response) => {
             // TODO: Determine why this returns 'null'
-            console.log(res);
+            console.log(response);
+            this.submitted = true;
+            this.router.navigate(['/', 'organizely', 'classes']);
           },
           (error) => {
             console.error(error);
           }
         );
-
-      this.router.navigate(['/', 'organizely', 'classes']);
     }
   }
 
