@@ -50,8 +50,23 @@ namespace OrganizelyAPI
             services.AddDbContext<StudentDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<Student>()
-                .AddEntityFrameworkStores<StudentDbContext>();
+            //services.AddDefaultIdentity<ApplicationUser>()
+            //    .AddEntityFrameworkStores<StudentDbContext>();
+
+
+            //services.AddAuthentication()
+            //    .AddIdentityServerJwt();
+
+            //services.Configure<IdentityOptions>(options =>
+            //{
+            //    // Default Password settings.
+            //    options.Password.RequireDigit = true;
+            //    options.Password.RequireLowercase = true;
+            //    options.Password.RequireNonAlphanumeric = true;
+            //    options.Password.RequireUppercase = true;
+            //    options.Password.RequiredLength = 6;
+            //    options.Password.RequiredUniqueChars = 1;
+            //});
 
             services.AddCors();
         }
@@ -82,6 +97,7 @@ namespace OrganizelyAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
+            //app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {

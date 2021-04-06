@@ -26,8 +26,8 @@ namespace OrganizelyAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentDTO>> GetStudent(int id)
         {
-            var student = await _context.Students.Select(s =>            // student == studentDTO
-                   new StudentDTO()                                              // DTO?
+            var student = await _context.Students.Select(s =>         
+                   new StudentDTO()                                              
                    {
                        StudentId = s.StudentId,
                        Username = s.Username,
