@@ -14,6 +14,12 @@ export class StudentTasksService {
     return this.http.get<StudentTask[]>(this.studentTaskURL);
   }
 
+  getStudentTask(studentTaskId: number) {
+    return this.http.get<StudentTask>(
+      `${this.studentTaskURL}/${studentTaskId}`
+    );
+  }
+
   createStudentTask(studentTask: StudentTask) {
     this.http.post<StudentTask>(this.studentTaskURL, studentTask).subscribe(
       (response) => {
@@ -22,6 +28,13 @@ export class StudentTasksService {
       (error) => {
         console.error(error);
       }
+    );
+  }
+
+  updateStudentTask(studentTaskId: number, studentTask: StudentTask) {
+    return this.http.put(
+      `${this.studentTaskURL}/${studentTaskId}`,
+      studentTask
     );
   }
 

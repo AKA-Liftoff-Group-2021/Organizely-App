@@ -11,7 +11,9 @@
             type="text"
             class="form-control"
             id="studentTaskName"
-            ngModel
+            [ngModel]="
+              currentStudentTask ? currentStudentTask.studentTaskName : null
+            "
             name="studentTaskName"
             required
             #studentTaskName="ngModel"
@@ -31,7 +33,7 @@
             name="priority"
             id="priority"
             class="form-control"
-            ngModel
+            [ngModel]="currentStudentTask ? currentStudentTask.priority : null"
             required
             #priority="ngModel"
           >
@@ -55,7 +57,11 @@
             type="date"
             class="form-control"
             id="taskDueDate"
-            ngModel
+            [ngModel]="
+              currentStudentTask
+                ? changeDateFormat(currentStudentTask.taskDueDate)
+                : null
+            "
             name="taskDueDate"
             required
             #taskDueDate="ngModel"

@@ -24,19 +24,6 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     { name: 'Saturday', id: '6' },
   ];
 
-  course: Course = {
-    courseId: null,
-    courseName: null,
-    startTime: null,
-    endTime: null,
-    startRecur: null,
-    endRecur: null,
-    daysOfWeek: null,
-    semesterSeason: null,
-    semesterYear: null,
-    teacherName: null,
-  };
-
   currentCourseId: number;
   currentCourse: Course;
 
@@ -49,7 +36,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
 
   submitted: boolean = false;
 
-  courseSubscription: Subscription;
+  courseSub: Subscription;
 
   constructor(
     public datePipe: DatePipe,
@@ -63,23 +50,20 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
       if (params['id'] === undefined) {
         return;
       }
-      this.course.courseId = +params['id'];
 
-      this.courseSubscription = this.coursesService
-        .getCourse(this.course.courseId)
-        .subscribe(
-          (course) => {
-            this.currentCourse = course;
-            this.currentCourseId = course.courseId;
-            console.log(this.currentCourse);
-            this.currentCourse['daysOfWeek'].forEach((day) => {
-              this.selectedDays.push(day);
-            });
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
+      this.courseSub = this.coursesService.getCourse(+params['id']).subscribe(
+        (course) => {
+          this.currentCourse = course;
+          this.currentCourseId = course.courseId;
+          console.log(this.currentCourse);
+          this.currentCourse['daysOfWeek'].forEach((day) => {
+            this.selectedDays.push(day);
+          });
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     });
   }
 
@@ -96,12 +80,12 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  convertDateFormat(date: Date) {
+  changeDateFormat(date: Date) {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
   onSubmit(courseForm: NgForm) {
-    if (courseForm.value.courseId === null) {
+    if (this.currentCourseId === undefined) {
       this.addCourse(courseForm);
     } else {
       this.updateCourse(courseForm);
@@ -174,6 +158,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
         .updateCourse(updatedCourse.courseId, updatedCourse)
         .subscribe(
           (res) => {
+            // TODO: Determine why this returns 'null'
             console.log(res);
           },
           (error) => {
@@ -186,8 +171,8 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.courseSubscription !== undefined) {
-      this.courseSubscription.unsubscribe();
+    if (this.courseSub !== undefined) {
+      this.courseSub.unsubscribe();
     }
   }
 }
