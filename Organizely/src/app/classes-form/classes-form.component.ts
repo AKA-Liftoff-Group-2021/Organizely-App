@@ -140,11 +140,19 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     if (confirm('Are you sure you want to update this course?')) {
       const value = courseForm.value;
 
+      if (this.currentCourse.startTime !== value.startTime) {
+        value.startTime = value.startTime + ':00';
+      }
+
+      if (this.currentCourse.endTime !== value.endTime) {
+        value.endTime = value.endTime + ':00';
+      }
+
       const updatedCourse = new Course(
         this.currentCourseId,
         value.courseName,
-        value.startTime + ':00',
-        value.endTime + ':00',
+        value.startTime,
+        value.endTime,
         this.convertToDate(value.startRecur, 'start'),
         this.convertToDate(value.endRecur, 'end'),
         this.selectedDays,
