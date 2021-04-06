@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OrganizelyAPI.Data
 {
-    public class StudentDbContext : DbContext
+    public class StudentDbContext : IdentityDbContext<IdentityUser> // from DbContext 
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
