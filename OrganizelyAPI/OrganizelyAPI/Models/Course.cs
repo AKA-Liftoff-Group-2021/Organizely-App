@@ -10,7 +10,7 @@ namespace OrganizelyAPI.Models
     [Table("Course")]
     public class Course
     {
-        [Key]                                                     // ctrl + . to select options to add namespaces
+        [Key]                                                     
         public int CourseId { get; set; }
 
         [Required]
@@ -27,20 +27,6 @@ namespace OrganizelyAPI.Models
         [Required]
         public string DaysOfWeekStr { get; set; }
 
-        //[NotMapped]
-        //public string[] DaysOfWeek { get; set; }
-        //{
-        //    get
-        //    {
-        //        return Array.ConvertAll(DaysOfWeekStr.Split(','), Int32.Parse);
-        //    }
-        //    set
-        //    {
-        //        DaysOfWeek = value;
-        //        DaysOfWeekStr = String.Join(",", DaysOfWeek.Select(d => d.ToString()).ToArray());
-        //    }
-        //}
-
         [Column(TypeName = "datetime")]
         public DateTime StartRecur { get; set; }
 
@@ -53,7 +39,6 @@ namespace OrganizelyAPI.Models
         public int SemesterYear { get; set; }
 
         //[Column(TypeName = "integer")]
-        //[ForeignKey("Student")]
         //public int StudentId { get; set; }            // temporarily hide until user sign up is set up
         //public Student Student { get; set; }
 

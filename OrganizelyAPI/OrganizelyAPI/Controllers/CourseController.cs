@@ -11,6 +11,7 @@ using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
@@ -22,14 +23,12 @@ namespace OrganizelyAPI.Controllers
             _context = context;
         }
 
+        //<summary> Returns all courses associated with a student ID</summary>
+
         // GET: api/Course
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            //return await _context.Courses
-            //    .Include(s => s.Student)            // TODO: Added march18
-            //    .ToListAsync();
-
             var course = await _context.Courses.Select(c =>     //Include(s => s.Student)
                    new CourseDTO()
                    {
@@ -47,27 +46,23 @@ namespace OrganizelyAPI.Controllers
                        //Student = c.Student
                    }).ToListAsync();
 
-            return course;
+            if (!course.Any())
+            {
+                return NotFound();
+            }
+            return Ok(course);
         }
 
+        //<summary> Returns course details for a given id</summary>
         // GET: api/Course/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
-            // TODO: Include student so it doesn't show as null ?
-            //.Include(c => c.DaysOfWeek = Array.ConvertAll(c.DaysOfWeek.Split(','), Int32.Parse))
-            //var course = await _context.Courses   // returns a list so this is wrong
-            //  .Where(c => c.CourseId == id)
-            // .Include(s => s.Student)
-            // .ToListAsync();
-
-            // text.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
             //Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
-
             var course = await _context.Courses.Select(c =>             //.Include(s => s.Student)
                     new CourseDTO()
                     {
-                        CourseId = c.CourseId,
+                        CourseId = c.CourseId,              
                         CourseName = c.CourseName,
                         TeacherName = c.TeacherName,
                         StartTime = c.StartTime,
@@ -86,20 +81,33 @@ namespace OrganizelyAPI.Controllers
                 return NotFound();
             }
 
-            return course;
+            return Ok(course);
         }
 
         // PUT: api/Course/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse(int id, Course course)
+        public async Task<IActionResult> PutCourse(int id, [FromBody] CourseDTO courseDTO)
         {
-            if (id != course.CourseId)
+            //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);         
+            Course courseToUpdate = await _context.Courses.FindAsync(id);
+            if (id != courseToUpdate.CourseId)
             {
-                return BadRequest();
+                return BadRequest("Request ID does not match any course.");
             }
 
-            _context.Entry(course).State = EntityState.Modified;
+            courseToUpdate.CourseName = courseDTO.CourseName;
+            courseToUpdate.TeacherName = courseDTO.TeacherName;
+            courseToUpdate.StartTime = courseDTO.StartTime;
+            courseToUpdate.EndTime = courseDTO.EndTime;
+            courseToUpdate.DaysOfWeekStr = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray());
+            courseToUpdate.StartRecur = courseDTO.StartRecur;
+            courseToUpdate.EndRecur = courseDTO.EndRecur;
+            courseToUpdate.SemesterSeason = courseDTO.SemesterSeason;
+            courseToUpdate.SemesterYear = courseDTO.SemesterYear;
+            //Student = theStudent
+
+            _context.Entry(courseToUpdate).State = EntityState.Modified; 
 
             try
             {
@@ -123,7 +131,7 @@ namespace OrganizelyAPI.Controllers
         // POST: api/Course
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse(CourseDTO courseDTO)            //march 22
+        public async Task<ActionResult<Course>> PostCourse([FromBody] CourseDTO courseDTO)        
         {
             //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
             Course newCourse = new Course

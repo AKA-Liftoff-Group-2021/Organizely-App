@@ -10,12 +10,14 @@ namespace OrganizelyAPI.ViewModels
 {
     public class CourseDTO
     {
-        [Key]                                                     // ctrl + . to select options to add namespaces
+        [Key]                                                    
         public int CourseId { get; set; }
 
         [Required]
+        [MaxLength(80), MinLength(2)]
         public string CourseName { get; set; }
 
+        [MaxLength(70), MinLength(2)]
         public string TeacherName { get; set; }
 
         [Required]
@@ -24,22 +26,9 @@ namespace OrganizelyAPI.ViewModels
         [Required]
         public string EndTime { get; set; }
 
-        //[Required]
-        //public string DaysOfWeekStr { get; set; }
-
         [NotMapped]
+        [MaxLength(7)]
         public string[] DaysOfWeek { get; set; }
-        //{
-        //    get
-        //    {
-        //        return Array.ConvertAll(DaysOfWeekStr.Split(','), Int32.Parse);
-        //    }
-        //    set
-        //    {
-        //        DaysOfWeek = value;
-        //        DaysOfWeekStr = String.Join(",", DaysOfWeek.Select(d => d.ToString()).ToArray());
-        //    }
-        //}
 
         [Column(TypeName = "datetime")]
         public DateTime StartRecur { get; set; }
@@ -48,6 +37,7 @@ namespace OrganizelyAPI.ViewModels
         public DateTime EndRecur { get; set; }
 
         [Required]
+        [MaxLength(35), MinLength(6)]
         public string SemesterSeason { get; set; }
 
         public int SemesterYear { get; set; }
