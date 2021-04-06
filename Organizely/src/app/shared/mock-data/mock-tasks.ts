@@ -1,12 +1,14 @@
-import { Task } from '../models/task.model';
+import { StudentTask } from '../models/student-task.model';
 
-export const TASKS: Task[] = [
+export const STUDENTTASKS: StudentTask[] = [
   {
+    studentTaskId: 1,
     studentTaskName: 'Do homework',
     priority: 'High',
     taskDueDate: new Date(2021, 3, 5),
   },
   {
+    studentTaskId: 2,
     studentTaskName: 'Practice coding',
     priority: 'High',
     taskDueDate: new Date(2021, 2, 29),

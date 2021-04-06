@@ -14,7 +14,11 @@ export class CoursesService {
     return this.http.get<Course[]>(this.courseURL);
   }
 
-  postCourseForm(course: Course) {
+  getCourse(courseId: number) {
+    return this.http.get<Course>(`${this.courseURL}/${courseId}`);
+  }
+
+  createCourse(course: Course) {
     this.http.post<Course>(this.courseURL, course).subscribe(
       (response) => {
         console.log(response);
@@ -23,5 +27,13 @@ export class CoursesService {
         console.error(error);
       }
     );
+  }
+
+  updateCourse(courseId: number, course: Course) {
+    return this.http.put(`${this.courseURL}/${courseId}`, course);
+  }
+
+  deleteCourse(courseId: number) {
+    return this.http.delete(`${this.courseURL}/${courseId}`);
   }
 }
