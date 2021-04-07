@@ -10,7 +10,7 @@ namespace OrganizelyAPI.ViewModels
     {
         public int StudentTaskId { get; set; }
 
-        public string TaskPriorityLevel { get; set; }
+        public string Priority { get; set; }
 
         public string StudentTaskName { get; set; }
 

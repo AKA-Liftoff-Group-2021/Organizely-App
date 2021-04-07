@@ -15,7 +15,7 @@ namespace OrganizelyAPI.Models
 
         //[Required]
         [Column(TypeName = "Priority")]
-        public string TaskPriorityLevel { get; set; }
+        public string Priority { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(30)")]

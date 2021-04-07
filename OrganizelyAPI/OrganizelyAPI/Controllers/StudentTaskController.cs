@@ -26,17 +26,22 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentTaskDTO>>> GetStudentTasks()
         {
-            //return await _context.StudentTasks.ToListAsync();
-            var studentTask = await _context.StudentTasks.Select(s =>
+            //Student theStudent = await _context.Courses.FindAsync(StudentTask.StudentId);
+            var studentTasks = await _context.StudentTasks.Select(s => //.Include(c => c.Student)
              new StudentTaskDTO()
              {
                  StudentTaskId = s.StudentTaskId,
                  TaskDueDate = s.TaskDueDate,
+                 Priority = s.Priority,
               // StudentId = s.StudentId,
 
              }).ToListAsync();
 
-            return studentTask;
+            if (studentTasks == null)
+            {
+                return NotFound();
+            }
+            return studentTasks;
         }
 
         // GET: api/StudentTask/5
@@ -48,6 +53,7 @@ namespace OrganizelyAPI.Controllers
             {
                 StudentTaskId = s.StudentTaskId,
                 TaskDueDate = s.TaskDueDate,
+                Priority = s.Priority,
             //  StudentId = s.StudentId,
 
             }).FirstOrDefaultAsync(s => s.StudentTaskId == id);
@@ -62,14 +68,20 @@ namespace OrganizelyAPI.Controllers
 
         // PUT: api/StudentTask/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudentTask(int id, StudentTask studentTask)
+        public async Task<IActionResult> PutStudentTask(int id, StudentTaskDTO studentTaskDTO)
         {
-            if (id != studentTask.StudentTaskId)
+            StudentTask taskToUpdate = await _context.StudentTasks.FindAsync(id);
+
+            if (id != taskToUpdate.StudentTaskId)
             {
-                return BadRequest("Task is not found.");
+                return BadRequest("Task Id does not match any task.");
             }
 
-            _context.Entry(studentTask).State = EntityState.Modified;
+            taskToUpdate.Priority = studentTaskDTO.Priority;
+            taskToUpdate.StudentTaskName = studentTaskDTO.StudentTaskName;
+            taskToUpdate.TaskDueDate = studentTaskDTO.TaskDueDate;
+            //student 
+            _context.Entry(taskToUpdate).State = EntityState.Modified;
 
             try
             {
@@ -98,12 +110,13 @@ namespace OrganizelyAPI.Controllers
             {
                 StudentTaskName = studentTaskDTO.StudentTaskName,
                 TaskDueDate = studentTaskDTO.TaskDueDate,
+                Priority = studentTaskDTO.Priority,
             };
 
             _context.StudentTasks.Add(newStudentTask);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudentTask", new { id = studentTaskDTO.StudentTaskId }, studentTaskDTO);
+            return CreatedAtAction("GetStudentTask", new { id = newStudentTask.StudentTaskId }, newStudentTask);
         }
 
         // DELETE: api/StudentTask/5
