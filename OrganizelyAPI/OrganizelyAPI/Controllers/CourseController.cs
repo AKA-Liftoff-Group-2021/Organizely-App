@@ -46,7 +46,7 @@ namespace OrganizelyAPI.Controllers
                        //Student = c.Student
                    }).ToListAsync();
 
-            if (!course.Any())
+            if (course == null)
             {
                 return NotFound();
             }
