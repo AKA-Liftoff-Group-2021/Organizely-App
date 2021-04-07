@@ -13,15 +13,13 @@ namespace OrganizelyAPI.Models
         [Key]                                                    
         public int StudentTaskId { get; set; }
 
+        //[Required]
+        [Column(TypeName = "Priority")]
+        public string TaskPriorityLevel { get; set; }
+
         [Required]
         [Column(TypeName = "varchar(30)")]
         public string StudentTaskName { get; set; }
-
-        /*[Column(TypeName = "datetime")]
-        public DateTime Date { get; set; }
-
-        [Column(TypeName = "datetime")]
-        public DateTime Time { get; set; }*/
 
         [Column(TypeName = "datetime")]
         public DateTime TaskDueDate { get; set; } // There was a DateTime? here..

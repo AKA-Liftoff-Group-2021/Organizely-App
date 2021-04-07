@@ -26,12 +26,13 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAssignments()
         {
-            var assignment = await _context.Assignments.Select(c =>
+            var assignment = await _context.Assignments.Select(a =>
             new AssignmentDTO()
             {
-                AssignmentId = c.AssignmentId,
-                AssignmentName = c.AssignmentName,
-                DueDate = c.DueDate,
+                AssignmentId = a.AssignmentId, 
+                AssignmentName = a.AssignmentName,
+                DueDate = a.DueDate,
+                CourseId = a.CourseId,
 
             }).ToListAsync();
 
@@ -43,32 +44,33 @@ namespace OrganizelyAPI.Controllers
         public async Task<ActionResult<AssignmentDTO>> GetAssignment(int id)
         {
             //var assignment = await _context.Assignments.FindAsync(id);
-            var assignment = await _context.Assignments.Select(c =>
+            var assignment = await _context.Assignments.Select(a =>
                         new AssignmentDTO()
                         {
-                            AssignmentId = c.AssignmentId,
-                            AssignmentName = c.AssignmentName,
-                            DueDate = c.DueDate,
+                            AssignmentId = a.AssignmentId,
+                            AssignmentName = a.AssignmentName,
+                            DueDate = a.DueDate,
+                            CourseId = a.CourseId,
 
-                        }).SingleOrDefaultAsync(c => c.AssignmentId == id);
+                        }).SingleOrDefaultAsync(a => a.AssignmentId == id);
 
             if (assignment == null)
             {
-                return NotFound();
+                return NotFound("Assignment Not Found");
             }
             return assignment;
         }
 
         // PUT: api/Assignment/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAssignment(int id, AssignmentDTO assignment)
+        public async Task<IActionResult> PutAssignment(int id, AssignmentDTO assignmentDTO)
         {
-            if (id != assignment.AssignmentId)
+            if (id != assignmentDTO.AssignmentId)
             {
-                return BadRequest();
+                return BadRequest("Assignment is not found.");
             }
 
-            _context.Entry(assignment).State = EntityState.Modified;
+            _context.Entry(assignmentDTO).State = EntityState.Modified;
 
             try
             {
@@ -96,7 +98,9 @@ namespace OrganizelyAPI.Controllers
             Assignment newAssignment = new Assignment
             {
                 AssignmentName = assignmentDTO.AssignmentName,
+                DueDate = assignmentDTO.DueDate,
             };
+
             _context.Assignments.Add(newAssignment);
             await _context.SaveChangesAsync();
 

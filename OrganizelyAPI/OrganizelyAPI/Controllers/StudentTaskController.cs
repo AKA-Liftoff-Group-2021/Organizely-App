@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
+using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
@@ -23,16 +24,33 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/StudentTask
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StudentTask>>> GetStudentTasks()
+        public async Task<ActionResult<IEnumerable<StudentTaskDTO>>> GetStudentTasks()
         {
-            return await _context.StudentTasks.ToListAsync();
+            //return await _context.StudentTasks.ToListAsync();
+            var studentTask = await _context.StudentTasks.Select(s =>
+             new StudentTaskDTO()
+             {
+                 StudentTaskId = s.StudentTaskId,
+                 TaskDueDate = s.TaskDueDate,
+              // StudentId = s.StudentId,
+
+             }).ToListAsync();
+
+            return studentTask;
         }
 
         // GET: api/StudentTask/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<StudentTask>> GetStudentTask(int id)
+        public async Task<ActionResult<StudentTaskDTO>> GetStudentTask(int id)
         {
-            var studentTask = await _context.StudentTasks.FindAsync(id);
+            var studentTask = await _context.StudentTasks.Select(s =>
+            new StudentTaskDTO()
+            {
+                StudentTaskId = s.StudentTaskId,
+                TaskDueDate = s.TaskDueDate,
+            //  StudentId = s.StudentId,
+
+            }).FirstOrDefaultAsync(s => s.StudentTaskId == id);
 
             if (studentTask == null)
             {
@@ -48,7 +66,7 @@ namespace OrganizelyAPI.Controllers
         {
             if (id != studentTask.StudentTaskId)
             {
-                return BadRequest();
+                return BadRequest("Task is not found.");
             }
 
             _context.Entry(studentTask).State = EntityState.Modified;
@@ -74,12 +92,18 @@ namespace OrganizelyAPI.Controllers
 
         // POST: api/StudentTask
         [HttpPost]
-        public async Task<ActionResult<StudentTask>> PostStudentTask(StudentTask studentTask)
+        public async Task<ActionResult<StudentTaskDTO>> PostStudentTask(StudentTaskDTO studentTaskDTO)
         {
-            _context.StudentTasks.Add(studentTask);
+            StudentTask newStudentTask = new StudentTask
+            {
+                StudentTaskName = studentTaskDTO.StudentTaskName,
+                TaskDueDate = studentTaskDTO.TaskDueDate,
+            };
+
+            _context.StudentTasks.Add(newStudentTask);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudentTask", new { id = studentTask.StudentTaskId }, studentTask);
+            return CreatedAtAction("GetStudentTask", new { id = studentTaskDTO.StudentTaskId }, studentTaskDTO);
         }
 
         // DELETE: api/StudentTask/5

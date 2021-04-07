@@ -10,9 +10,12 @@ namespace OrganizelyAPI.ViewModels
     {
         public int StudentTaskId { get; set; }
 
+        public string TaskPriorityLevel { get; set; }
+
         public string StudentTaskName { get; set; }
 
         public DateTime TaskDueDate { get; set; }
+
 
         /*public int StudentId { get; set; } <<(Hidden until sign up is completed)
         public Student Student { get; set; }*/
