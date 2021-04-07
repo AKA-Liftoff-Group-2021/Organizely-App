@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../shared/models/task.model';
-import { TASKS } from '../shared/mock-data/mock-tasks';
-import { TasksService } from '../shared/tasks.service';
+import { StudentTask } from '../shared/models/student-task.model';
+import { STUDENTTASKS } from '../shared/mock-data/mock-tasks';
+import { StudentTasksService } from '../shared/student-tasks.service';
 
 @Component({
   selector: 'app-tasks-page',
@@ -11,15 +11,14 @@ import { TasksService } from '../shared/tasks.service';
 export class TasksPageComponent implements OnInit {
   currentDate: Date = new Date();
 
-  tasks: Task[];
-  // tasks: Task[] = TASKS;
+  studentTasks: StudentTask[];
+  // studentTasks: Task[] = TASKS;
 
-  constructor(private tasksService: TasksService) {}
+  constructor(private studentTasksService: StudentTasksService) {}
 
   ngOnInit(): void {
-    this.tasksService.getTasks().subscribe((tasks) => {
-      // TODO: Find a way inform the task-page component about tasks changes without needing to reload the page
-      this.tasks = tasks;
+    this.studentTasksService.getStudentTasks().subscribe((studentTasks) => {
+      this.studentTasks = studentTasks;
     });
   }
 
@@ -55,5 +54,18 @@ export class TasksPageComponent implements OnInit {
     }
 
     return badgeStyle;
+  }
+
+  onDeleteStudentTask(id: number) {
+    if (confirm('Are you sure you want to delete this task?')) {
+      this.studentTasksService.deleteStudentTask(id).subscribe(
+        (res) => {
+          this.studentTasksService.getStudentTasks();
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
   }
 }

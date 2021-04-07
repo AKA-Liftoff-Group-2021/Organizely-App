@@ -16,6 +16,9 @@
               required
               #assignmentName="ngModel"
             />
+            <span class="form-text validation-msg"
+            *ngIf="!assignmentName.valid && assignmentName.touched"
+            >Please enter an assignment.</span>
           </div>
   
           <div class="form-group">
@@ -29,9 +32,40 @@
               required
               #dueDate="ngModel"
             />
+
+            <span class="form-text validation-msg"
+            *ngIf="!dueDate.valid && dueDate.touched"
+            >Please enter a due date.</span>
           </div>
+
+          <!-- <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Pick a course:
+            </button> -->
+          <div class="form-group">
+            <label for="course" class="form-label">Select Course:</label>
+            
+            <select 
+              class="form-control" 
+              type="text"
+              name="course" 
+              id="course" 
+              ngModel 
+              required
+              #course="ngModel"
+              >
+              <option value="" disabled>...</option>
+              <option *ngFor="let course of courses; let i=index">
+                {{ course.courseName }}
+              </option>                    
+            </select>
+            <span class="form-text validation-msg"
+            *ngIf="!course.valid && course.touched"
+            >Please select a course.</span>                                
+          </div>
+          
           <br>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!assignmentForm.valid">Submit</button>
         </form>
       </div>
     </div>

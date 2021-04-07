@@ -2,6 +2,7 @@ import { Course } from '../models/course.model';
 
 export const COURSES: Course[] = [
   {
+    courseId: 1,
     courseName: 'Liftoff',
     startTime: '17:30:00',
     endTime: '20:30:00',
@@ -13,6 +14,7 @@ export const COURSES: Course[] = [
     teacherName: 'Mike',
   },
   {
+    courseId: 2,
     courseName: 'CoderGirl',
     startTime: '17:30:00',
     endTime: '20:30:00',

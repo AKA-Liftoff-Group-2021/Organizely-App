@@ -23,6 +23,7 @@ import { DayStringPipe } from './shared/day-string.pipe';
 import { StandardTimePipe } from './shared/standard-time.pipe';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { AssignmentsFormComponent } from './assignments-form/assignments-form.component';
+import { DatePipe } from '@angular/common';
 
 FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
 
@@ -50,7 +51,7 @@ FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
     FullCalendarModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

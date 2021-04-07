@@ -19,4 +19,17 @@ export class ClassesPageComponent implements OnInit {
       this.courses = courses;
     });
   }
+
+  onDeleteCourse(id: number) {
+    if (confirm('Are you sure you want to delete this course?')) {
+      this.coursesService.deleteCourse(id).subscribe(
+        (res) => {
+          this.coursesService.getCourses();
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
+  }
 }

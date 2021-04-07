@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { COURSES } from '../shared/mock-data/mock-courses';
 import { Assignment } from '../shared/models/assignment.model';
+import { Course } from '../shared/models/course.model';
 
 @Component({
   selector: 'app-assignments-form',
@@ -9,6 +11,7 @@ import { Assignment } from '../shared/models/assignment.model';
   styleUrls: ['./assignments-form.component.css']
 })
 export class AssignmentsFormComponent implements OnInit {
+  courses: Course[] = COURSES;
 
   constructor(private router: Router) { }
 
