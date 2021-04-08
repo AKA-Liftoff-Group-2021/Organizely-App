@@ -16,15 +16,15 @@ namespace OrganizelyAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly StudentDbContext _context;
+        //private readonly StudentDbContext _context;
 
-        public StudentController(StudentDbContext context)
-        {
-            _context = context;
-        }
+        //public StudentController(StudentDbContext context)
+        //{
+        //    _context = context;
+        //}
 
-        private UserManager<Student> _userManager;
-        private SignInManager<Student> _signInManager;
+        private readonly UserManager<Student> _userManager;
+        private readonly SignInManager<Student> _signInManager;
         // or private readonly IConfiguration _configuration;  
 
         public StudentController(UserManager<Student> userManager, SignInManager<Student> signInManager)
@@ -42,12 +42,14 @@ namespace OrganizelyAPI.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> RegisterStudent([FromBody] UserRegistration userRegistration)
+        public async Task<IActionResult> Register([FromBody] UserRegistration userRegistration)
         {
-            var userExists = await _userManager.FindByNameAsync(userRegistration.Username);  
-            if (userExists != null)  
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response 
+            var userExists = await _userManager.FindByNameAsync(userRegistration.Username);
+            if (userExists != null || !ModelState.IsValid)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
                 { Status = "Error", Message = "User already exists!" });
+            }
 
             Student newUser = new Student()
             {

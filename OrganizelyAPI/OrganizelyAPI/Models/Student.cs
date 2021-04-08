@@ -14,9 +14,6 @@ namespace OrganizelyAPI.Models
         //[Key]                                                    
         //public int StudentId { get; set; }
 
-        //[Required]
-        //public string Username { get; set; }
-
         [Required]
         public string FirstName { get; set; }
 
