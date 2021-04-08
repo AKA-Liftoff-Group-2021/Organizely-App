@@ -17,7 +17,7 @@ export class ClassesPageComponent implements OnInit {
   currentSemester: object = {};
   currentCourses: Course[];
 
-  coursesBySemester: object = {};
+  semestersBySchoolYear: object = {};
 
   constructor(private coursesService: CoursesService) {}
 
@@ -37,7 +37,8 @@ export class ClassesPageComponent implements OnInit {
           this.currentSemester
         );
 
-        this.coursesBySemester = setCoursesBySemester(this.courses);
+        this.semestersBySchoolYear = setCoursesBySemester(this.courses);
+        console.log(this.semestersBySchoolYear);
       },
       (error) => {
         console.log(error);
