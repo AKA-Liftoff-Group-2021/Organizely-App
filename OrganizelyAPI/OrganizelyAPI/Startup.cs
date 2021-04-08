@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,25 +51,25 @@ namespace OrganizelyAPI
             services.AddDbContext<StudentDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddDefaultIdentity<ApplicationUser>()
-            //    .AddEntityFrameworkStores<StudentDbContext>();
+            services.AddIdentity<Student, IdentityRole>()
+                .AddEntityFrameworkStores<StudentDbContext>();
 
-
-            //services.AddAuthentication()
-            //    .AddIdentityServerJwt();
-
-            //services.Configure<IdentityOptions>(options =>
-            //{
-            //    // Default Password settings.
-            //    options.Password.RequireDigit = true;
-            //    options.Password.RequireLowercase = true;
-            //    options.Password.RequireNonAlphanumeric = true;
-            //    options.Password.RequireUppercase = true;
-            //    options.Password.RequiredLength = 6;
-            //    options.Password.RequiredUniqueChars = 1;
-            //});
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                //options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                //options.Password.RequiredUniqueChars = 1;
+            });
 
             services.AddCors();
+
+            //JWT
+            //services.AddAuthentication()
+            //    .AddIdentityServerJwt();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace OrganizelyAPI.Models
 {
-    [Table("Student")]
-    public class Student // : IdentityUser
+   // [Table("Student")]
+    public class Student : IdentityUser // THE APPLICATIONUSER
     {
-        [Key]                                                    
-        public int StudentId { get; set; }
+        //[Key]                                                    
+        //public int StudentId { get; set; }
 
-        [Required]
-        public string Username { get; set; }
+        //[Required]
+        //public string Username { get; set; }
 
         [Required]
         public string FirstName { get; set; }

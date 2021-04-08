@@ -1,18 +1,13 @@
-﻿using OrganizelyAPI.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OrganizelyAPI.ViewModels
+namespace OrganizelyAPI.Models
 {
-   
-    public class StudentDTO
+    public class UserRegistration
     {
-        [Key]                                                    
-        public int StudentId { get; set; }
 
         [Required(ErrorMessage = "Username is required")]
         [MaxLength(20), MinLength(2)]
@@ -34,8 +29,5 @@ namespace OrganizelyAPI.ViewModels
 
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-        // public ICollection<Course> Courses { get; set; }           
-        // public ICollection<StudentTask> StudentTasks { get; set; }
     }
 }
