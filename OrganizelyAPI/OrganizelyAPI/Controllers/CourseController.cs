@@ -29,7 +29,7 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            var course = await _context.Courses.Select(c =>     //Include(s => s.Student)
+            var courses = await _context.Courses.Select(c =>     //Include(s => s.Student)
                    new CourseDTO()
                    {
                        CourseId = c.CourseId,
@@ -46,11 +46,11 @@ namespace OrganizelyAPI.Controllers
                        //Student = c.Student
                    }).ToListAsync();
 
-            if (!course.Any())
+            if (courses == null)
             {
                 return NotFound();
             }
-            return Ok(course);
+            return Ok(courses);
         }
 
         //<summary> Returns course details for a given id</summary>
