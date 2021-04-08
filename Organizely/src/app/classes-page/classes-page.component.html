@@ -28,8 +28,6 @@
 
 <div class="tab-content">
   <div id="semester" class="tab-pane fade in active show">
-    <!-- TODO: Display current semester and its associated courses -->
-
     <h2>
       Current Semester:
       {{ currentSemester ? currentSemester["semesterSeason"] : null }}
@@ -120,11 +118,11 @@
     <!-- TODO: Add function to display semester of courses that exist in the database -->
     <!-- TODO: Display all semesters with their associated courses -->
 
-    <h2>Semester: Winter 2020</h2>
+    <h2>Semester:</h2>
 
     <table class="table table-hover">
       <caption>
-        List of courses by semester
+        List of courses
       </caption>
       <thead>
         <tr>
@@ -137,16 +135,6 @@
         <tr>
           <td>Monday 8:30-10:00</td>
           <td>Algebra</td>
-          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
-        </tr>
-        <tr>
-          <td>Monday 12:00-14:00</td>
-          <td>Math</td>
-          <td><a>Edit</a>&nbsp;<a>Delete</a></td>
-        </tr>
-        <tr>
-          <td>Tuesday 8:00-9:00</td>
-          <td>Public Speaking</td>
           <td><a>Edit</a>&nbsp;<a>Delete</a></td>
         </tr>
       </tbody>
