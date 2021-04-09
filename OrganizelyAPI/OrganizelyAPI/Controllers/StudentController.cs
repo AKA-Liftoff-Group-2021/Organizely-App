@@ -18,7 +18,6 @@ using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -98,16 +97,11 @@ namespace OrganizelyAPI.Controllers
                 var jwtTokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = jwtTokenHandler.CreateToken(tokenDescriptor);
                 var jwtToken = jwtTokenHandler.WriteToken(securityToken);
-                return Ok(jwtToken); //or return Ok(new {jwtToken});
+                //return Ok(jwtToken); // returns the token as the body
+                return Ok(new { token = jwtToken }); // returns the token as a JSON body with "token" as property and the actual token as value
             }
-            else
-            {
-                //if (existingUser == null || !await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))
-                return Unauthorized(); // return Unauthorized(new Response { Message = "Invalid Authentication" });
-            }
-
-
-  
+       
+            return Unauthorized(); // return Unauthorized(new Response { Message = "Invalid Authentication" });
 
         }
 
