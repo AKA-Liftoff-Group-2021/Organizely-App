@@ -57,6 +57,7 @@ namespace OrganizelyAPI
             // Identity Settings
             services.AddIdentity<Student, IdentityRole>()
                 .AddEntityFrameworkStores<StudentDbContext>();
+                //.AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {

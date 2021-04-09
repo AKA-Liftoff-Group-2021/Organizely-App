@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace OrganizelyAPI.Models
 {
    // [Table("Student")]
-    public class Student : IdentityUser // THE APPLICATIONUSER
+    public class Student : IdentityUser 
     {
         //[Key]                                                    
         //public int StudentId { get; set; }
