@@ -28,13 +28,24 @@
 
 <div class="tab-content">
   <div id="semester" class="tab-pane fade in active show">
-    <!-- TODO: Determine if we want to only display current semester here or entire list of courses -->
+    <!-- TODO: Display current semester and its associated courses -->
 
-    <h2>Semester/Course Content</h2>
+    <h2>
+      Current Semester:
+      {{ currentSemester ? currentSemester["semesterSeason"] : null }}
+      {{ currentSemester ? currentSemester["semesterYear"] : null }}
+    </h2>
 
     <table class="table table-hover">
       <caption>
-        List of courses by semester
+        List of courses of
+        {{
+          currentSemester ? currentSemester["semesterSeason"] : null
+        }}
+        {{
+          currentSemester ? currentSemester["semesterYear"] : null
+        }}
+        semester
       </caption>
       <thead class="thead-light">
         <tr>
@@ -45,7 +56,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let course of courses">
+        <tr *ngFor="let course of currentCourses">
           <td>
             <span *ngFor="let day of course.daysOfWeek"
               >{{ day | dayString }} {{ course.startTime | standardTime }} -
@@ -107,6 +118,7 @@
 
   <div id="schoolyear" class="tab-pane fade">
     <!-- TODO: Add function to display semester of courses that exist in the database -->
+    <!-- TODO: Display all semesters with their associated courses -->
 
     <h2>Semester: Winter 2020</h2>
 
