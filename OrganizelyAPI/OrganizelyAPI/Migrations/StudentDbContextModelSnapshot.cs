@@ -14,6 +14,7 @@ namespace OrganizelyAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+<<<<<<< HEAD
                 .HasAnnotation("ProductVersion", "5.0.5");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -143,6 +144,9 @@ namespace OrganizelyAPI.Migrations
 
                     b.ToTable("AspNetUserTokens");
                 });
+=======
+                .HasAnnotation("ProductVersion", "5.0.4");
+>>>>>>> 3128f599d614f452ca8f94cc7ba593a39e46f0f3
 
             modelBuilder.Entity("OrganizelyAPI.Models.Assignment", b =>
                 {
@@ -212,6 +216,7 @@ namespace OrganizelyAPI.Migrations
 
             modelBuilder.Entity("OrganizelyAPI.Models.Student", b =>
                 {
+<<<<<<< HEAD
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
@@ -227,6 +232,10 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("EmailConfirmed")
+=======
+                    b.Property<int>("StudentId")
+                        .ValueGeneratedOnAdd()
+>>>>>>> 3128f599d614f452ca8f94cc7ba593a39e46f0f3
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
@@ -237,6 +246,7 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+<<<<<<< HEAD
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
 
@@ -280,6 +290,15 @@ namespace OrganizelyAPI.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+=======
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("StudentId");
+
+                    b.ToTable("Student");
+>>>>>>> 3128f599d614f452ca8f94cc7ba593a39e46f0f3
                 });
 
             modelBuilder.Entity("OrganizelyAPI.Models.StudentTask", b =>
@@ -288,6 +307,13 @@ namespace OrganizelyAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+<<<<<<< HEAD
+=======
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasColumnType("Priority");
+
+>>>>>>> 3128f599d614f452ca8f94cc7ba593a39e46f0f3
                     b.Property<string>("StudentTaskName")
                         .IsRequired()
                         .HasColumnType("varchar(30)");
@@ -300,6 +326,7 @@ namespace OrganizelyAPI.Migrations
                     b.ToTable("StudentTask");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -351,6 +378,8 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired();
                 });
 
+=======
+>>>>>>> 3128f599d614f452ca8f94cc7ba593a39e46f0f3
             modelBuilder.Entity("OrganizelyAPI.Models.Assignment", b =>
                 {
                     b.HasOne("OrganizelyAPI.Models.Course", "Course")

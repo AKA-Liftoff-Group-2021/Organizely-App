@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../shared/courses.service';
-import { COURSES } from '../shared/mock-data/mock-courses';
 import { Course } from '../shared/models/course.model';
+import setCurrentSemester from '../shared/utils/setCurrentSemester';
+import setSemesterCourses from '../shared/utils/setSemesterCourses';
+import setCoursesBySemester from '../shared/utils/setCoursesBySemester';
 
 @Component({
   selector: 'app-classes-page',
@@ -10,24 +12,50 @@ import { Course } from '../shared/models/course.model';
 })
 export class ClassesPageComponent implements OnInit {
   courses: Course[];
-  // courses: Course[] = COURSES;
+
+  currentDate: Date = new Date();
+  currentSemester: object = {};
+  currentCourses: Course[];
+
+  semestersBySchoolYear: object = {};
 
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.coursesService.getCourses().subscribe((courses) => {
-      this.courses = courses;
-    });
+    this.currentSemester = setCurrentSemester(this.currentDate);
+    this.getAllCourses();
+  }
+
+  getAllCourses() {
+    this.coursesService.getCourses().subscribe(
+      (data) => {
+        this.courses = data;
+        console.log(this.courses);
+
+        this.currentCourses = setSemesterCourses(
+          this.courses,
+          this.currentSemester
+        );
+
+        this.semestersBySchoolYear = setCoursesBySemester(this.courses);
+        console.log(this.semestersBySchoolYear);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onDeleteCourse(id: number) {
     if (confirm('Are you sure you want to delete this course?')) {
       this.coursesService.deleteCourse(id).subscribe(
-        (res) => {
-          this.coursesService.getCourses();
+        (response) => {
+          // TODO: Determine why this returns 'null'
+          console.log(response);
+          this.getAllCourses();
         },
-        (err) => {
-          console.error(err);
+        (error) => {
+          console.log(error);
         }
       );
     }

@@ -24,6 +24,10 @@ import { StandardTimePipe } from './shared/standard-time.pipe';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { AssignmentsFormComponent } from './assignments-form/assignments-form.component';
 import { DatePipe } from '@angular/common';
+import { SignupPageComponent } from './signup-page/signup-page.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
 
@@ -43,6 +47,10 @@ FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
     StandardTimePipe,
     TasksFormComponent,
     AssignmentsFormComponent,
+    SignupPageComponent,
+    SignupFormComponent,
+    LoginPageComponent,
+    LoginFormComponent,
   ],
   imports: [
     BrowserModule,

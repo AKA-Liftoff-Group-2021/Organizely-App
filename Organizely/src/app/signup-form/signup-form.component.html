@@ -1,0 +1,103 @@
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 style="text-align: center;">Create an Account</h1>
+<br>
+        <form (ngSubmit)="onCreateAccount(signupForm)" #signupForm="ngForm">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              ngModel
+              name="firstName"
+              required
+              #firstName="ngModel"
+            />
+            <span class="form-text validation-msg"
+            *ngIf="!firstName.valid && firstName.touched"
+            >Please enter your name.</span>
+          </div>
+  
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              ngModel
+              name="lastName"
+              required
+              #lastName="ngModel"
+            />
+
+            <span class="form-text validation-msg"
+            *ngIf="!lastName.valid && lastName.touched"
+            >Please enter your last name.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              ngModel
+              name="username"
+              required
+              #username="ngModel"
+            />
+
+            <span class="form-text validation-msg"
+            *ngIf="!username.valid && username.touched"
+            >Please enter a username.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              ngModel
+              name="email"
+              required
+              email
+              #email="ngModel"
+            />
+
+            <span class="form-text validation-msg"
+            *ngIf="!email.valid && email.touched"
+            >Please enter your e-mail.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              ngModel
+              name="password"
+              required
+              #password="ngModel"
+            />
+
+            <span class="form-text validation-msg"
+            *ngIf="!password.valid && password.touched"
+            >Please enter a password.</span>
+          </div>
+
+          
+          
+          <br>
+          <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid" style="float: center;">Create an Account</button>
+        </form>
+        <br>
+        <p>Already have an account? Please <a routerLink="/organizely/login">log in!</a></p>
+      </div>
+
+    </div>
+  </div>
