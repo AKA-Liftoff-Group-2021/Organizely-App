@@ -33,6 +33,7 @@ namespace OrganizelyAPI.Controllers
         private readonly UserManager<Student> _userManager;
         private readonly SignInManager<Student> _signInManager;
         private readonly IConfiguration _configuration;  
+        // private readonly ApplicationSettings _appSettings; //appSettings.value then add IOptions<ApplicationSettings> in the arguments 
 
         public StudentController(UserManager<Student> userManager, SignInManager<Student> signInManager, IConfiguration configuration)
         {
@@ -40,13 +41,6 @@ namespace OrganizelyAPI.Controllers
             _signInManager = signInManager;
             _configuration = configuration;
         }
-
-        //public StudentController(UserManager<Student> userManager, IConfiguration configuration)
-        //{
-        //    _userManager = userManager;
-        //    _configuration = configuration;
-        //}
-
 
         [HttpPost]
         [Route("Register")]
@@ -62,7 +56,7 @@ namespace OrganizelyAPI.Controllers
             Student newUser = new Student()
             {
                 Email = userRegistration.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
+                //SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = userRegistration.Username,
                 FirstName = userRegistration.FirstName,
                 LastName = userRegistration.LastName
@@ -86,21 +80,25 @@ namespace OrganizelyAPI.Controllers
 
             var existingUser = await _userManager.FindByNameAsync(userLogin.Username);
 
-            if (existingUser == null || !await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))
+            if (existingUser != null || await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))
             {
-                var key = Encoding.UTF8.GetBytes(_configuration.GetSection("JWTSettings:Secret").Value);
+                var key = Encoding.UTF8.GetBytes(_configuration.GetSection("JWTSettings:Secret").Value); // or use applicationsettings
                 var secret = new SymmetricSecurityKey(key);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new List<Claim>
                    {
                         new Claim(ClaimTypes.Name, userLogin.Username),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                        //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     }),
-                    Expires = DateTime.UtcNow.AddMinutes(5),
+                    Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256)
                 };
-                return Ok();
+
+                var jwtTokenHandler = new JwtSecurityTokenHandler();
+                var securityToken = jwtTokenHandler.CreateToken(tokenDescriptor);
+                var jwtToken = jwtTokenHandler.WriteToken(securityToken);
+                return Ok(jwtToken); //or return Ok(new {jwtToken});
             }
             else
             {

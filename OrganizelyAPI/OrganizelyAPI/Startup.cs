@@ -35,7 +35,7 @@ namespace OrganizelyAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings")) if I add another model class application settings that mirror appsettings.json
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
