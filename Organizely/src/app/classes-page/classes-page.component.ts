@@ -3,6 +3,7 @@ import { CoursesService } from '../shared/courses.service';
 import { Course } from '../shared/models/course.model';
 import setCurrentSemester from '../shared/utils/setCurrentSemester';
 import setSemesterCourses from '../shared/utils/setSemesterCourses';
+import setCoursesBySemester from '../shared/utils/setCoursesBySemester';
 
 @Component({
   selector: 'app-classes-page',
@@ -13,13 +14,14 @@ export class ClassesPageComponent implements OnInit {
   courses: Course[];
 
   currentDate: Date = new Date();
-  currentSemester: object;
+  currentSemester: object = {};
   currentCourses: Course[];
+
+  semestersBySchoolYear: object = {};
 
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    // TODO: set current semester year and season to variables based on result of setCurrentSemester(currentDate)
     this.currentSemester = setCurrentSemester(this.currentDate);
     this.getAllCourses();
   }
@@ -29,11 +31,14 @@ export class ClassesPageComponent implements OnInit {
       (data) => {
         this.courses = data;
         console.log(this.courses);
-        // TODO: call a function to filter in list the courses associated with the current semester => setSemesterCourses(courses, currentSemester)
+
         this.currentCourses = setSemesterCourses(
           this.courses,
           this.currentSemester
         );
+
+        this.semestersBySchoolYear = setCoursesBySemester(this.courses);
+        console.log(this.semestersBySchoolYear);
       },
       (error) => {
         console.log(error);
