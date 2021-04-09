@@ -17,11 +17,6 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "varchar(100)")]
         public string AssignmentName { get; set; }
 
-        /*[Column(TypeName = "datetime")]
-        public DateTime Date { get; set; }
-
-        [Column(TypeName = "datetime")]
-        public DateTime Time { get; set; }*/
         [Required]
         [Column(TypeName = "datetime")]
         public DateTime DueDate { get; set; }
