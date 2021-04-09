@@ -13,7 +13,7 @@ namespace OrganizelyAPI.Models
         [Key]                                                    
         public int StudentTaskId { get; set; }
 
-        //[Required]
+        [Required]
         [Column(TypeName = "Priority")]
         public string Priority { get; set; }
 
