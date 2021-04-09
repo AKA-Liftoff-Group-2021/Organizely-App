@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
@@ -16,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace OrganizelyAPI
@@ -51,25 +54,45 @@ namespace OrganizelyAPI
             services.AddDbContext<StudentDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+            // Identity Settings
             services.AddIdentity<Student, IdentityRole>()
                 .AddEntityFrameworkStores<StudentDbContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
-                // Default Password settings
+                // Default password settings
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = false;
-                //options.Password.RequireUppercase = true;
+                options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
                 //options.Password.RequiredUniqueChars = 1;
+                //options.User.RequireUniqueEmail = true;
             });
 
             services.AddCors();
 
-            //JWT
-            //services.AddAuthentication()
-            //    .AddIdentityServerJwt();
+            // JWT Authentication
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(jwt => {            // JWT Bearer
+                var key = Encoding.UTF8.GetBytes(Configuration["JWTSettings:Secret"]); //ToString()?
+
+                jwt.RequireHttpsMetadata = false;
+                jwt.SaveToken = false;// true; 
+                jwt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWTSettings:ValidAudience"],
+                    ValidateLifetime = false, //true,
+                    RequireExpirationTime = false
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +100,7 @@ namespace OrganizelyAPI
         {
 
             app.UseCors(options =>
-                options.WithOrigins("http://localhost:4200")
+                options.WithOrigins(Configuration["JWTSettings:ValidAudience"])
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
@@ -98,7 +121,6 @@ namespace OrganizelyAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
-            //app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {

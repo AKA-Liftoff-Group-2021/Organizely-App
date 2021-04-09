@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
 using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -25,12 +32,13 @@ namespace OrganizelyAPI.Controllers
 
         private readonly UserManager<Student> _userManager;
         private readonly SignInManager<Student> _signInManager;
-        // or private readonly IConfiguration _configuration;  
+        private readonly IConfiguration _configuration;  
 
-        public StudentController(UserManager<Student> userManager, SignInManager<Student> signInManager)
+        public StudentController(UserManager<Student> userManager, SignInManager<Student> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         //public StudentController(UserManager<Student> userManager, IConfiguration configuration)
@@ -54,7 +62,7 @@ namespace OrganizelyAPI.Controllers
             Student newUser = new Student()
             {
                 Email = userRegistration.Email,
-                //SecurityStamp = Guid.NewGuid().ToString(),
+                SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = userRegistration.Username,
                 FirstName = userRegistration.FirstName,
                 LastName = userRegistration.LastName
@@ -69,6 +77,40 @@ namespace OrganizelyAPI.Controllers
             }
 
             return Ok(new Response { Status = "Success", Message = "New user created successfully." });
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
+        {
+
+            var existingUser = await _userManager.FindByNameAsync(userLogin.Username);
+
+            if (existingUser == null || !await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))
+            {
+                var key = Encoding.UTF8.GetBytes(_configuration.GetSection("JWTSettings:Secret").Value);
+                var secret = new SymmetricSecurityKey(key);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new List<Claim>
+                   {
+                        new Claim(ClaimTypes.Name, userLogin.Username),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddMinutes(5),
+                    SigningCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256)
+                };
+                return Ok();
+            }
+            else
+            {
+                //if (existingUser == null || !await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))
+                return Unauthorized(); // return Unauthorized(new Response { Message = "Invalid Authentication" });
+            }
+
+
+  
+
         }
 
 
