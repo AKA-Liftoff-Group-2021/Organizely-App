@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { StudentTask } from './models/student-task.model';
 
 @Injectable({
@@ -10,35 +11,31 @@ export class StudentTasksService {
 
   constructor(private http: HttpClient) {}
 
-  getStudentTasks() {
+  getStudentTasks(): Observable<StudentTask[]> {
     return this.http.get<StudentTask[]>(this.studentTaskURL);
   }
 
-  getStudentTask(studentTaskId: number) {
+  getStudentTask(studentTaskId: number): Observable<StudentTask> {
     return this.http.get<StudentTask>(
       `${this.studentTaskURL}/${studentTaskId}`
     );
   }
 
-  createStudentTask(studentTask: StudentTask) {
-    this.http.post<StudentTask>(this.studentTaskURL, studentTask).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+  createStudentTask(studentTask: StudentTask): Observable<StudentTask> {
+    return this.http.post<StudentTask>(this.studentTaskURL, studentTask);
   }
 
-  updateStudentTask(studentTaskId: number, studentTask: StudentTask) {
+  updateStudentTask(
+    studentTaskId: number,
+    studentTask: StudentTask
+  ): Observable<any> {
     return this.http.put(
       `${this.studentTaskURL}/${studentTaskId}`,
       studentTask
     );
   }
 
-  deleteStudentTask(studentTaskId: number) {
+  deleteStudentTask(studentTaskId: number): Observable<any> {
     return this.http.delete(`${this.studentTaskURL}/${studentTaskId}`);
   }
 }

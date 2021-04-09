@@ -15,19 +15,31 @@ export class ClassesPageComponent implements OnInit {
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.coursesService.getCourses().subscribe((courses) => {
-      this.courses = courses;
-    });
+    this.getAllCourses();
+  }
+
+  getAllCourses() {
+    this.coursesService.getCourses().subscribe(
+      (data) => {
+        this.courses = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onDeleteCourse(id: number) {
     if (confirm('Are you sure you want to delete this course?')) {
       this.coursesService.deleteCourse(id).subscribe(
-        (res) => {
-          this.coursesService.getCourses();
+        (response) => {
+          // TODO: Determine why this returns 'null'
+          console.log(response);
+          this.getAllCourses();
         },
-        (err) => {
-          console.error(err);
+        (error) => {
+          console.log(error);
         }
       );
     }
