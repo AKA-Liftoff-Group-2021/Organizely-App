@@ -8,12 +8,17 @@ import { CalendarPageComponent } from './calendar-page/calendar-page.component';
 import { ClassesFormComponent } from './classes-form/classes-form.component';
 import { ClassesPageComponent } from './classes-page/classes-page.component';
 import { FocusZoneComponent } from './focus-zone/focus-zone.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 import { QuotesPageComponent } from './quotes-page/quotes-page.component';
+import { SignupPageComponent } from './signup-page/signup-page.component';
 import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { TasksPageComponent } from './tasks-page/tasks-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/organizely/home', pathMatch: 'full' },
+  { path: '', redirectTo: 'organizely/login', pathMatch: 'full' },
+  { path: 'organizely', redirectTo: 'organizely/login' },
+  { path: 'organizely/signup', component: SignupPageComponent},
+  { path: 'organizely/login', component: LoginPageComponent},
   { path: 'organizely/home', component: AgendaComponent },
   { path: 'organizely/classes', component: ClassesPageComponent },
   { path: 'organizely/classform', component: ClassesFormComponent },
