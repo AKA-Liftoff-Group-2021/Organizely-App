@@ -31,6 +31,7 @@ namespace OrganizelyAPI.Controllers
              new StudentTaskDTO()
              {
                  StudentTaskId = s.StudentTaskId,
+                 StudentTaskName = s.StudentTaskName, //Added StudentTaskName
                  TaskDueDate = s.TaskDueDate,
                  Priority = s.Priority,
               // StudentId = s.StudentId,
@@ -52,6 +53,7 @@ namespace OrganizelyAPI.Controllers
             new StudentTaskDTO()
             {
                 StudentTaskId = s.StudentTaskId,
+                StudentTaskName = s.StudentTaskName,
                 TaskDueDate = s.TaskDueDate,
                 Priority = s.Priority,
             //  StudentId = s.StudentId,
