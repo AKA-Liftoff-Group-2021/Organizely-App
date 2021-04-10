@@ -37,7 +37,7 @@ namespace OrganizelyAPI.ViewModels
         public DateTime EndRecur { get; set; }
 
         [Required]
-        [MaxLength(35), MinLength(6)]
+        [MaxLength(35), MinLength(4)]
         public string SemesterSeason { get; set; }
 
         public int SemesterYear { get; set; }
