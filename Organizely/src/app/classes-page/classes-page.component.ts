@@ -38,7 +38,6 @@ export class ClassesPageComponent implements OnInit {
         );
 
         this.semestersBySchoolYear = setCoursesBySemester(this.courses);
-        console.log(this.semestersBySchoolYear);
       },
       (error) => {
         console.log(error);
