@@ -92,7 +92,7 @@ export class TasksFormComponent implements OnInit, OnDestroy {
       const updatedStudentTask = new StudentTask(
         this.currentStudentTaskId,
         value.studentTaskName,
-        value.prioirty,
+        value.priority,
         convertToDate(value.taskDueDate, 'due')
       );
 

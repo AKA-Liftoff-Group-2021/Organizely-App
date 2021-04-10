@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentTask } from '../shared/models/student-task.model';
-import { STUDENTTASKS } from '../shared/mock-data/mock-tasks';
 import { StudentTasksService } from '../shared/student-tasks.service';
 
 @Component({
@@ -12,7 +11,6 @@ export class TasksPageComponent implements OnInit {
   currentDate: Date = new Date();
 
   studentTasks: StudentTask[];
-  // studentTasks: Task[] = TASKS;
 
   constructor(private studentTasksService: StudentTasksService) {}
 
@@ -24,7 +22,7 @@ export class TasksPageComponent implements OnInit {
     this.studentTasksService.getStudentTasks().subscribe(
       (data) => {
         this.studentTasks = data;
-        console.log(data);
+        console.log(this.studentTasks);
       },
       (error) => {
         console.log(error);
