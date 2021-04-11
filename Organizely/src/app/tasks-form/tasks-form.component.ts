@@ -65,21 +65,22 @@ export class TasksFormComponent implements OnInit, OnDestroy {
 
   addStudentTask(studentTaskForm: NgForm) {
     const value = studentTaskForm.value;
+    const studentId = 0;
 
     const newTask = new StudentTask(
-      value.studentTaskId,
+      studentId,
       value.studentTaskName,
       value.priority,
       convertToDate(value.taskDueDate, 'due')
     );
 
     this.studentTasksService.createStudentTask(newTask).subscribe(
-      (response) => {
-        console.log(response);
+      (data: StudentTask) => {
+        console.log(data);
         this.submitted = true;
         this.router.navigate(['/', 'organizely', 'tasks']);
       },
-      (error) => {
+      (error: any) => {
         console.log(error);
       }
     );
@@ -99,13 +100,14 @@ export class TasksFormComponent implements OnInit, OnDestroy {
       this.studentTasksService
         .updateStudentTask(updatedStudentTask.studentTaskId, updatedStudentTask)
         .subscribe(
-          (response) => {
-            // TODO: Determine why this returns 'null'
-            console.log(response);
+          (data: void) => {
+            console.log(
+              `${updatedStudentTask.studentTaskName} updated successfully.`
+            );
             this.submitted = true;
             this.router.navigate(['/', 'organizely', 'tasks']);
           },
-          (error) => {
+          (error: any) => {
             console.log(error);
           }
         );
