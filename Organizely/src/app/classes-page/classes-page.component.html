@@ -107,6 +107,8 @@
   </div>
 
   <div id="schoolyear" class="tab-pane fade">
+    <h3 *ngIf="(semestersBySchoolYear | json) === '{}'">No courses</h3>
+
     <div *ngFor="let schoolYear of semestersBySchoolYear | keyvalue">
       <div *ngFor="let season of schoolYear.value | keyvalue">
         <h2>Semester: {{ season.key }} {{ schoolYear.key }}</h2>
