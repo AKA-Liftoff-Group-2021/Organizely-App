@@ -41,21 +41,21 @@ export class ClassesPageComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-      }
+      },
+      () => console.log('All done getting your courses.')
     );
   }
 
   onDeleteCourse(id: number) {
     if (confirm('Are you sure you want to delete this course?')) {
       this.coursesService.deleteCourse(id).subscribe(
-        (response) => {
-          // TODO: Determine why this returns 'null'
-          console.log(response);
+        (data: void) => {
           this.getAllCourses();
         },
-        (error) => {
+        (error: any) => {
           console.log(error);
-        }
+        },
+        () => console.log('Course deleted successfully.')
       );
     }
   }
