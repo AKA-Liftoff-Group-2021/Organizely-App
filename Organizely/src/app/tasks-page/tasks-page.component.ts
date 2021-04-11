@@ -72,7 +72,6 @@ export class TasksPageComponent implements OnInit {
             (task) => task.studentTaskId === id
           );
           this.studentTasks.splice(index, 1);
-          // this.getAllStudentTasks();
         },
         (error: any) => {
           console.log(error);
