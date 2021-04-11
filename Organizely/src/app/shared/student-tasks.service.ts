@@ -19,9 +19,9 @@ export class StudentTasksService {
     return this.http.get<StudentTask>(
       `${this.studentTaskURL}/${studentTaskId}`,
       {
-        headers: {
+        headers: new HttpHeaders({
           Accept: 'application/json',
-        },
+        }),
       }
     );
   }
