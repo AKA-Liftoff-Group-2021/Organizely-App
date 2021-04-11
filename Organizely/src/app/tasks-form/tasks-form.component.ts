@@ -39,12 +39,11 @@ export class TasksFormComponent implements OnInit, OnDestroy {
       this.studentTaskSub = this.studentTasksService
         .getStudentTask(+params['id'])
         .subscribe(
-          (studentTask) => {
+          (studentTask: StudentTask) => {
             this.currentStudentTaskId = studentTask.studentTaskId;
             this.currentStudentTask = studentTask;
-            console.log(this.currentStudentTask);
           },
-          (error) => {
+          (error: any) => {
             console.log(error);
           }
         );
@@ -102,7 +101,7 @@ export class TasksFormComponent implements OnInit, OnDestroy {
         .subscribe(
           (data: void) => {
             console.log(
-              `${updatedStudentTask.studentTaskName} updated successfully.`
+              `${updatedStudentTask.studentTaskName} task updated successfully.`
             );
             this.submitted = true;
             this.router.navigate(['/', 'organizely', 'tasks']);
