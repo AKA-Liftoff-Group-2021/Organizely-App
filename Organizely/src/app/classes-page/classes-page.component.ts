@@ -38,25 +38,54 @@ export class ClassesPageComponent implements OnInit {
         );
 
         this.semestersBySchoolYear = setCoursesBySemester(this.courses);
-        console.log(this.semestersBySchoolYear);
       },
       (error) => {
         console.log(error);
-      }
+      },
+      () => console.log('All done getting your courses.')
     );
   }
 
   onDeleteCourse(id: number) {
     if (confirm('Are you sure you want to delete this course?')) {
       this.coursesService.deleteCourse(id).subscribe(
-        (response) => {
-          // TODO: Determine why this returns 'null'
-          console.log(response);
-          this.getAllCourses();
+        (data: void) => {
+          let coursesOfCurrentSem = this.semestersBySchoolYear[
+            this.currentSemester['semesterYear']
+          ][this.currentSemester['semesterSeason']];
+
+          let currentCourseIndex: number = this.currentCourses.findIndex(
+            (currentCourse) => currentCourse.courseId === id
+          );
+
+          let courseIndex: number = this.courses.findIndex(
+            (course) => course.courseId === id
+          );
+
+          let courseInSemIndex: number = coursesOfCurrentSem.findIndex(
+            (course) => course.courseId === id
+          );
+
+          this.semestersBySchoolYear[this.currentSemester['semesterYear']][
+            this.currentSemester['semesterSeason']
+          ].splice(courseInSemIndex, 1);
+          this.currentCourses.splice(currentCourseIndex, 1);
+          this.courses.splice(courseIndex, 1);
+
+          if (
+            this.semestersBySchoolYear[this.currentSemester['semesterYear']][
+              this.currentSemester['semesterSeason']
+            ].length === 0
+          ) {
+            delete this.semestersBySchoolYear[
+              this.currentSemester['semesterYear']
+            ];
+          }
         },
-        (error) => {
+        (error: any) => {
           console.log(error);
-        }
+        },
+        () => console.log('Course deleted successfully.')
       );
     }
   }

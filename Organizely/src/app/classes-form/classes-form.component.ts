@@ -52,16 +52,15 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
       }
 
       this.courseSub = this.coursesService.getCourse(+params['id']).subscribe(
-        (course) => {
+        (course: Course) => {
           this.currentCourse = course;
           this.currentCourseId = course.courseId;
-          console.log(this.currentCourse);
           this.currentCourse['daysOfWeek'].forEach((day) => {
             this.selectedDays.push(day);
           });
         },
-        (error) => {
-          console.error(error);
+        (error: any) => {
+          console.log(error);
         }
       );
     });
@@ -110,9 +109,10 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
 
   addCourse(courseForm: NgForm) {
     const value = courseForm.value;
+    const newCourseId = 0;
 
     const newCourse = new Course(
-      value.courseId,
+      newCourseId,
       value.courseName,
       value.startTime + ':00',
       value.endTime + ':00',
@@ -125,12 +125,12 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     );
 
     this.coursesService.createCourse(newCourse).subscribe(
-      (response) => {
-        console.log(response);
+      (data: Course) => {
+        console.log(data);
         this.submitted = true;
         this.router.navigate(['/', 'organizely', 'classes']);
       },
-      (error) => {
+      (error: any) => {
         console.log(error);
       }
     );
@@ -164,13 +164,14 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
       this.coursesService
         .updateCourse(updatedCourse.courseId, updatedCourse)
         .subscribe(
-          (response) => {
-            // TODO: Determine why this returns 'null'
-            console.log(response);
+          (data: void) => {
+            console.log(
+              `${updatedCourse.courseName} course updated successfully.`
+            );
             this.submitted = true;
             this.router.navigate(['/', 'organizely', 'classes']);
           },
-          (error) => {
+          (error: any) => {
             console.error(error);
           }
         );

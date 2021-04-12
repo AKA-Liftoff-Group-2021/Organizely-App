@@ -39,12 +39,11 @@ export class TasksFormComponent implements OnInit, OnDestroy {
       this.studentTaskSub = this.studentTasksService
         .getStudentTask(+params['id'])
         .subscribe(
-          (studentTask) => {
+          (studentTask: StudentTask) => {
             this.currentStudentTaskId = studentTask.studentTaskId;
             this.currentStudentTask = studentTask;
-            console.log(this.currentStudentTask);
           },
-          (error) => {
+          (error: any) => {
             console.log(error);
           }
         );
@@ -65,21 +64,22 @@ export class TasksFormComponent implements OnInit, OnDestroy {
 
   addStudentTask(studentTaskForm: NgForm) {
     const value = studentTaskForm.value;
+    const studentId = 0;
 
     const newTask = new StudentTask(
-      value.studentTaskId,
+      studentId,
       value.studentTaskName,
       value.priority,
       convertToDate(value.taskDueDate, 'due')
     );
 
     this.studentTasksService.createStudentTask(newTask).subscribe(
-      (response) => {
-        console.log(response);
+      (data: StudentTask) => {
+        console.log(data);
         this.submitted = true;
         this.router.navigate(['/', 'organizely', 'tasks']);
       },
-      (error) => {
+      (error: any) => {
         console.log(error);
       }
     );
@@ -92,20 +92,21 @@ export class TasksFormComponent implements OnInit, OnDestroy {
       const updatedStudentTask = new StudentTask(
         this.currentStudentTaskId,
         value.studentTaskName,
-        value.prioirty,
+        value.priority,
         convertToDate(value.taskDueDate, 'due')
       );
 
       this.studentTasksService
         .updateStudentTask(updatedStudentTask.studentTaskId, updatedStudentTask)
         .subscribe(
-          (response) => {
-            // TODO: Determine why this returns 'null'
-            console.log(response);
+          (data: void) => {
+            console.log(
+              `${updatedStudentTask.studentTaskName} task updated successfully.`
+            );
             this.submitted = true;
             this.router.navigate(['/', 'organizely', 'tasks']);
           },
-          (error) => {
+          (error: any) => {
             console.log(error);
           }
         );

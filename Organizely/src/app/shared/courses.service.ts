@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from './models/course.model';
@@ -16,18 +16,32 @@ export class CoursesService {
   }
 
   getCourse(courseId: number): Observable<Course> {
-    return this.http.get<Course>(`${this.courseURL}/${courseId}`);
+    return this.http.get<Course>(`${this.courseURL}/${courseId}`, {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    });
   }
+
+  // TODO: create a method to transform data for calendar and agenda views
 
   createCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(this.courseURL, course);
+    return this.http.post<Course>(this.courseURL, course, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    });
   }
 
-  updateCourse(courseId: number, course: Course): Observable<any> {
-    return this.http.put(`${this.courseURL}/${courseId}`, course);
+  updateCourse(courseId: number, course: Course): Observable<void> {
+    return this.http.put<void>(`${this.courseURL}/${courseId}`, course, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    });
   }
 
-  deleteCourse(courseId: number): Observable<any> {
-    return this.http.delete(`${this.courseURL}/${courseId}`);
+  deleteCourse(courseId: number): Observable<void> {
+    return this.http.delete<void>(`${this.courseURL}/${courseId}`);
   }
 }

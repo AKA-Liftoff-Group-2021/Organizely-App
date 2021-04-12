@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentTask } from '../shared/models/student-task.model';
-import { STUDENTTASKS } from '../shared/mock-data/mock-tasks';
 import { StudentTasksService } from '../shared/student-tasks.service';
 
 @Component({
@@ -12,23 +11,22 @@ export class TasksPageComponent implements OnInit {
   currentDate: Date = new Date();
 
   studentTasks: StudentTask[];
-  // studentTasks: Task[] = TASKS;
 
   constructor(private studentTasksService: StudentTasksService) {}
 
   ngOnInit(): void {
-    this.getStudentTasks();
+    this.getAllStudentTasks();
   }
 
-  getStudentTasks() {
+  getAllStudentTasks() {
     this.studentTasksService.getStudentTasks().subscribe(
-      (data) => {
+      (data: StudentTask[]) => {
         this.studentTasks = data;
-        console.log(data);
       },
-      (error) => {
+      (error: any) => {
         console.log(error);
-      }
+      },
+      () => console.log('All done getting your tasks.')
     );
   }
 
@@ -69,12 +67,13 @@ export class TasksPageComponent implements OnInit {
   onDeleteStudentTask(id: number) {
     if (confirm('Are you sure you want to delete this task?')) {
       this.studentTasksService.deleteStudentTask(id).subscribe(
-        (response) => {
-          // TODO: Determine why this returns 'null'
-          console.log(response);
-          this.getStudentTasks();
+        (data: void) => {
+          let index: number = this.studentTasks.findIndex(
+            (task) => task.studentTaskId === id
+          );
+          this.studentTasks.splice(index, 1);
         },
-        (error) => {
+        (error: any) => {
           console.log(error);
         }
       );
