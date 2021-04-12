@@ -15,18 +15,18 @@ export class TasksPageComponent implements OnInit {
   constructor(private studentTasksService: StudentTasksService) {}
 
   ngOnInit(): void {
-    this.getStudentTasks();
+    this.getAllStudentTasks();
   }
 
-  getStudentTasks() {
+  getAllStudentTasks() {
     this.studentTasksService.getStudentTasks().subscribe(
-      (data) => {
+      (data: StudentTask[]) => {
         this.studentTasks = data;
-        console.log(this.studentTasks);
       },
-      (error) => {
+      (error: any) => {
         console.log(error);
-      }
+      },
+      () => console.log('All done getting your tasks.')
     );
   }
 
@@ -67,12 +67,13 @@ export class TasksPageComponent implements OnInit {
   onDeleteStudentTask(id: number) {
     if (confirm('Are you sure you want to delete this task?')) {
       this.studentTasksService.deleteStudentTask(id).subscribe(
-        (response) => {
-          // TODO: Determine why this returns 'null'
-          console.log(response);
-          this.getStudentTasks();
+        (data: void) => {
+          let index: number = this.studentTasks.findIndex(
+            (task) => task.studentTaskId === id
+          );
+          this.studentTasks.splice(index, 1);
         },
-        (error) => {
+        (error: any) => {
           console.log(error);
         }
       );

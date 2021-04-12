@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StudentTask } from './models/student-task.model';
@@ -17,25 +17,41 @@ export class StudentTasksService {
 
   getStudentTask(studentTaskId: number): Observable<StudentTask> {
     return this.http.get<StudentTask>(
-      `${this.studentTaskURL}/${studentTaskId}`
+      `${this.studentTaskURL}/${studentTaskId}`,
+      {
+        headers: new HttpHeaders({
+          Accept: 'application/json',
+        }),
+      }
     );
   }
 
+  // TODO: create a method to transform data for calendar and agenda views
+
   createStudentTask(studentTask: StudentTask): Observable<StudentTask> {
-    return this.http.post<StudentTask>(this.studentTaskURL, studentTask);
+    return this.http.post<StudentTask>(this.studentTaskURL, studentTask, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    });
   }
 
   updateStudentTask(
     studentTaskId: number,
     studentTask: StudentTask
-  ): Observable<any> {
-    return this.http.put(
+  ): Observable<void> {
+    return this.http.put<void>(
       `${this.studentTaskURL}/${studentTaskId}`,
-      studentTask
+      studentTask,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      }
     );
   }
 
-  deleteStudentTask(studentTaskId: number): Observable<any> {
-    return this.http.delete(`${this.studentTaskURL}/${studentTaskId}`);
+  deleteStudentTask(studentTaskId: number): Observable<void> {
+    return this.http.delete<void>(`${this.studentTaskURL}/${studentTaskId}`);
   }
 }
