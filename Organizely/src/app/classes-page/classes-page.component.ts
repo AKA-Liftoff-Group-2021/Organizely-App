@@ -79,7 +79,7 @@ export class ClassesPageComponent implements OnInit {
           ) {
             delete this.semestersBySchoolYear[
               this.currentSemester['semesterYear']
-            ];
+            ][this.currentSemester['semesterSeason']];
           }
         },
         (error: any) => {
