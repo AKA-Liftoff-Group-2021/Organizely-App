@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OrganizelyAPI.Data
 {
-    public class StudentDbContext : IdentityDbContext<Student> // from DbContext 
+    public class StudentDbContext : IdentityDbContext<ApplicationUser> // from DbContext 
     {
         public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)
         {

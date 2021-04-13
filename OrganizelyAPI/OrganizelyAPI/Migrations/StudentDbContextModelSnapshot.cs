@@ -188,6 +188,9 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SemesterSeason")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -206,6 +209,8 @@ namespace OrganizelyAPI.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("CourseId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("Course");
                 });
@@ -364,6 +369,15 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("OrganizelyAPI.Models.Course", b =>
+                {
+                    b.HasOne("OrganizelyAPI.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("Id");
+
+                    b.Navigation("Student");
                 });
 #pragma warning restore 612, 618
         }

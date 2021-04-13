@@ -38,11 +38,11 @@ namespace OrganizelyAPI.Models
 
         public int SemesterYear { get; set; }
 
-        //[Column(TypeName = "integer")]
-        //public int StudentId { get; set; }            // temporarily hide until user sign up is set up
-        //public Student Student { get; set; }
+        //[ForeignKey("Student")]
+        public string StudentId { get; set; }            // temporarily hide until user sign up is set up
+        public Student Student { get; set; }
 
 
-       // public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021
+        // public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021
     }
 }

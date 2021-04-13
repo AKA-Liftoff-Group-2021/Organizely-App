@@ -8,20 +8,25 @@ using System.Threading.Tasks;
 
 namespace OrganizelyAPI.Models
 {
-   // [Table("Student")]
-    public class Student : IdentityUser 
+   [Table("Student")]
+    public class Student //: IdentityUser 
     {
-        //[Key]                                                    
-        //public int StudentId { get; set; }
 
-        [Required]
+        [Key]
+        public int StudentId { get; set; }
+
+        //[Required]
         public string FirstName { get; set; }
 
-        [Required]
+        //[Required]
         public string LastName { get; set; }
 
-        // public ICollection<Course> Courses { get; set; }            // March 18, 2021
-        // public ICollection<StudentTask> StudentTasks { get; set; }     // March 18, 2021
+        [Required(ErrorMessage = "Email is required.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Username is required")]
+        [MaxLength(20), MinLength(2)]
+        public string Username { get; set; }
 
 
         //public override bool Equals(object obj)

@@ -79,7 +79,7 @@ namespace OrganizelyAPI
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             // Identity Settings
-            services.AddIdentity<Student, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<StudentDbContext>();
                 //.AddDefaultTokenProviders();
 

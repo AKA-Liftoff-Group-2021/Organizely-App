@@ -49,27 +49,6 @@ namespace OrganizelyAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Course",
-                columns: table => new
-                {
-                    CourseId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CourseName = table.Column<string>(type: "TEXT", nullable: false),
-                    TeacherName = table.Column<string>(type: "TEXT", nullable: true),
-                    StartTime = table.Column<string>(type: "TEXT", nullable: false),
-                    EndTime = table.Column<string>(type: "TEXT", nullable: false),
-                    DaysOfWeekStr = table.Column<string>(type: "TEXT", nullable: false),
-                    StartRecur = table.Column<DateTime>(type: "datetime", nullable: false),
-                    EndRecur = table.Column<DateTime>(type: "datetime", nullable: false),
-                    SemesterSeason = table.Column<string>(type: "TEXT", nullable: false),
-                    SemesterYear = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Course", x => x.CourseId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "StudentTask",
                 columns: table => new
                 {
@@ -191,6 +170,34 @@ namespace OrganizelyAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Course",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CourseName = table.Column<string>(type: "TEXT", nullable: false),
+                    TeacherName = table.Column<string>(type: "TEXT", nullable: true),
+                    StartTime = table.Column<string>(type: "TEXT", nullable: false),
+                    EndTime = table.Column<string>(type: "TEXT", nullable: false),
+                    DaysOfWeekStr = table.Column<string>(type: "TEXT", nullable: false),
+                    StartRecur = table.Column<DateTime>(type: "datetime", nullable: false),
+                    EndRecur = table.Column<DateTime>(type: "datetime", nullable: false),
+                    SemesterSeason = table.Column<string>(type: "TEXT", nullable: false),
+                    SemesterYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Course", x => x.CourseId);
+                    table.ForeignKey(
+                        name: "FK_Course_AspNetUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Assignment",
                 columns: table => new
                 {
@@ -252,6 +259,11 @@ namespace OrganizelyAPI.Migrations
                 name: "IX_Assignment_CourseId",
                 table: "Assignment",
                 column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Course_Id",
+                table: "Course",
+                column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -281,10 +293,10 @@ namespace OrganizelyAPI.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Course");
 
             migrationBuilder.DropTable(
-                name: "Course");
+                name: "AspNetUsers");
         }
     }
 }
