@@ -39,6 +39,7 @@
         <tr>
           <th scope="col">Class Time</th>
           <th scope="col">Class Name</th>
+          <th scope="col">Teacher</th>
           <th scope="col">Edit</th>
           <th scope="col">Delete</th>
         </tr>
@@ -53,6 +54,7 @@
             </span>
           </td>
           <td>{{ course.courseName }}</td>
+          <td>{{ course.teacherName }}</td>
           <td>
             <button
               class="btn btn-dark"
@@ -118,6 +120,7 @@
             <tr>
               <th scope="col">Class Time</th>
               <th scope="col">Class Name</th>
+              <th scope="col">Teacher</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
             </tr>
@@ -133,6 +136,7 @@
                 </span>
               </td>
               <td>{{ course.value["courseName"] }}</td>
+              <td>{{ course.value["teacherName"] }}</td>
               <td>
                 <button
                   class="btn btn-dark"
