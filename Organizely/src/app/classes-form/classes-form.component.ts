@@ -23,7 +23,6 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     { name: 'Saturday', id: '6' },
   ];
 
-  currentCourseId: number;
   currentCourse: Course;
 
   selectedDays: string[] = [];
@@ -52,11 +51,13 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
 
       this.courseSub = this.coursesService.getCourse(+params['id']).subscribe(
         (course: Course) => {
-          this.currentCourse = course;
-          this.currentCourseId = course.courseId;
-          this.currentCourse['daysOfWeek'].forEach((day) => {
-            this.selectedDays.push(day);
-          });
+          if (course.courseId != undefined) {
+            this.currentCourse = course;
+            this.currentCourse['daysOfWeek'].forEach((day) => {
+              this.selectedDays.push(day);
+            });
+          }
+          return;
         },
         (error: any) => {
           console.log(error);
@@ -83,7 +84,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(courseValues: any) {
-    if (this.currentCourseId === undefined) {
+    if (this.currentCourse === undefined) {
       this.addCourse(courseValues);
     } else {
       this.updateCourse(courseValues);
