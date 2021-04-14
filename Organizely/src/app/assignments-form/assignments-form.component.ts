@@ -20,7 +20,15 @@ export class AssignmentsFormComponent implements OnInit {
 
   onSubmit(assignmentForm: NgForm) {
     const value = assignmentForm.value;
-    const newAssignment = new Assignment(value.assignmentName, value.dueDate);
+    const assignmentId = 0;
+    
+    const newAssignment = new Assignment(
+      assignmentId, 
+      value.assignmentName, 
+      value.dueDate, 
+      value.courseId
+      );
+
     console.log(newAssignment);
 
     this.router.navigate(['/', 'organizely', 'assignments']);
