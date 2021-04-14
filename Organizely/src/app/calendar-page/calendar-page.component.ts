@@ -44,8 +44,9 @@ export class CalendarPageComponent implements OnInit {
         this.courses = data;
         console.log(this.courses);
         for (let i = 0; i < this.courses.length; i++) {
-          this.calendarOptions.events[i].push(
-            createCalendarEvent(this.courses[i], 'course')
+          this.calendarOptions.events[i] = createCalendarEvent(
+            this.courses[i],
+            'course'
           );
         }
       },
@@ -62,8 +63,9 @@ export class CalendarPageComponent implements OnInit {
         this.studentTasks = data;
         console.log(this.studentTasks);
         for (let i = 0; i < this.studentTasks.length; i++) {
-          this.calendarOptions.events[i].push(
-            createCalendarEvent(this.studentTasks[i], 'task')
+          this.calendarOptions.events[i] = createCalendarEvent(
+            this.studentTasks[i],
+            'task'
           );
         }
       },

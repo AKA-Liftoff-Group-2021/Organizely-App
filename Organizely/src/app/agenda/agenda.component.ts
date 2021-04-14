@@ -51,8 +51,9 @@ export class AgendaComponent implements OnInit {
         this.courses = data;
         console.log(this.courses);
         for (let i = 0; i < this.courses.length; i++) {
-          this.calendarOptions.events[i].push(
-            createCalendarEvent(this.courses[i], 'course')
+          this.calendarOptions.events[i] = createCalendarEvent(
+            this.courses[i],
+            'course'
           );
         }
       },
@@ -68,8 +69,9 @@ export class AgendaComponent implements OnInit {
       (data: StudentTask[]) => {
         this.studentTasks = data;
         for (let i = 0; i < this.studentTasks.length; i++) {
-          this.calendarOptions.events[i].push(
-            createCalendarEvent(this.studentTasks[i], 'studentTask')
+          this.calendarOptions.events[i] = createCalendarEvent(
+            this.studentTasks[i],
+            'studentTask'
           );
         }
       },
