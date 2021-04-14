@@ -1,7 +1,7 @@
-export default function createCalendarEvent(item: any, type: string): object {
+export default function createCalendarEvent(item: any, type: string): any {
   if (type === 'course') {
     return {
-      // id: item.courseId,
+      id: item.courseId,
       title: item.courseName,
       daysOfWeek: item.daysOfWeek.map((day) => {
         return Number(day);
@@ -11,7 +11,6 @@ export default function createCalendarEvent(item: any, type: string): object {
       startRecur: item.startRecur,
       endRecur: item.endRecur,
       extendedProps: {
-        courseId: item.courseId,
         semesterSeason: item.semesterSeason,
         semesterYear: item.semesterYear,
       },
@@ -20,27 +19,26 @@ export default function createCalendarEvent(item: any, type: string): object {
 
   if (type === 'studentTask') {
     return {
-      // id: item.studentTaskId,
+      id: item.studentTaskId,
       title: item.studentTaskName,
       start: item.taskDueDate,
       extendedProps: {
-        studentTaskId: item.studentTaskId,
-        priority: item.prioirty,
+        priority: item.priority,
       },
     };
   }
 
   if (type === 'assignment') {
     return {
-      // id: item.assignmentId,
+      id: item.assignmentId,
       title: item.assignmentName,
       start: item.dueDate,
       extendedProps: {
-        assignmentId: item.assignmentId,
         // TODO: Place other extendedProps (courseName)
+        courseName: item.courseName,
       },
     };
   }
 
-  return {};
+  return;
 }
