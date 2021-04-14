@@ -28,7 +28,7 @@ export class ClassesPageComponent implements OnInit {
 
   getAllCourses() {
     this.coursesService.getCourses().subscribe(
-      (data) => {
+      (data: Course[]) => {
         this.courses = data;
         console.log(this.courses);
 

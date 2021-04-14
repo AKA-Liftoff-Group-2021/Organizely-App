@@ -5,6 +5,12 @@ import timeGridPlugin from '@fullCalendar/timegrid';
 
 import { Course } from '../shared/models/course.model';
 import { COURSES } from '../shared/mock-data/mock-courses';
+import { CoursesService } from '../shared/courses.service';
+import { StudentTasksService } from '../shared/student-tasks.service';
+
+import createCalendarEvent from '../shared/utils/createCalendarEvent';
+import { StudentTask } from '../shared/models/student-task.model';
+import { Assignment } from '../shared/models/assignment.model';
 
 @Component({
   selector: 'app-agenda',
@@ -24,26 +30,53 @@ export class AgendaComponent implements OnInit {
     events: [],
   };
 
-  courses: Course[] = COURSES;
+  courses: Course[] = [];
+  studentTasks: StudentTask[] = [];
+  // assignments: Assignment[] = [];
 
-  constructor() {}
+  constructor(
+    private coursesService: CoursesService,
+    private studentTasksService: StudentTasksService
+  ) {}
 
   ngOnInit(): void {
-    for (let i = 0; i < this.courses.length; i++) {
-      this.calendarOptions.events[i] = {
-        title: this.courses[i].courseName,
-        daysOfWeek: this.courses[i].daysOfWeek.map((day) => {
-          return Number(day);
-        }),
-        startTime: this.courses[i].startTime,
-        endTime: this.courses[i].endTime,
-        startRecur: this.courses[i].startRecur,
-        endRecur: this.courses[i].endRecur,
-        extendedProps: {
-          semesterSeason: this.courses[i].semesterSeason,
-          semesterYear: this.courses[i].semesterYear,
-        },
-      };
-    }
+    this.calendarOptions.events = [];
+    this.getAllCourses();
+    this.getAllStudentTasks();
+  }
+
+  getAllCourses() {
+    this.coursesService.getCourses().subscribe(
+      (data: Course[]) => {
+        this.courses = data;
+        console.log(this.courses);
+        for (let i = 0; i < this.courses.length; i++) {
+          this.calendarOptions.events[i].push(
+            createCalendarEvent(this.courses[i], 'course')
+          );
+        }
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => console.log('All done getting your courses.')
+    );
+  }
+
+  getAllStudentTasks() {
+    this.studentTasksService.getStudentTasks().subscribe(
+      (data: StudentTask[]) => {
+        this.studentTasks = data;
+        for (let i = 0; i < this.studentTasks.length; i++) {
+          this.calendarOptions.events[i].push(
+            createCalendarEvent(this.studentTasks[i], 'studentTask')
+          );
+        }
+      },
+      (error: any) => {
+        console.log(error);
+      },
+      () => console.log('All done getting your tasks.')
+    );
   }
 }
