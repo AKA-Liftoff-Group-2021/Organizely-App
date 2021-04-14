@@ -112,8 +112,8 @@ namespace OrganizelyAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = true, //
-                    ValidAudience = Configuration["JWTSettings:ValidAudience"],
+                    ValidateAudience = false, //
+                    //ValidAudience = Configuration["JWTSettings:ValidAudience"],
                     ValidateLifetime = false, //
                     RequireExpirationTime = false,
                     ClockSkew = TimeSpan.Zero

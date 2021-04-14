@@ -39,7 +39,7 @@ namespace OrganizelyAPI.Controllers
 
         [Authorize]
         [HttpGet]
-        // GET: api/StudentProfile
+        // GET: api/Student
         //[HttpGet("{id}")]
         // GET: api/Student/5
         public async Task<Object> GetStudent() // (int id)
