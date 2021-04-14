@@ -103,19 +103,20 @@ namespace OrganizelyAPI
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(jwt => {            // JWT Bearer
-                var key = Encoding.UTF8.GetBytes(Configuration["JWTSettings:Secret"]); //ToString()?
+                var key = Encoding.UTF8.GetBytes(Configuration["JWTSettings:Secret"]); //ToString() if using applicationSettings
 
                 jwt.RequireHttpsMetadata = false;
-                jwt.SaveToken = true; 
+                jwt.SaveToken = true;//
                 jwt.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = true,
+                    ValidateAudience = true, //
                     ValidAudience = Configuration["JWTSettings:ValidAudience"],
-                    ValidateLifetime = false, //true,
-                    RequireExpirationTime = false
+                    ValidateLifetime = false, //
+                    RequireExpirationTime = false,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
         }

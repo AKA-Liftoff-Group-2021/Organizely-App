@@ -20,7 +20,7 @@ namespace OrganizelyAPI.Data
             base.OnModelCreating(builder);
         }
 
-        public DbSet<Student> Students { get; set; }
+        //public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentTask> StudentTasks { get; set; }
         public DbSet<Assignment> Assignments { get; set; }

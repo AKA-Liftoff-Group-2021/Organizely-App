@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace OrganizelyAPI.Controllers
 {
@@ -19,11 +20,11 @@ namespace OrganizelyAPI.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<Student> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
         // private readonly ApplicationSettings _appSettings; //appSettings.value then add IOptions<ApplicationSettings> in the arguments 
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<Student> signInManager, IConfiguration configuration)
+        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,6 +33,7 @@ namespace OrganizelyAPI.Controllers
 
         [HttpPost]
         [Route("Register")]
+        // POST : /api/Authentication/Register
         public async Task<IActionResult> Register([FromBody] UserRegistration userRegistration)
         {
             var userExists = await _userManager.FindByNameAsync(userRegistration.Username);
@@ -41,10 +43,10 @@ namespace OrganizelyAPI.Controllers
                 { Status = "Error", Message = "User already exists!" });
             }
 
-            Student newUser = new Student()
+            ApplicationUser newUser = new()
             {
                 Email = userRegistration.Email,
-                //SecurityStamp = Guid.NewGuid().ToString(),
+                SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = userRegistration.Username,
                 FirstName = userRegistration.FirstName,
                 LastName = userRegistration.LastName
@@ -67,6 +69,7 @@ namespace OrganizelyAPI.Controllers
 
         [HttpPost]
         [Route("Login")]
+        // POST : /api/Authentication/Login
         public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
         {
 
@@ -78,10 +81,11 @@ namespace OrganizelyAPI.Controllers
                 var secret = new SymmetricSecurityKey(key);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                    Subject = new ClaimsIdentity(new List<Claim>
+                    Subject = new ClaimsIdentity(new []//List<Claim>
                    {
-                        new Claim(ClaimTypes.Name, userLogin.Username),
-                        //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                        new Claim(ClaimTypes.Name, userLogin.Username),   // OR USE ID?
+                        //new Claim("UserID")
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256)
@@ -99,3 +103,4 @@ namespace OrganizelyAPI.Controllers
             //return Unauthorized();
         }
     }
+}

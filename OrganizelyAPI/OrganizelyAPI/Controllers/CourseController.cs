@@ -14,6 +14,7 @@ using OrganizelyAPI.ViewModels;
 namespace OrganizelyAPI.Controllers
 {
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
@@ -31,7 +32,7 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            var courses = await _context.Courses.Include(s => s.Student).Select(c =>     //Include(s => s.Student)
+            var courses = await _context.Courses.Select(c =>     //Include(s => s.Student)
                    new CourseDTO()
                    {
                        CourseId = c.CourseId,
@@ -44,8 +45,8 @@ namespace OrganizelyAPI.Controllers
                        EndRecur = c.EndRecur,
                        SemesterSeason = c.SemesterSeason,
                        SemesterYear = c.SemesterYear,
-                       StudentId = c.StudentId,
-                       Student = c.Student
+                       //StudentId = c.StudentId,
+                       //Student = c.Student
                    }).ToListAsync();
 
             if (courses == null)
@@ -60,8 +61,8 @@ namespace OrganizelyAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
-            //Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
-            var course = await _context.Courses.Include(s => s.Student).Select(c =>             //.Include(s => s.Student)
+           // Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
+            var course = await _context.Courses.Select(c =>             //.Include(s => s.Student)
                     new CourseDTO()
                     {
                         CourseId = c.CourseId,              
@@ -74,8 +75,8 @@ namespace OrganizelyAPI.Controllers
                         EndRecur = c.EndRecur,
                         SemesterSeason = c.SemesterSeason,
                         SemesterYear = c.SemesterYear,
-                        StudentId = c.StudentId,
-                        Student = c.Student
+                        //StudentId = c.StudentId,
+                        //Student = c.Student
                     }).SingleOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
@@ -85,6 +86,34 @@ namespace OrganizelyAPI.Controllers
 
             return Ok(course);
         }
+
+
+        // POST: api/Course
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Course>> PostCourse([FromBody] CourseDTO courseDTO)
+        {
+            //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
+            Course newCourse = new()
+            {
+                CourseName = courseDTO.CourseName,
+                TeacherName = courseDTO.TeacherName,
+                StartTime = courseDTO.StartTime,
+                EndTime = courseDTO.EndTime,
+                DaysOfWeekStr = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
+                StartRecur = courseDTO.StartRecur,
+                EndRecur = courseDTO.EndRecur,
+                SemesterSeason = courseDTO.SemesterSeason,
+                SemesterYear = courseDTO.SemesterYear,
+                //Student = theStudent
+            };
+
+            _context.Courses.Add(newCourse);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetCourse", new { id = newCourse.CourseId }, newCourse);
+        }
+
 
         // PUT: api/Course/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -130,32 +159,7 @@ namespace OrganizelyAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Course
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse([FromBody] CourseDTO courseDTO)        
-        {
-            Student theStudent = await _context.Students.FindAsync(courseDTO.Id);          //march 22
-            Course newCourse = new Course
-            {
-                CourseName = courseDTO.CourseName,
-                TeacherName = courseDTO.TeacherName,
-                StartTime = courseDTO.StartTime,
-                EndTime = courseDTO.EndTime,
-                DaysOfWeekStr = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
-                StartRecur = courseDTO.StartRecur,
-                EndRecur = courseDTO.EndRecur,
-                SemesterSeason = courseDTO.SemesterSeason,
-                SemesterYear = courseDTO.SemesterYear,
-                Student = theStudent
-            };
-
-            _context.Courses.Add(newCourse);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCourse", new { id = newCourse.CourseId }, newCourse);
-        }
-
+        
         // DELETE: api/Course/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
