@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -16,7 +15,6 @@ import convertToDate from '../shared/utils/convertToDate';
 export class TasksFormComponent implements OnInit, OnDestroy {
   priorityOptions: string[] = ['Low', 'Medium', 'High'];
 
-  currentStudentTaskId: number;
   currentStudentTask: StudentTask;
 
   submitted: boolean = false;
@@ -40,7 +38,6 @@ export class TasksFormComponent implements OnInit, OnDestroy {
         .getStudentTask(+params['id'])
         .subscribe(
           (studentTask: StudentTask) => {
-            this.currentStudentTaskId = studentTask.studentTaskId;
             this.currentStudentTask = studentTask;
           },
           (error: any) => {
@@ -50,11 +47,11 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(studentTaskForm: NgForm) {
-    if (this.currentStudentTaskId === undefined) {
-      this.addStudentTask(studentTaskForm);
+  onSubmit(studentTaskValues: any) {
+    if (this.currentStudentTask === undefined) {
+      this.addStudentTask(studentTaskValues);
     } else {
-      this.updateStudentTask(studentTaskForm);
+      this.updateStudentTask(studentTaskValues);
     }
   }
 
@@ -62,18 +59,16 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-  addStudentTask(studentTaskForm: NgForm) {
-    const value = studentTaskForm.value;
-    const studentId = 0;
+  addStudentTask(studentTaskValues: any): void {
+    let newStudentTask: StudentTask = <StudentTask>studentTaskValues;
+    newStudentTask.studentTaskId = 0;
 
-    const newTask = new StudentTask(
-      studentId,
-      value.studentTaskName,
-      value.priority,
-      convertToDate(value.taskDueDate, 'due')
+    newStudentTask.taskDueDate = convertToDate(
+      studentTaskValues.taskDueDate,
+      'due'
     );
 
-    this.studentTasksService.createStudentTask(newTask).subscribe(
+    this.studentTasksService.createStudentTask(newStudentTask).subscribe(
       (data: StudentTask) => {
         console.log(data);
         this.submitted = true;
@@ -85,23 +80,23 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateStudentTask(studentTaskForm: NgForm) {
+  updateStudentTask(studentTaskValues: any): void {
     if (confirm('Are you sure you want to update this task?')) {
-      const value = studentTaskForm.value;
-
-      const updatedStudentTask = new StudentTask(
-        this.currentStudentTaskId,
-        value.studentTaskName,
-        value.priority,
-        convertToDate(value.taskDueDate, 'due')
-      );
+      this.currentStudentTask = {
+        studentTaskId: this.currentStudentTask.studentTaskId,
+        ...studentTaskValues,
+        taskDueDate: convertToDate(studentTaskValues.taskDueDate, 'due'),
+      };
 
       this.studentTasksService
-        .updateStudentTask(updatedStudentTask.studentTaskId, updatedStudentTask)
+        .updateStudentTask(
+          this.currentStudentTask.studentTaskId,
+          this.currentStudentTask
+        )
         .subscribe(
           (data: void) => {
             console.log(
-              `${updatedStudentTask.studentTaskName} task updated successfully.`
+              `${this.currentStudentTask.studentTaskName} task updated successfully.`
             );
             this.submitted = true;
             this.router.navigate(['/', 'organizely', 'tasks']);
