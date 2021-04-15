@@ -1,9 +1,14 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { COURSES } from '../shared/mock-data/mock-courses';
+import { Observable } from 'rxjs';
+import { AssignmentsService } from '../shared/assignments.service';
+import { CoursesService } from '../shared/courses.service';
 import { Assignment } from '../shared/models/assignment.model';
 import { Course } from '../shared/models/course.model';
+import convertToDate from '../shared/utils/convertToDate';
+
 
 @Component({
   selector: 'app-assignments-form',
@@ -11,11 +16,29 @@ import { Course } from '../shared/models/course.model';
   styleUrls: ['./assignments-form.component.css']
 })
 export class AssignmentsFormComponent implements OnInit {
-  courses: Course[] = COURSES;
+  courses: Course[];
+  submitted: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private assignmentsService: AssignmentsService,
+              private coursesService: CoursesService,
+              private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.getAllCourses();
+    console.log(this.courses);
+  }
+
+  getAllCourses() {
+    this.coursesService.getCourses().subscribe(
+      (data: Course[]) => {
+        this.courses = data;
+      },
+      (error: any) => {
+        console.log(error);
+      },
+      () => console.log('All done getting your courses.')
+    );
   }
 
   onSubmit(assignmentForm: NgForm) {
@@ -25,38 +48,19 @@ export class AssignmentsFormComponent implements OnInit {
     const newAssignment = new Assignment(
       assignmentId, 
       value.assignmentName, 
-      value.dueDate, 
-      value.courseId
+      convertToDate(value.dueDate, 'due'), 
+      value.courseId);
+    
+      this.assignmentsService.createAssignment(newAssignment).subscribe(
+        (data: Assignment) => {
+          console.log(data);
+          this.submitted = true;
+          this.router.navigate(['/', 'organizely', 'assignments']);
+        },
+        (error: any) => {
+          console.log(error);
+        }
       );
-
-    console.log(newAssignment);
-
-    this.router.navigate(['/', 'organizely', 'assignments']);
-  }
-
-  convertToDate(dateString: string, type: string): Date {
-    let dateArr = dateString.split('-');
-
-    const year = Number(dateArr[0]);
-    const month = Number(dateArr[1]);
-    let day = Number(dateArr[2]);
-
-    let newDate = new Date(year, month, day);
-
-    newDate.setMonth(newDate.getMonth() - 1);
-
-    // let lastDayOfMonth = new Date(
-    //   newDate.getFullYear(),
-    //   newDate.getMonth() + 1,
-    //   0
-    // );
-
-    if (type === 'end') {
-      //TODO: Test for edge cases
-      newDate.setDate(newDate.getDate() + 1);
     }
-
-    return newDate;
-  }
 
 }
