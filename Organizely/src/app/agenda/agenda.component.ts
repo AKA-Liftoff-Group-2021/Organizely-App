@@ -8,7 +8,7 @@ import { COURSES } from '../shared/mock-data/mock-courses';
 import { CoursesService } from '../shared/courses.service';
 import { StudentTasksService } from '../shared/student-tasks.service';
 
-import createCalendarEvent from '../shared/utils/createCalendarEvents';
+import createCalendarEvents from '../shared/utils/createCalendarEvents';
 import { StudentTask } from '../shared/models/student-task.model';
 import { Assignment } from '../shared/models/assignment.model';
 
@@ -39,29 +39,26 @@ export class AgendaComponent implements OnInit {
     private studentTasksService: StudentTasksService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.coursesService.getCourses().subscribe((data: Course[]) => {
+      this.courses = data;
 
-  // getAllCourses() {
-  //   this.coursesService.getCourses().subscribe(
-  //     (data: Course[]) => {
-  //       this.courses = data;
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     },
-  //     () => console.log('All done getting your courses.')
-  //   );
-  // }
+      this.studentTasksService.getStudentTasks().subscribe(
+        (data: StudentTask[]) => {
+          this.studentTasks = data;
 
-  // getAllStudentTasks() {
-  //   this.studentTasksService.getStudentTasks().subscribe(
-  //     (data: StudentTask[]) => {
-  //       this.studentTasks = data;
-  //     },
-  //     (error: any) => {
-  //       console.log(error);
-  //     },
-  //     () => console.log('All done getting your tasks.')
-  //   );
-  // }
+          this.calendarOptions.events = createCalendarEvents(
+            this.courses,
+            this.studentTasks
+          );
+
+          console.log(this.calendarOptions.events);
+        },
+        (error: any) => {
+          console.log(error);
+        },
+        () => console.log('All done getting your tasks.')
+      );
+    });
+  }
 }

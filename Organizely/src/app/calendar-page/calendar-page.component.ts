@@ -54,42 +54,4 @@ export class CalendarPageComponent implements OnInit {
       );
     });
   }
-
-  // getAllCourses() {
-  //   this.coursesService.getCourses().subscribe(
-  //     (data: Course[]) => {
-  //       this.courses = data;
-  //       console.log(this.courses);
-  //       for (let i = 0; i < this.courses.length; i++) {
-  //         this.calendarOptions.events[i] = createCalendarEvent(
-  //           this.courses[i],
-  //           'course'
-  //         );
-  //       }
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     },
-  //     () => console.log('All done getting your courses.')
-  //   );
-  // }
-
-  // getAllStudentTasks() {
-  //   this.studentTasksService.getStudentTasks().subscribe(
-  //     (data: StudentTask[]) => {
-  //       this.studentTasks = data;
-  //       console.log(this.studentTasks);
-  //       for (let i = 0; i < this.studentTasks.length; i++) {
-  //         this.calendarOptions.events[i] = createCalendarEvent(
-  //           this.studentTasks[i],
-  //           'task'
-  //         );
-  //       }
-  //     },
-  //     (error: any) => {
-  //       console.log(error);
-  //     },
-  //     () => console.log('All done getting your tasks.')
-  //   );
-  // }
 }
