@@ -46,7 +46,7 @@ namespace OrganizelyAPI.Controllers
             ApplicationUser newUser = new()
             {
                 Email = userRegistration.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
+                //SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = userRegistration.Username,
                 FirstName = userRegistration.FirstName,
                 LastName = userRegistration.LastName
@@ -81,11 +81,11 @@ namespace OrganizelyAPI.Controllers
                 var secret = new SymmetricSecurityKey(key);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                    Subject = new ClaimsIdentity(new []//List<Claim>
+                    Subject = new ClaimsIdentity(new List<Claim>
                    {
                         new Claim(ClaimTypes.Name, userLogin.Username),   // OR USE ID?
                         //new Claim("UserID")
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                        //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256)

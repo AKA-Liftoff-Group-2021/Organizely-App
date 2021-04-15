@@ -99,10 +99,10 @@ namespace OrganizelyAPI
 
             // JWT Authentication
             services.AddAuthentication(options => {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(jwt => {            // JWT Bearer
+                options.DefaultAuthenticateScheme = "JwtBearer"; // JwtBearerDefaults.AuthenticationScheme; 
+                options.DefaultChallengeScheme = "JwtBearer"; // JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = "JwtBearer";  //JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer("JwtBearer", jwt => {            // JWT Bearer
                 var key = Encoding.UTF8.GetBytes(Configuration["JWTSettings:Secret"]); //ToString() if using applicationSettings
 
                 jwt.RequireHttpsMetadata = false;
@@ -114,9 +114,9 @@ namespace OrganizelyAPI
                     ValidateIssuer = false,
                     ValidateAudience = false, //
                     //ValidAudience = Configuration["JWTSettings:ValidAudience"],
-                    ValidateLifetime = false, //
-                    RequireExpirationTime = false,
-                    ClockSkew = TimeSpan.Zero
+                    ValidateLifetime = true, //
+                    //RequireExpirationTime = false,
+                    //ClockSkew = TimeSpan.A
                 };
             });
         }

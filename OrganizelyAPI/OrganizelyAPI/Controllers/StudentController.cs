@@ -42,11 +42,12 @@ namespace OrganizelyAPI.Controllers
         // GET: api/Student
         //[HttpGet("{id}")]
         // GET: api/Student/5
+        // [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)] 
         public async Task<Object> GetStudent() // (int id)
         {
-            string username = User.Claims.First(u => u.Type == "Name").Value;
-            //string userId = User.Claims.First(u => u.Type == USeriD).Value;
-            var student = await _userManager.FindByIdAsync(username);
+           // string username = User. First(u => u.Type == "Username").Value; // WRONG, TODO: CHANGE VALUE
+            string username = User.Claims.First(u => u.Type == "Username").Value;
+            var student = await _userManager.FindByNameAsync(username);
             //or  var user = await _userManager.FindByEmailAsync(User.Identity.Name);
             //var student = await _userManager.Students.Select(s =>
             //       new StudentDTO()
