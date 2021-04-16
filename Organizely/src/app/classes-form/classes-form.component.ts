@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Params, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -83,11 +84,11 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-  onSubmit(courseValues: any) {
+  onSubmit(courseForm: NgForm) {
     if (this.currentCourse === undefined) {
-      this.addCourse(courseValues);
+      this.addCourse(courseForm);
     } else {
-      this.updateCourse(courseValues);
+      this.updateCourse(courseForm);
     }
   }
 
@@ -107,15 +108,22 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     return newDate;
   }
 
-  addCourse(courseValues: any): void {
-    let newCourse: Course = <Course>courseValues;
-    newCourse.courseId = 0;
+  addCourse(courseForm: NgForm): void {
+    const value = courseForm.value;
+    const newCourseId = 0;
 
-    newCourse.startTime = newCourse.startTime + ':00';
-    newCourse.endTime = newCourse.endTime + ':00';
-    newCourse.startRecur = this.convertToDate(courseValues.startRecur, 'start');
-    newCourse.endRecur = this.convertToDate(courseValues.endRecur, 'end');
-    newCourse.daysOfWeek = this.selectedDays;
+    const newCourse = new Course(
+      newCourseId,
+      value.courseName,
+      value.startTime + ':00',
+      value.endTime + ':00',
+      this.convertToDate(value.startRecur, 'start'),
+      this.convertToDate(value.endRecur, 'end'),
+      this.selectedDays,
+      value.semesterSeason,
+      value.semesterYear,
+      value.teacherName
+    );
 
     this.coursesService.createCourse(newCourse).subscribe(
       (data: Course) => {
@@ -129,30 +137,37 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateCourse(courseValues: any): void {
+  updateCourse(courseForm: NgForm): void {
     if (confirm('Are you sure you want to update this course?')) {
-      this.currentCourse = {
-        courseId: this.currentCourse.courseId,
-        startTime:
-          this.currentCourse.startTime !== courseValues.startTime
-            ? courseValues.startTime + ':00'
-            : courseValues.startTime,
-        endTime:
-          this.currentCourse.endTime !== courseValues.endTime
-            ? courseValues.endTime + ':00'
-            : courseValues.endTime,
-        startRecur: this.convertToDate(courseValues.startRecur, 'start'),
-        endRecur: this.convertToDate(courseValues.endRecur, 'end'),
-        ...courseValues,
-        daysOfWeek: this.selectedDays,
-      };
+      const value = courseForm.value;
+
+      if (this.currentCourse.startTime !== value.startTime) {
+        value.startTime = value.startTime + ':00';
+      }
+
+      if (this.currentCourse.endTime !== value.endTime) {
+        value.endTime = value.endTime + ':00';
+      }
+
+      const updatedCourse = new Course(
+        this.currentCourse.courseId,
+        value.courseName,
+        value.startTime,
+        value.endTime,
+        this.convertToDate(value.startRecur, 'start'),
+        this.convertToDate(value.endRecur, 'end'),
+        this.selectedDays,
+        value.semesterSeason,
+        value.semesterYear,
+        value.teacherName
+      );
 
       this.coursesService
-        .updateCourse(this.currentCourse.courseId, this.currentCourse)
+        .updateCourse(updatedCourse.courseId, updatedCourse)
         .subscribe(
           (data: void) => {
             console.log(
-              `${this.currentCourse.courseName} course updated successfully.`
+              `${updatedCourse.courseName} course updated successfully.`
             );
             this.submitted = true;
             this.router.navigate(['/', 'organizely', 'classes']);
