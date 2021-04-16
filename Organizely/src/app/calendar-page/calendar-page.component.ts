@@ -23,6 +23,7 @@ export class CalendarPageComponent implements OnInit {
       right: 'today prev,next',
     },
     initialView: 'dayGridMonth',
+    editable: true,
     eventClick: this.updateEvent.bind(this),
   };
 
