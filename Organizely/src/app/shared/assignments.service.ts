@@ -18,6 +18,36 @@ export class AssignmentsService {
       }),
     });
   }
+
+  getAssignments(): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>(this.assignmentURL);
+  }
+
+  getAssignment(assignmentId: number): Observable<Assignment> {
+    return this.http.get<Assignment>(
+      `${this.assignmentURL}/${assignmentId}`,
+      {
+        headers: new HttpHeaders({
+          Accept: 'application/json',
+        }),
+      }
+    );
+  }
+
+
+  updateAssignment(assignmentId: number, assignment: Assignment): Observable<void> {
+    return this.http.put<void>(`${this.assignmentURL}/${assignmentId}`, assignment,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      }
+    );
+  }
+
+  deleteAssignment(assignmentId: number): Observable<void> {
+    return this.http.delete<void>(`${this.assignmentURL}/${assignmentId}`);
+  }
 }
 
 

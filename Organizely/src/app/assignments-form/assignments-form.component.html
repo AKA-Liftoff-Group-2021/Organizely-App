@@ -11,10 +11,13 @@
               type="text"
               class="form-control"
               id="assignmentName"
-              ngModel
+              [ngModel]="
+              currentAssignment ? currentAssignment.assignmentName : null
+            "
               name="assignmentName"
               required
               #assignmentName="ngModel"
+
             />
             <span class="form-text validation-msg"
             *ngIf="!assignmentName.valid && assignmentName.touched"
@@ -27,7 +30,8 @@
               type="date"
               class="form-control"
               id="dueDate"
-              ngModel
+              [ngModel]="currentAssignment ? changeDateFormat(currentAssignment.dueDate)
+                : null"
               name="dueDate"
               required
               #dueDate="ngModel"
@@ -38,10 +42,6 @@
             >Please enter a due date.</span>
           </div>
 
-          <!-- <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Pick a course:
-            </button> -->
           <div class="form-group">
             <label for="courseId" class="form-label">Select Course:</label>
  
@@ -50,7 +50,7 @@
               type="text"
               name="courseId" 
               id="courseId" 
-              ngModel 
+              [ngModel]="currentAssignment ? currentAssignment.courseId : null"
               required
               #courseId="ngModel"
               >
