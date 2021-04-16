@@ -22,6 +22,7 @@ export default function createCalendarEvent(
       extendedProps: {
         semesterSeason: course.semesterSeason,
         semesterYear: course.semesterYear,
+        eventType: 'course',
       },
     });
   });
@@ -37,6 +38,7 @@ export default function createCalendarEvent(
       color: setTaskCalendarColor(studentTask.priority),
       extendedProps: {
         priority: studentTask.priority,
+        eventType: 'studentTask',
       },
     });
   });
@@ -50,6 +52,7 @@ export default function createCalendarEvent(
   //       // TODO: Place other extendedProps (courseName)
   //       // courseName: assignment.courseName,
   //       // courseId: assignment.courseId
+  //       // eventType: 'assignment'
   //     },
   //   };
   // });

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/angular';
+import { Router } from '@angular/router';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { CoursesService } from '../shared/courses.service';
 import { Assignment } from '../shared/models/assignment.model';
@@ -22,6 +23,7 @@ export class CalendarPageComponent implements OnInit {
       right: 'today prev,next',
     },
     initialView: 'dayGridMonth',
+    eventClick: this.updateEvent.bind(this),
   };
 
   // assignments: Assignment[];
@@ -29,9 +31,11 @@ export class CalendarPageComponent implements OnInit {
   studentTasks: StudentTask[];
 
   constructor(
+    private router: Router,
     private coursesService: CoursesService,
     private studentTasksService: StudentTasksService
   ) {}
+
   ngOnInit(): void {
     this.coursesService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
@@ -53,5 +57,36 @@ export class CalendarPageComponent implements OnInit {
         () => console.log('All done getting your tasks.')
       );
     });
+  }
+
+  updateEvent(clickInfo: EventClickArg) {
+    if (confirm('Are you sure you want to update this event?')) {
+      // console.log(clickInfo.event.extendedProps['eventType']);
+
+      if (clickInfo.event.extendedProps['eventType'] === 'course') {
+        this.router.navigate([
+          '/',
+          'organizely',
+          'classform',
+          clickInfo.event.id,
+        ]);
+      } else if (clickInfo.event.extendedProps['eventType'] === 'studentTask') {
+        this.router.navigate([
+          '/',
+          'organizely',
+          'taskform',
+          clickInfo.event.id,
+        ]);
+      }
+
+      // if (clickInfo.event.extendedProps['eventType'] === 'assignment') {
+      //   this.router.navigate([
+      //     '/',
+      //     'organizely',
+      //     'assignmentform',
+      //     clickInfo.event.id,
+      //   ]);
+      // }
+    }
   }
 }
