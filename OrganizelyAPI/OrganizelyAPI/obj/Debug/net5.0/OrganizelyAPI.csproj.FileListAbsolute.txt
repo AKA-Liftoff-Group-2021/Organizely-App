@@ -481,3 +481,9 @@ C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\Organ
 C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\OrganizelyAPI.xml
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll

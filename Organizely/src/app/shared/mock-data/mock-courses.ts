@@ -3,7 +3,7 @@ import { Course } from '../models/course.model';
 export const COURSES: Course[] = [
   {
     courseId: 1,
-    courseName: 'Liftoff',
+    courseName: 'Lift Off',
     startTime: '17:30:00',
     endTime: '20:30:00',
     startRecur: new Date(2021, 2, 1),
