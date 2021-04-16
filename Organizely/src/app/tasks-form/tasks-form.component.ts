@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -47,11 +48,11 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(studentTaskValues: any) {
+  onSubmit(studentTaskForm: NgForm) {
     if (this.currentStudentTask === undefined) {
-      this.addStudentTask(studentTaskValues);
+      this.addStudentTask(studentTaskForm);
     } else {
-      this.updateStudentTask(studentTaskValues);
+      this.updateStudentTask(studentTaskForm);
     }
   }
 
@@ -59,13 +60,15 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-  addStudentTask(studentTaskValues: any): void {
-    let newStudentTask: StudentTask = <StudentTask>studentTaskValues;
-    newStudentTask.studentTaskId = 0;
+  addStudentTask(studentTaskForm: NgForm): void {
+    const value = studentTaskForm.value;
+    const studentTaskId = 0;
 
-    newStudentTask.taskDueDate = convertToDate(
-      studentTaskValues.taskDueDate,
-      'due'
+    const newStudentTask = new StudentTask(
+      studentTaskId,
+      value.studentTaskName,
+      value.priority,
+      convertToDate(value.taskDueDate, 'due')
     );
 
     this.studentTasksService.createStudentTask(newStudentTask).subscribe(
@@ -80,31 +83,26 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateStudentTask(studentTaskValues: any): void {
+  updateStudentTask(studentTaskForm: NgForm): void {
     if (confirm('Are you sure you want to update this task?')) {
-      this.currentStudentTask = {
-        studentTaskId: this.currentStudentTask.studentTaskId,
-        ...studentTaskValues,
-        taskDueDate: convertToDate(studentTaskValues.taskDueDate, 'due'),
-      };
+      const value = studentTaskForm.value;
+
+      const updatedStudentTask = new StudentTask(
+        this.currentStudentTask.studentTaskId,
+        value.studentTaskName,
+        value.priority,
+        convertToDate(value.taskDueDate, 'due')
+      );
 
       this.studentTasksService
-        .updateStudentTask(
-          this.currentStudentTask.studentTaskId,
-          this.currentStudentTask
-        )
-        .subscribe(
-          (data: void) => {
-            console.log(
-              `${this.currentStudentTask.studentTaskName} task updated successfully.`
-            );
-            this.submitted = true;
-            this.router.navigate(['/', 'organizely', 'tasks']);
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
+        .updateStudentTask(updatedStudentTask.studentTaskId, updatedStudentTask)
+        .subscribe((data: void) => {
+          console.log(
+            `${updatedStudentTask.studentTaskName} task updated successfully.`
+          );
+          this.submitted = true;
+          this.router.navigate(['/', 'organizely', 'tasks']);
+        });
     }
   }
 
