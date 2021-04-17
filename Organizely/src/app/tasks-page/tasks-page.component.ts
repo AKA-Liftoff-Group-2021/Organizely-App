@@ -45,19 +45,21 @@ export class TasksPageComponent implements OnInit {
   }
 
   styleDueDateBadge(dueDate: Date): string {
-    let badgeStyle: string = 'badge-primary';
-    let current: Date = new Date(this.currentDate);
+    let badgeStyle: string;
     let due: Date = new Date(dueDate);
 
-    current.setHours(0, 0, 0, 0);
+    this.currentDate.setHours(0, 0, 0, 0);
+    due.setHours(0, 0, 0, 0);
 
-    let same: boolean = current.getTime() === due.getTime();
+    if (this.currentDate.getTime() < due.getTime()) {
+      badgeStyle = 'badge-success';
+    }
 
-    if (same) {
+    if (this.currentDate.getTime() === due.getTime()) {
       badgeStyle = 'badge-warning';
     }
 
-    if (current > due) {
+    if (this.currentDate > due) {
       badgeStyle = 'badge-danger';
     }
 

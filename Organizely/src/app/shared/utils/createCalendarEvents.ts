@@ -1,7 +1,9 @@
 import { Assignment } from '../models/assignment.model';
 import { Course } from '../models/course.model';
 import { StudentTask } from '../models/student-task.model';
-import setTaskCalendarColor from './setTaskCalendarCol';
+
+import setTaskCalendarColor from './setTaskCalendarColor';
+import setAssignmentCalendarColor from './setAssignmentCalendarColor';
 
 export default function createCalendarEvent(
   courses: Course[],
@@ -52,6 +54,8 @@ export default function createCalendarEvent(
       id: assignment.assignmentId,
       title: assignment.assignmentName,
       start: assignment.dueDate,
+      allDay: true,
+      color: setAssignmentCalendarColor(assignment.dueDate),
       extendedProps: {
         course: assignment.course,
         courseId: assignment.courseId,
@@ -60,5 +64,5 @@ export default function createCalendarEvent(
     });
   });
 
-  return [...courseEvents, ...studentTaskEvents, assignmentEvents];
+  return [...courseEvents, ...studentTaskEvents, ...assignmentEvents];
 }
