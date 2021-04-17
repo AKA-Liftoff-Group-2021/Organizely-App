@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { AssignmentsService } from '../shared/assignments.service';
 import { CoursesService } from '../shared/courses.service';
 import { Assignment } from '../shared/models/assignment.model';
 import { Course } from '../shared/models/course.model';
@@ -28,43 +29,49 @@ export class CalendarPageComponent implements OnInit {
     eventClick: this.updateEvent.bind(this),
   };
 
-  // assignments: Assignment[];
+  assignments: Assignment[];
   courses: Course[];
   studentTasks: StudentTask[];
 
   constructor(
     private router: Router,
     private coursesService: CoursesService,
-    private studentTasksService: StudentTasksService
+    private studentTasksService: StudentTasksService,
+    private assignmentsService: AssignmentsService
   ) {}
 
   ngOnInit(): void {
     this.coursesService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
 
-      this.studentTasksService.getStudentTasks().subscribe(
-        (data: StudentTask[]) => {
-          this.studentTasks = data;
+      this.assignmentsService
+        .getAssignments()
+        .subscribe((data: Assignment[]) => {
+          this.assignments = data;
 
-          this.calendarOptions.events = createCalendarEvents(
-            this.courses,
-            this.studentTasks
+          this.studentTasksService.getStudentTasks().subscribe(
+            (data: StudentTask[]) => {
+              this.studentTasks = data;
+
+              this.calendarOptions.events = createCalendarEvents(
+                this.courses,
+                this.studentTasks,
+                this.assignments
+              );
+
+              console.log(this.calendarOptions.events);
+            },
+            (error: any) => {
+              console.log(error);
+            },
+            () => console.log('All calendar events have been loaded.')
           );
-
-          console.log(this.calendarOptions.events);
-        },
-        (error: any) => {
-          console.log(error);
-        },
-        () => console.log('All done getting your tasks.')
-      );
+        });
     });
   }
 
   updateEvent(clickInfo: EventClickArg) {
     if (confirm('Are you sure you want to update this event?')) {
-      // console.log(clickInfo.event.extendedProps['eventType']);
-
       if (clickInfo.event.extendedProps['eventType'] === 'course') {
         this.router.navigate([
           '/',
@@ -81,14 +88,14 @@ export class CalendarPageComponent implements OnInit {
         ]);
       }
 
-      // if (clickInfo.event.extendedProps['eventType'] === 'assignment') {
-      //   this.router.navigate([
-      //     '/',
-      //     'organizely',
-      //     'assignmentform',
-      //     clickInfo.event.id,
-      //   ]);
-      // }
+      if (clickInfo.event.extendedProps['eventType'] === 'assignment') {
+        this.router.navigate([
+          '/',
+          'organizely',
+          'assignmentform',
+          clickInfo.event.id,
+        ]);
+      }
     }
   }
 }
