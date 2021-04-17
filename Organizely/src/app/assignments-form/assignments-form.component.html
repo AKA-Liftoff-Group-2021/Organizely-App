@@ -11,10 +11,13 @@
               type="text"
               class="form-control"
               id="assignmentName"
-              ngModel
+              [ngModel]="
+              currentAssignment ? currentAssignment.assignmentName : null
+            "
               name="assignmentName"
               required
               #assignmentName="ngModel"
+
             />
             <span class="form-text validation-msg"
             *ngIf="!assignmentName.valid && assignmentName.touched"
@@ -27,7 +30,8 @@
               type="date"
               class="form-control"
               id="dueDate"
-              ngModel
+              [ngModel]="currentAssignment ? changeDateFormat(currentAssignment.dueDate)
+                : null"
               name="dueDate"
               required
               #dueDate="ngModel"
@@ -38,29 +42,25 @@
             >Please enter a due date.</span>
           </div>
 
-          <!-- <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Pick a course:
-            </button> -->
           <div class="form-group">
-            <label for="course" class="form-label">Select Course:</label>
-            
+            <label for="courseId" class="form-label">Select Course:</label>
+ 
             <select 
               class="form-control" 
               type="text"
-              name="course" 
-              id="course" 
-              ngModel 
+              name="courseId" 
+              id="courseId" 
+              [ngModel]="currentAssignment ? currentAssignment.courseId : null"
               required
-              #course="ngModel"
+              #courseId="ngModel"
               >
               <option value="" disabled>...</option>
-              <option *ngFor="let course of courses; let i=index">
+              <option *ngFor="let course of courses; let i=index" [value]="course.courseId">
                 {{ course.courseName }}
-              </option>                    
+              </option>
             </select>
             <span class="form-text validation-msg"
-            *ngIf="!course.valid && course.touched"
+            *ngIf="!courseId.valid && courseId.touched"
             >Please select a course.</span>                                
           </div>
           

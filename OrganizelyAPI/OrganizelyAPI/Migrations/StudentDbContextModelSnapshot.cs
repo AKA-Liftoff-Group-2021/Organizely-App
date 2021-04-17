@@ -14,6 +14,7 @@ namespace OrganizelyAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+<<<<<<< HEAD
                 .HasAnnotation("ProductVersion", "5.0.5");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -213,6 +214,9 @@ namespace OrganizelyAPI.Migrations
 
                     b.ToTable("AspNetUsers");
                 });
+=======
+                .HasAnnotation("ProductVersion", "5.0.4");
+>>>>>>> main
 
             modelBuilder.Entity("OrganizelyAPI.Models.Assignment", b =>
                 {
@@ -280,6 +284,32 @@ namespace OrganizelyAPI.Migrations
                     b.ToTable("Course");
                 });
 
+<<<<<<< HEAD
+=======
+            modelBuilder.Entity("OrganizelyAPI.Models.Student", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("StudentId");
+
+                    b.ToTable("Student");
+                });
+
+>>>>>>> main
             modelBuilder.Entity("OrganizelyAPI.Models.StudentTask", b =>
                 {
                     b.Property<int>("StudentTaskId")
@@ -302,6 +332,7 @@ namespace OrganizelyAPI.Migrations
                     b.ToTable("StudentTask");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -353,6 +384,8 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired();
                 });
 
+=======
+>>>>>>> main
             modelBuilder.Entity("OrganizelyAPI.Models.Assignment", b =>
                 {
                     b.HasOne("OrganizelyAPI.Models.Course", "Course")

@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { COURSES } from '../shared/mock-data/mock-courses';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AssignmentsService } from '../shared/assignments.service';
+import { CoursesService } from '../shared/courses.service';
 import { Assignment } from '../shared/models/assignment.model';
 import { Course } from '../shared/models/course.model';
+import convertToDate from '../shared/utils/convertToDate';
+
 
 @Component({
   selector: 'app-assignments-form',
@@ -11,44 +16,120 @@ import { Course } from '../shared/models/course.model';
   styleUrls: ['./assignments-form.component.css']
 })
 export class AssignmentsFormComponent implements OnInit {
-  courses: Course[] = COURSES;
+  courses: Course[];
+  submitted: boolean = false;
 
-  constructor(private router: Router) { }
+  currentAssignmentId: number;
+  currentAssignment: Assignment;
+
+  assignmentSub: Subscription;
+
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private assignmentsService: AssignmentsService,
+    private coursesService: CoursesService,
+    private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.getAllCourses();
+
+    this.route.params.subscribe((params: Params) => {
+      if (params['id'] === undefined) {
+        return;
+      }
+
+      this.assignmentSub = this.assignmentsService
+        .getAssignment(+params['id'])
+        .subscribe(
+          (assignment: Assignment) => {
+            this.currentAssignmentId = assignment.assignmentId;
+            this.currentAssignment = assignment;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+    });
+  }
+
+  getAllCourses() {
+    this.coursesService.getCourses().subscribe(
+      (data: Course[]) => {
+        this.courses = data;
+      },
+      (error: any) => {
+        console.log(error);
+      },
+      () => console.log('All done getting your courses.')
+    );
+  }
+
+  changeDateFormat(date: Date) {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
   onSubmit(assignmentForm: NgForm) {
-    const value = assignmentForm.value;
-    const newAssignment = new Assignment(value.assignmentName, value.dueDate);
-    console.log(newAssignment);
-
-    this.router.navigate(['/', 'organizely', 'assignments']);
+    if (this.currentAssignmentId === undefined) {
+      this.addAssignment(assignmentForm);
+    } else {
+      this.updateAssignment(assignmentForm);
+    }
   }
 
-  convertToDate(dateString: string, type: string): Date {
-    let dateArr = dateString.split('-');
+  addAssignment(assignmentForm: NgForm) {
+    const value = assignmentForm.value;
+    const assignmentId = 0;
 
-    const year = Number(dateArr[0]);
-    const month = Number(dateArr[1]);
-    let day = Number(dateArr[2]);
+    const newAssignment = new Assignment(
+      assignmentId,
+      value.assignmentName,
+      convertToDate(value.dueDate, 'due'),
+      value.courseId);
 
-    let newDate = new Date(year, month, day);
+    this.assignmentsService.createAssignment(newAssignment).subscribe(
+      (data: Assignment) => {
+        console.log(data);
+        this.submitted = true;
+        this.router.navigate(['/', 'organizely', 'assignments']);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
 
-    newDate.setMonth(newDate.getMonth() - 1);
+  updateAssignment(assignmentForm: NgForm) {
+    if (confirm('Are you sure you want to update this assignment?')) {
+      const value = assignmentForm.value;
 
-    // let lastDayOfMonth = new Date(
-    //   newDate.getFullYear(),
-    //   newDate.getMonth() + 1,
-    //   0
-    // );
+      const updatedAssignment = new Assignment(
+        this.currentAssignmentId,
+        value.assignmentName,
+        convertToDate(value.dueDate, 'due'),
+        value.courseId
+      );
 
-    if (type === 'end') {
-      //TODO: Test for edge cases
-      newDate.setDate(newDate.getDate() + 1);
+      this.assignmentsService
+        .updateAssignment(updatedAssignment.assignmentId, updatedAssignment)
+        .subscribe(
+          (data: void) => {
+            console.log(
+              `${updatedAssignment.assignmentName} task updated successfully.`
+            );
+            this.submitted = true;
+            this.router.navigate(['/', 'organizely', 'assignments']);
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
     }
+  }
 
-    return newDate;
+  ngOnDestroy() {
+    if (this.assignmentSub !== undefined) {
+      this.assignmentSub.unsubscribe();
+    }
   }
 
 }
