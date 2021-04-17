@@ -84,11 +84,11 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-  onSubmit(courseValues: any) {
+  onSubmit(courseForm: NgForm) {
     if (this.currentCourse === undefined) {
-      this.addCourse(courseValues);
+      this.addCourse(courseForm);
     } else {
-      this.updateCourse(courseValues);
+      this.updateCourse(courseForm);
     }
   }
 
