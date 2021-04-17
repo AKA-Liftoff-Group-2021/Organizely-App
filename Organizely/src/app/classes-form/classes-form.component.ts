@@ -24,7 +24,6 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     { name: 'Saturday', id: '6' },
   ];
 
-  currentCourseId: number;
   currentCourse: Course;
 
   selectedDays: string[] = [];
@@ -53,11 +52,13 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
 
       this.courseSub = this.coursesService.getCourse(+params['id']).subscribe(
         (course: Course) => {
-          this.currentCourse = course;
-          this.currentCourseId = course.courseId;
-          this.currentCourse['daysOfWeek'].forEach((day) => {
-            this.selectedDays.push(day);
-          });
+          if (course.courseId != undefined) {
+            this.currentCourse = course;
+            this.currentCourse['daysOfWeek'].forEach((day) => {
+              this.selectedDays.push(day);
+            });
+          }
+          return;
         },
         (error: any) => {
           console.log(error);
@@ -83,11 +84,11 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-  onSubmit(courseForm: NgForm) {
-    if (this.currentCourseId === undefined) {
-      this.addCourse(courseForm);
+  onSubmit(courseValues: any) {
+    if (this.currentCourse === undefined) {
+      this.addCourse(courseValues);
     } else {
-      this.updateCourse(courseForm);
+      this.updateCourse(courseValues);
     }
   }
 
@@ -107,7 +108,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     return newDate;
   }
 
-  addCourse(courseForm: NgForm) {
+  addCourse(courseForm: NgForm): void {
     const value = courseForm.value;
     const newCourseId = 0;
 
@@ -136,7 +137,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateCourse(courseForm: NgForm) {
+  updateCourse(courseForm: NgForm): void {
     if (confirm('Are you sure you want to update this course?')) {
       const value = courseForm.value;
 
@@ -149,7 +150,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
       }
 
       const updatedCourse = new Course(
-        this.currentCourseId,
+        this.currentCourse.courseId,
         value.courseName,
         value.startTime,
         value.endTime,
@@ -172,7 +173,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
             this.router.navigate(['/', 'organizely', 'classes']);
           },
           (error: any) => {
-            console.error(error);
+            console.log(error);
           }
         );
     }
