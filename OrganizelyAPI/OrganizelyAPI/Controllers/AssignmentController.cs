@@ -41,7 +41,7 @@ namespace OrganizelyAPI.Controllers
             {
                 return NotFound();
             }
-
+           
             return assignments;
         }
 
@@ -60,7 +60,7 @@ namespace OrganizelyAPI.Controllers
                             Course = a.Course,
 
                         }).SingleOrDefaultAsync(a => a.AssignmentId == id);
-
+     
             if (assignment == null)
             {
                 return NotFound("Assignment Id does not exist");

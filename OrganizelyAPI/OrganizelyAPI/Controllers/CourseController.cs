@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,8 @@ using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
-    // [Authorize]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
@@ -29,7 +32,7 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            var course = await _context.Courses.Select(c =>     //Include(s => s.Student)
+            var courses = await _context.Courses.Select(c =>     //Include(s => s.Student)
                    new CourseDTO()
                    {
                        CourseId = c.CourseId,
@@ -46,11 +49,11 @@ namespace OrganizelyAPI.Controllers
                        //Student = c.Student
                    }).ToListAsync();
 
-            if (course == null)
+            if (courses == null)
             {
                 return NotFound();
             }
-            return Ok(course);
+            return Ok(courses);
         }
 
         //<summary> Returns course details for a given id</summary>
@@ -58,7 +61,7 @@ namespace OrganizelyAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
-            //Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
+           // Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
             var course = await _context.Courses.Select(c =>             //.Include(s => s.Student)
                     new CourseDTO()
                     {
@@ -83,6 +86,34 @@ namespace OrganizelyAPI.Controllers
 
             return Ok(course);
         }
+
+
+        // POST: api/Course
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Course>> PostCourse([FromBody] CourseDTO courseDTO)
+        {
+            //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
+            Course newCourse = new()
+            {
+                CourseName = courseDTO.CourseName,
+                TeacherName = courseDTO.TeacherName,
+                StartTime = courseDTO.StartTime,
+                EndTime = courseDTO.EndTime,
+                DaysOfWeekStr = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
+                StartRecur = courseDTO.StartRecur,
+                EndRecur = courseDTO.EndRecur,
+                SemesterSeason = courseDTO.SemesterSeason,
+                SemesterYear = courseDTO.SemesterYear,
+                //Student = theStudent
+            };
+
+            _context.Courses.Add(newCourse);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetCourse", new { id = newCourse.CourseId }, newCourse);
+        }
+
 
         // PUT: api/Course/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -128,32 +159,7 @@ namespace OrganizelyAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Course
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse([FromBody] CourseDTO courseDTO)        
-        {
-            //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
-            Course newCourse = new Course
-            {
-                CourseName = courseDTO.CourseName,
-                TeacherName = courseDTO.TeacherName,
-                StartTime = courseDTO.StartTime,
-                EndTime = courseDTO.EndTime,
-                DaysOfWeekStr = String.Join(",", courseDTO.DaysOfWeek.Select(d => d.ToString()).ToArray()),
-                StartRecur = courseDTO.StartRecur,
-                EndRecur = courseDTO.EndRecur,
-                SemesterSeason = courseDTO.SemesterSeason,
-                SemesterYear = courseDTO.SemesterYear,
-                //Student = theStudent
-            };
-
-            _context.Courses.Add(newCourse);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCourse", new { id = newCourse.CourseId }, newCourse);
-        }
-
+        
         // DELETE: api/Course/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
