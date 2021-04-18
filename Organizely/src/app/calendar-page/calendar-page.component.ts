@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
+import {
+  CalendarOptions,
+  EventClickArg,
+  DateSelectArg,
+} from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
 import { AssignmentsService } from '../shared/assignments.service';
 import { CoursesService } from '../shared/courses.service';
 import { Assignment } from '../shared/models/assignment.model';
@@ -19,13 +25,15 @@ import createCalendarEvents from '../shared/utils/createCalendarEvents';
 export class CalendarPageComponent implements OnInit {
   calendarVisible: boolean = true;
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin],
+    plugins: [dayGridPlugin, interactionPlugin],
+    dateClick: this.handleDateClick.bind(this),
     headerToolbar: {
       left: 'title',
       right: 'today prev,next',
     },
     initialView: 'dayGridMonth',
     editable: true,
+    selectable: true,
     eventClick: this.updateEvent.bind(this),
   };
 
@@ -68,6 +76,10 @@ export class CalendarPageComponent implements OnInit {
           );
         });
     });
+  }
+
+  handleDateClick(selectInfo: DateSelectArg) {
+    console.log(selectInfo);
   }
 
   updateEvent(clickInfo: EventClickArg) {
