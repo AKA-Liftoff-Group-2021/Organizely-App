@@ -90,10 +90,27 @@
             >Please enter a password.</span>
           </div>
 
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              ngModel
+              name="confirmPassword"
+              required
+              #confirmPassword="ngModel"
+            />
+
+            <span class="form-text validation-msg"
+            *ngIf="!confirmPassword.valid && confirmPassword.touched"
+            >Please enter a password again.</span>
+          </div>
+
           
           
           <br>
-          <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid" style="float: center;" (click)="onCreateAccount()">Create an Account</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid" style="float: center;" (click)="onCreateAccount(signupForm)">Create an Account</button>
         </form>
         <br>
         <p>Already have an account? Please <a routerLink="/organizely/login">log in!</a></p>
