@@ -93,7 +93,7 @@
           
           
           <br>
-          <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid" style="float: center;">Create an Account</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid" style="float: center;" (click)="onCreateAccount()">Create an Account</button>
         </form>
         <br>
         <p>Already have an account? Please <a routerLink="/organizely/login">log in!</a></p>
