@@ -163,11 +163,6 @@ C:\Users\racir\source\repos\LaunchCode\LiftOff\OrganizelyAngularCSharpApp\Organi
 C:\Users\racir\source\repos\LaunchCode\LiftOff\OrganizelyAngularCSharpApp\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.genruntimeconfig.cache
 <<<<<<< HEAD
 =======
-C:\Users\racir\source\repos\LaunchCode\LiftOff\OrganizelyAngularCSharpApp\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-C:\Users\racir\source\repos\LaunchCode\LiftOff\OrganizelyAngularCSharpApp\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-C:\Users\racir\source\repos\LaunchCode\LiftOff\OrganizelyAngularCSharpApp\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-C:\Users\racir\source\repos\LaunchCode\LiftOff\OrganizelyAngularCSharpApp\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
-C:\Users\racir\source\repos\LaunchCode\LiftOff\OrganizelyAngularCSharpApp\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
 >>>>>>> 1a542380402be925e603c56bd79383345558e4a5
 C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\OrganizelyAPI.xml
 C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
@@ -182,3 +177,13 @@ C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\
 C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
 >>>>>>> main
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.csprojAssemblyReference.cache
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.AssemblyInfoInputs.cache
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.AssemblyInfo.cs
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.csproj.CoreCompileInputs.cache
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.dll
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\ref\OrganizelyAPI.dll
+C:\Users\Kaja\Desktop\Coder_Girl\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.pdb
