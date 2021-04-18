@@ -1,14 +1,18 @@
+import { Assignment } from '../models/assignment.model';
 import { Course } from '../models/course.model';
 import { StudentTask } from '../models/student-task.model';
-import setTaskCalendarColor from './setTaskCalendarCol';
+
+import setTaskCalendarColor from './setTaskCalendarColor';
+import setAssignmentCalendarColor from './setAssignmentCalendarColor';
 
 export default function createCalendarEvent(
   courses: Course[],
-  studentTasks: StudentTask[]
+  studentTasks: StudentTask[],
+  assignments: Assignment[]
 ): any {
   let courseEvents = [];
 
-  courses.forEach((course) => {
+  courses.forEach((course: Course) => {
     courseEvents.push({
       id: course.courseId,
       title: course.courseName,
@@ -29,7 +33,7 @@ export default function createCalendarEvent(
 
   let studentTaskEvents = [];
 
-  studentTasks.forEach((studentTask) => {
+  studentTasks.forEach((studentTask: StudentTask) => {
     studentTaskEvents.push({
       id: studentTask.studentTaskId,
       title: studentTask.studentTaskName,
@@ -43,19 +47,22 @@ export default function createCalendarEvent(
     });
   });
 
-  // const assignmentEvents = assignments.forEach((assignment) => {
-  //   return {
-  //     id: assignment.assignmentId,
-  //     title: assignment.assignmentName,
-  //     start: assignment.dueDate,
-  //     extendedProps: {
-  //       // TODO: Place other extendedProps (courseName)
-  //       // courseName: assignment.courseName,
-  //       // courseId: assignment.courseId
-  //       // eventType: 'assignment'
-  //     },
-  //   };
-  // });
+  let assignmentEvents = [];
 
-  return [...courseEvents, ...studentTaskEvents];
+  assignments.forEach((assignment: Assignment) => {
+    assignmentEvents.push({
+      id: assignment.assignmentId,
+      title: assignment.assignmentName,
+      start: assignment.dueDate,
+      allDay: true,
+      color: setAssignmentCalendarColor(assignment.dueDate),
+      extendedProps: {
+        course: assignment.course,
+        courseId: assignment.courseId,
+        eventType: 'assignment',
+      },
+    });
+  });
+
+  return [...courseEvents, ...studentTaskEvents, ...assignmentEvents];
 }

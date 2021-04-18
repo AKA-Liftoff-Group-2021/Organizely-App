@@ -114,7 +114,7 @@ export class AssignmentsFormComponent implements OnInit {
         .subscribe(
           (data: void) => {
             console.log(
-              `${updatedAssignment.assignmentName} task updated successfully.`
+              `${updatedAssignment.assignmentName} assignment updated successfully.`
             );
             this.submitted = true;
             this.router.navigate(['/', 'organizely', 'assignments']);
