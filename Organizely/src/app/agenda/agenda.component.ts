@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/angular';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullCalendar/timegrid';
 
 import { Course } from '../shared/models/course.model';
-import { COURSES } from '../shared/mock-data/mock-courses';
-import { CoursesService } from '../shared/courses.service';
-import { StudentTasksService } from '../shared/student-tasks.service';
-
-import createCalendarEvents from '../shared/utils/createCalendarEvents';
 import { StudentTask } from '../shared/models/student-task.model';
 import { Assignment } from '../shared/models/assignment.model';
+
+import { CoursesService } from '../shared/courses.service';
+import { StudentTasksService } from '../shared/student-tasks.service';
+import { AssignmentsService } from '../shared/assignments.service';
+
+import createCalendarEvents from '../shared/utils/createCalendarEvents';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agenda',
@@ -27,38 +29,77 @@ export class AgendaComponent implements OnInit {
       right: 'listWeek,timeGridDay',
     },
     initialView: 'listWeek',
-    events: [],
+    editable: true,
+    eventClick: this.updateEvent.bind(this),
   };
 
   courses: Course[] = [];
   studentTasks: StudentTask[] = [];
-  // assignments: Assignment[] = [];
+  assignments: Assignment[] = [];
 
   constructor(
+    private router: Router,
     private coursesService: CoursesService,
-    private studentTasksService: StudentTasksService
+    private studentTasksService: StudentTasksService,
+    private assignmentsService: AssignmentsService
   ) {}
 
   ngOnInit(): void {
     this.coursesService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
 
-      this.studentTasksService.getStudentTasks().subscribe(
-        (data: StudentTask[]) => {
-          this.studentTasks = data;
+      this.assignmentsService
+        .getAssignments()
+        .subscribe((data: Assignment[]) => {
+          this.assignments = data;
 
-          this.calendarOptions.events = createCalendarEvents(
-            this.courses,
-            this.studentTasks
+          this.studentTasksService.getStudentTasks().subscribe(
+            (data: StudentTask[]) => {
+              this.studentTasks = data;
+
+              this.calendarOptions.events = createCalendarEvents(
+                this.courses,
+                this.studentTasks,
+                this.assignments
+              );
+
+              console.log(this.calendarOptions.events);
+            },
+            (error: any) => {
+              console.log(error);
+            },
+            () => console.log('All done getting your tasks.')
           );
-
-          console.log(this.calendarOptions.events);
-        },
-        (error: any) => {
-          console.log(error);
-        },
-        () => console.log('All done getting your tasks.')
-      );
+        });
     });
+  }
+
+  updateEvent(clickInfo: EventClickArg) {
+    if (confirm('Are you sure you want to update this event?')) {
+      if (clickInfo.event.extendedProps['eventType'] === 'course') {
+        this.router.navigate([
+          '/',
+          'organizely',
+          'classform',
+          clickInfo.event.id,
+        ]);
+      } else if (clickInfo.event.extendedProps['eventType'] === 'studentTask') {
+        this.router.navigate([
+          '/',
+          'organizely',
+          'taskform',
+          clickInfo.event.id,
+        ]);
+      }
+
+      if (clickInfo.event.extendedProps['eventType'] === 'assignment') {
+        this.router.navigate([
+          '/',
+          'organizely',
+          'assignmentform',
+          clickInfo.event.id,
+        ]);
+      }
+    }
   }
 }
