@@ -1,72 +1,110 @@
-<br>
+<br />
 <div class="container">
-    <div class="row">
-      <div class="col">
-        <h2>Add Your Assignment</h2>
-<br>
-        <form (ngSubmit)="onSubmit(assignmentForm)" #assignmentForm="ngForm">
-          <div class="form-group">
-            <label for="assignmentName">Assignment Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="assignmentName"
-              [ngModel]="
+  <div class="row">
+    <div class="col">
+      <h2>Add Your Assignment</h2>
+      <br />
+      <form (ngSubmit)="onSubmit(assignmentForm)" #assignmentForm="ngForm">
+        <div class="form-group">
+          <label for="assignmentName">Assignment Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="assignmentName"
+            [ngModel]="
               currentAssignment ? currentAssignment.assignmentName : null
             "
-              name="assignmentName"
-              required
-              #assignmentName="ngModel"
-
-            />
-            <span class="form-text validation-msg"
+            name="assignmentName"
+            required
+            #assignmentName="ngModel"
+          />
+          <span
+            class="form-text validation-msg"
             *ngIf="!assignmentName.valid && assignmentName.touched"
-            >Please enter an assignment.</span>
-          </div>
-  
-          <div class="form-group">
-            <label for="dueDate">Due Date</label>
+            >Please enter an assignment.</span
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="dueDate">Due Date</label>
+
+          <div *ngIf="currentAssignment === undefined">
             <input
               type="date"
               class="form-control"
               id="dueDate"
-              [ngModel]="currentAssignment ? changeDateFormat(currentAssignment.dueDate)
-                : null"
+              [ngModel]="selectedDate ? changeDateFormat(selectedDate) : null"
               name="dueDate"
               required
               #dueDate="ngModel"
             />
 
-            <span class="form-text validation-msg"
-            *ngIf="!dueDate.valid && dueDate.touched"
-            >Please enter a due date.</span>
+            <span
+              class="form-text validation-msg"
+              *ngIf="!dueDate.valid && dueDate.touched"
+              >Please enter a due date.</span
+            >
           </div>
 
-          <div class="form-group">
-            <label for="courseId" class="form-label">Select Course:</label>
- 
-            <select 
-              class="form-control" 
-              type="text"
-              name="courseId" 
-              id="courseId" 
-              [ngModel]="currentAssignment ? currentAssignment.courseId : null"
+          <div *ngIf="currentAssignment !== undefined">
+            <input
+              type="date"
+              class="form-control"
+              id="dueDate"
+              [ngModel]="
+                currentAssignment
+                  ? changeDateFormat(currentAssignment.dueDate)
+                  : null
+              "
+              name="dueDate"
               required
-              #courseId="ngModel"
-              >
-              <option value="" disabled>...</option>
-              <option *ngFor="let course of courses; let i=index" [value]="course.courseId">
-                {{ course.courseName }}
-              </option>
-            </select>
-            <span class="form-text validation-msg"
-            *ngIf="!courseId.valid && courseId.touched"
-            >Please select a course.</span>                                
+              #dueDate="ngModel"
+            />
+
+            <span
+              class="form-text validation-msg"
+              *ngIf="!dueDate.valid && dueDate.touched"
+              >Please enter a due date.</span
+            >
           </div>
-          
-          <br>
-          <button type="submit" class="btn btn-primary" [disabled]="!assignmentForm.valid">Submit</button>
-        </form>
-      </div>
+        </div>
+
+        <div class="form-group">
+          <label for="courseId" class="form-label">Select Course:</label>
+
+          <select
+            class="form-control"
+            type="text"
+            name="courseId"
+            id="courseId"
+            [ngModel]="currentAssignment ? currentAssignment.courseId : null"
+            required
+            #courseId="ngModel"
+          >
+            <option value="" disabled>...</option>
+            <option
+              *ngFor="let course of courses; let i = index"
+              [value]="course.courseId"
+            >
+              {{ course.courseName }}
+            </option>
+          </select>
+          <span
+            class="form-text validation-msg"
+            *ngIf="!courseId.valid && courseId.touched"
+            >Please select a course.</span
+          >
+        </div>
+
+        <br />
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!assignmentForm.valid"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   </div>
+</div>

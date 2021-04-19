@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CalendarOptions,
@@ -7,8 +7,10 @@ import {
 } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { Subscription } from 'rxjs';
 
 import { AssignmentsService } from '../shared/assignments.service';
+import { CalendarService } from '../shared/calendar.service';
 import { CoursesService } from '../shared/courses.service';
 import { Assignment } from '../shared/models/assignment.model';
 import { Course } from '../shared/models/course.model';
@@ -22,9 +24,9 @@ import createCalendarEvents from '../shared/utils/createCalendarEvents';
   templateUrl: './calendar-page.component.html',
   styleUrls: ['./calendar-page.component.css'],
 })
-export class CalendarPageComponent implements OnInit {
+export class CalendarPageComponent implements OnInit, OnDestroy {
   showModal: boolean = false;
-  date: string;
+  selectedDate: Date;
 
   calendarVisible: boolean = true;
   calendarOptions: CalendarOptions = {
@@ -44,11 +46,14 @@ export class CalendarPageComponent implements OnInit {
   courses: Course[];
   studentTasks: StudentTask[];
 
+  calendarSub: Subscription;
+
   constructor(
     private router: Router,
     private coursesService: CoursesService,
     private studentTasksService: StudentTasksService,
-    private assignmentsService: AssignmentsService
+    private assignmentsService: AssignmentsService,
+    private calendarService: CalendarService
   ) {}
 
   ngOnInit(): void {
@@ -79,11 +84,14 @@ export class CalendarPageComponent implements OnInit {
           );
         });
     });
+
+    this.calendarSub = this.calendarService.currentDate.subscribe(
+      (date) => (this.selectedDate = date)
+    );
   }
 
   handleDateClick(selectInfo: DateSelectArg) {
-    console.log(selectInfo);
-    this.date = selectInfo['date'];
+    this.calendarService.changeDate(selectInfo['date']);
     this.showModal = true;
   }
 
@@ -130,5 +138,9 @@ export class CalendarPageComponent implements OnInit {
         ]);
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.calendarSub.unsubscribe();
   }
 }

@@ -67,23 +67,45 @@
         <div class="form-group">
           <label for="startRecur">Start Date</label>
 
-          <input
-            type="date"
-            class="form-control"
-            id="startRecur"
-            [ngModel]="
-              currentCourse ? changeDateFormat(currentCourse.startRecur) : null
-            "
-            name="startRecur"
-            required
-            #startRecur="ngModel"
-          />
+          <div *ngIf="currentCourse === undefined">
+            <input
+              type="date"
+              class="form-control"
+              id="startRecur"
+              [ngModel]="selectedDate ? changeDateFormat(selectedDate) : null"
+              name="startRecur"
+              required
+              #startRecur="ngModel"
+            />
 
-          <span
-            class="form-text validation-msg"
-            *ngIf="!startRecur.valid && startRecur.touched"
-            >Please enter the first day of the course.</span
-          >
+            <span
+              class="form-text validation-msg"
+              *ngIf="!startRecur.valid && startRecur.touched"
+              >Please enter the first day of the course.</span
+            >
+          </div>
+
+          <div *ngIf="currentCourse !== undefined">
+            <input
+              type="date"
+              class="form-control"
+              id="startRecur"
+              [ngModel]="
+                currentCourse
+                  ? changeDateFormat(currentCourse.startRecur)
+                  : null
+              "
+              name="startRecur"
+              required
+              #startRecur="ngModel"
+            />
+
+            <span
+              class="form-text validation-msg"
+              *ngIf="!startRecur.valid && startRecur.touched"
+              >Please enter the first day of the course.</span
+            >
+          </div>
         </div>
 
         <div class="form-group">
