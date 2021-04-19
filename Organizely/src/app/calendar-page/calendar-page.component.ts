@@ -23,6 +23,9 @@ import createCalendarEvents from '../shared/utils/createCalendarEvents';
   styleUrls: ['./calendar-page.component.css'],
 })
 export class CalendarPageComponent implements OnInit {
+  showModal: boolean = false;
+  date: string;
+
   calendarVisible: boolean = true;
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
@@ -80,6 +83,24 @@ export class CalendarPageComponent implements OnInit {
 
   handleDateClick(selectInfo: DateSelectArg) {
     console.log(selectInfo);
+    this.date = selectInfo['date'];
+    this.showModal = true;
+  }
+
+  hide() {
+    this.showModal = false;
+  }
+
+  onSubmit(eventType: string) {
+    if (eventType === 'course') {
+      this.router.navigate(['/', 'organizely', 'classform']);
+    }
+    if (eventType === 'assignment') {
+      this.router.navigate(['/', 'organizely', 'assignmentform']);
+    }
+    if (eventType === 'task') {
+      this.router.navigate(['/', 'organizely', 'taskform']);
+    }
   }
 
   updateEvent(clickInfo: EventClickArg) {
