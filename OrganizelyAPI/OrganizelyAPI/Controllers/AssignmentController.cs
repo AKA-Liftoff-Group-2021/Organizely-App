@@ -81,7 +81,8 @@ namespace OrganizelyAPI.Controllers
 
             assignmentToUpdate.AssignmentName = assignmentDTO.AssignmentName;
             assignmentToUpdate.DueDate = assignmentDTO.DueDate;
-            //Course 
+            assignmentToUpdate.CourseId = assignmentDTO.CourseId;
+
             _context.Entry(assignmentToUpdate).State = EntityState.Modified;
 
             try
