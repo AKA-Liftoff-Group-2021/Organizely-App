@@ -46,7 +46,20 @@
           />
         </li>
         <li style="color: white; align-content: center">
-          Welcome, [Username]!
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Welcome, [Username]!
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" (click)="onLogout()">Logout</a>
+          </div>
         </li>
       </ul>
     </div>
