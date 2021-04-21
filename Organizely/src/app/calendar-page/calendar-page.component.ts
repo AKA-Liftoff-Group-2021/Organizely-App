@@ -69,6 +69,7 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
             (data: StudentTask[]) => {
               this.studentTasks = data;
 
+              // TODO: Determine if this function should be done inside pipe()
               this.calendarOptions.events = createCalendarEvents(
                 this.courses,
                 this.studentTasks,
