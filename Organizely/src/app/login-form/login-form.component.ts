@@ -22,6 +22,7 @@ export class LoginFormComponent implements OnInit {
       (res: any) => {
         localStorage.setItem('token', res.token);
         this.router.navigate(['/', 'organizely', 'home']);
+        console.log('Login successful!');
       },
       (err) => {
         if (err.status == 400) {
