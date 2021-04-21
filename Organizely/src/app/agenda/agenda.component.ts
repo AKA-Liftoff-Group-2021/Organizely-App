@@ -13,6 +13,8 @@ import { AssignmentsService } from '../shared/assignments.service';
 
 import createCalendarEvents from '../shared/utils/createCalendarEvents';
 import { Router } from '@angular/router';
+import { QuotesService } from '../quotes.service';
+import { Quote } from '../shared/models/quote.model';
 
 @Component({
   selector: 'app-agenda',
@@ -36,15 +38,20 @@ export class AgendaComponent implements OnInit {
   courses: Course[] = [];
   studentTasks: StudentTask[] = [];
   assignments: Assignment[] = [];
+  quotes = [];
 
   constructor(
     private router: Router,
     private coursesService: CoursesService,
     private studentTasksService: StudentTasksService,
-    private assignmentsService: AssignmentsService
+    private assignmentsService: AssignmentsService,
+    private quotesService: QuotesService
   ) {}
 
   ngOnInit(): void {
+    this.quotes = this.quotesService.getQuote();
+    console.log(this.quotes);
+
     this.coursesService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
 
@@ -101,5 +108,11 @@ export class AgendaComponent implements OnInit {
         ]);
       }
     }
+  }
+
+  onSaveQuote(quote: Quote) {
+    const quoteId = 0;
+    let savedQuote = new Quote(quoteId, quote.content, quote.author);
+    console.log(savedQuote);
   }
 }
