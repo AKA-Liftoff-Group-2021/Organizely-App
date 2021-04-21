@@ -15,8 +15,25 @@
     <a class="dropdown-item" routerLink="/organizely/taskform">Task</a>
   </div>
 </div>
+<br>
 
-<full-calendar
-  *ngIf="calendarVisible"
-  [options]="calendarOptions"
-></full-calendar>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-9">
+      <full-calendar
+        *ngIf="calendarVisible"
+        [options]="calendarOptions"
+      ></full-calendar>  
+    </div>
+    <div class="col-sm-3">
+      <div class="blockquote" *ngFor="let quote of quotes">  
+        <p class="text-center" style="font-size: 15pt; font-style: italic;">"{{ quote.content }}"</p>
+        <p class="text-center" style="font-size: 11pt">- {{ quote.author }}</p> 
+        <br>
+        <button type="submit" class="btn btn-dark btn-sm" style="float: right; margin-right: 10px;" #quote (click)="onSaveQuote(quote)">Save Quote</button>
+      </div>
+    </div>
+  </div>
+</div>
