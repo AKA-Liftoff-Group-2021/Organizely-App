@@ -1,31 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { ApplicationUser } from '../shared/models/application-user.model';
-import { RegistrationResponseData } from '../auth.service';
+import { RegistrationResponseData } from '../auth/auth.service';
 
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
-  styleUrls: ['./signup-form.component.css']
+  styleUrls: ['./signup-form.component.css'],
 })
 export class SignupFormComponent implements OnInit {
+  constructor(private authService: AuthService) {}
 
-  constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onCreateAccount(signupForm: NgForm) {
     const value = signupForm.value;
 
-    const newUser = new ApplicationUser(      
+    const newUser = new ApplicationUser(
       value.username,
       value.email,
       value.password,
       value.confirmPassword,
       value.firstName,
-      value.lastName)
+      value.lastName
+    );
     this.authService.register(newUser).subscribe(
       (data: RegistrationResponseData) => {
         console.log(data);
@@ -37,7 +36,4 @@ export class SignupFormComponent implements OnInit {
       }
     );
   }
-    
-  }
-
-
+}
