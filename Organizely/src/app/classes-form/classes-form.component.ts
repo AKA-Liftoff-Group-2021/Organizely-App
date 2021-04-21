@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { CoursesService } from '../shared/courses.service';
 import { Course } from '../shared/models/course.model';
+import { CalendarService } from '../shared/calendar.service';
 
 @Component({
   selector: 'app-classes-form',
@@ -28,6 +29,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
 
   selectedDays: string[] = [];
 
+  selectedDate: Date;
   currentDate: Date = new Date();
   currentYear = this.currentDate.getFullYear();
 
@@ -41,29 +43,33 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     public datePipe: DatePipe,
     private route: ActivatedRoute,
     private router: Router,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private calendarService: CalendarService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       if (params['id'] === undefined) {
-        return;
-      }
-
-      this.courseSub = this.coursesService.getCourse(+params['id']).subscribe(
-        (course: Course) => {
-          if (course.courseId != undefined) {
-            this.currentCourse = course;
-            this.currentCourse['daysOfWeek'].forEach((day) => {
-              this.selectedDays.push(day);
-            });
+        this.calendarService.currentDate.subscribe((data) => {
+          this.selectedDate = data;
+          console.log(this.selectedDate);
+        });
+      } else {
+        this.courseSub = this.coursesService.getCourse(+params['id']).subscribe(
+          (course: Course) => {
+            if (course.courseId != undefined) {
+              this.currentCourse = course;
+              this.currentCourse['daysOfWeek'].forEach((day) => {
+                this.selectedDays.push(day);
+              });
+            }
+            return;
+          },
+          (error: any) => {
+            console.log(error);
           }
-          return;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+        );
+      }
     });
   }
 

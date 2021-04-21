@@ -1,8 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
+import {
+  CalendarOptions,
+  EventClickArg,
+  DateSelectArg,
+} from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { Subscription } from 'rxjs';
+
 import { AssignmentsService } from '../shared/assignments.service';
+import { CalendarService } from '../shared/calendar.service';
 import { CoursesService } from '../shared/courses.service';
 import { Assignment } from '../shared/models/assignment.model';
 import { Course } from '../shared/models/course.model';
@@ -16,16 +24,21 @@ import createCalendarEvents from '../shared/utils/createCalendarEvents';
   templateUrl: './calendar-page.component.html',
   styleUrls: ['./calendar-page.component.css'],
 })
-export class CalendarPageComponent implements OnInit {
+export class CalendarPageComponent implements OnInit, OnDestroy {
+  showModal: boolean = false;
+  selectedDate: Date;
+
   calendarVisible: boolean = true;
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin],
+    plugins: [dayGridPlugin, interactionPlugin],
+    dateClick: this.handleDateClick.bind(this),
     headerToolbar: {
       left: 'title',
       right: 'today prev,next',
     },
     initialView: 'dayGridMonth',
     editable: true,
+    selectable: true,
     eventClick: this.updateEvent.bind(this),
   };
 
@@ -33,11 +46,14 @@ export class CalendarPageComponent implements OnInit {
   courses: Course[];
   studentTasks: StudentTask[];
 
+  calendarSub: Subscription;
+
   constructor(
     private router: Router,
     private coursesService: CoursesService,
     private studentTasksService: StudentTasksService,
-    private assignmentsService: AssignmentsService
+    private assignmentsService: AssignmentsService,
+    private calendarService: CalendarService
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +84,31 @@ export class CalendarPageComponent implements OnInit {
           );
         });
     });
+
+    this.calendarSub = this.calendarService.currentDate.subscribe(
+      (date) => (this.selectedDate = date)
+    );
+  }
+
+  handleDateClick(selectInfo: DateSelectArg) {
+    this.calendarService.changeDate(selectInfo['date']);
+    this.showModal = true;
+  }
+
+  hide() {
+    this.showModal = false;
+  }
+
+  onSubmit(eventType: string) {
+    if (eventType === 'course') {
+      this.router.navigate(['/', 'organizely', 'classform']);
+    }
+    if (eventType === 'assignment') {
+      this.router.navigate(['/', 'organizely', 'assignmentform']);
+    }
+    if (eventType === 'task') {
+      this.router.navigate(['/', 'organizely', 'taskform']);
+    }
   }
 
   updateEvent(clickInfo: EventClickArg) {
@@ -97,5 +138,9 @@ export class CalendarPageComponent implements OnInit {
         ]);
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.calendarSub.unsubscribe();
   }
 }

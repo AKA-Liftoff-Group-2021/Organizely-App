@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullCalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +30,11 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 
-FullCalendarModule.registerPlugins([listPlugin, timeGridPlugin]);
+FullCalendarModule.registerPlugins([
+  listPlugin,
+  timeGridPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   declarations: [
