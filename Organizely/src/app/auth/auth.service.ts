@@ -32,6 +32,7 @@ export class AuthService {
   }
 
   private handleError(errorRes: HttpErrorResponse) {
+    // TODO: Figure out why user signup triggers error handler when signup successful
     let errorMessage = 'An unknown error occured!';
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
