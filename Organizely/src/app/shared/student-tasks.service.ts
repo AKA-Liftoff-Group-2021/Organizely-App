@@ -26,8 +26,6 @@ export class StudentTasksService {
     );
   }
 
-  // TODO: create a method to transform data for calendar and agenda views
-
   createStudentTask(studentTask: StudentTask): Observable<StudentTask> {
     return this.http.post<StudentTask>(this.studentTaskURL, studentTask, {
       headers: new HttpHeaders({

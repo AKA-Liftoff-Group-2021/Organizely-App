@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'organizely/classform/:id', component: ClassesFormComponent },
   { path: 'organizely/assignments', component: AssignmentsPageComponent },
   { path: 'organizely/assignmentform', component: AssignmentsFormComponent },
+  { path: 'organizely/assignmentform/:id', component: AssignmentsFormComponent },
   { path: 'organizely/tasks', component: TasksPageComponent },
   { path: 'organizely/taskform', component: TasksFormComponent },
   { path: 'organizely/taskform/:id', component: TasksFormComponent },

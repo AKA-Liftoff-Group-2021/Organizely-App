@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { CoursesService } from '../shared/courses.service';
 import { Course } from '../shared/models/course.model';
+import { CalendarService } from '../shared/calendar.service';
 
 @Component({
   selector: 'app-classes-form',
@@ -24,11 +25,11 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     { name: 'Saturday', id: '6' },
   ];
 
-  currentCourseId: number;
   currentCourse: Course;
 
   selectedDays: string[] = [];
 
+  selectedDate: Date;
   currentDate: Date = new Date();
   currentYear = this.currentDate.getFullYear();
 
@@ -42,27 +43,33 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     public datePipe: DatePipe,
     private route: ActivatedRoute,
     private router: Router,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private calendarService: CalendarService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       if (params['id'] === undefined) {
-        return;
+        this.calendarService.currentDate.subscribe((data) => {
+          this.selectedDate = data;
+          console.log(this.selectedDate);
+        });
+      } else {
+        this.courseSub = this.coursesService.getCourse(+params['id']).subscribe(
+          (course: Course) => {
+            if (course.courseId != undefined) {
+              this.currentCourse = course;
+              this.currentCourse['daysOfWeek'].forEach((day) => {
+                this.selectedDays.push(day);
+              });
+            }
+            return;
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
       }
-
-      this.courseSub = this.coursesService.getCourse(+params['id']).subscribe(
-        (course: Course) => {
-          this.currentCourse = course;
-          this.currentCourseId = course.courseId;
-          this.currentCourse['daysOfWeek'].forEach((day) => {
-            this.selectedDays.push(day);
-          });
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
     });
   }
 
@@ -84,7 +91,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(courseForm: NgForm) {
-    if (this.currentCourseId === undefined) {
+    if (this.currentCourse === undefined) {
       this.addCourse(courseForm);
     } else {
       this.updateCourse(courseForm);
@@ -107,7 +114,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     return newDate;
   }
 
-  addCourse(courseForm: NgForm) {
+  addCourse(courseForm: NgForm): void {
     const value = courseForm.value;
     const newCourseId = 0;
 
@@ -136,7 +143,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateCourse(courseForm: NgForm) {
+  updateCourse(courseForm: NgForm): void {
     if (confirm('Are you sure you want to update this course?')) {
       const value = courseForm.value;
 
@@ -149,7 +156,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
       }
 
       const updatedCourse = new Course(
-        this.currentCourseId,
+        this.currentCourse.courseId,
         value.courseName,
         value.startTime,
         value.endTime,
@@ -172,7 +179,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
             this.router.navigate(['/', 'organizely', 'classes']);
           },
           (error: any) => {
-            console.error(error);
+            console.log(error);
           }
         );
     }

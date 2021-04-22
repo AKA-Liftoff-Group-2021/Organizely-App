@@ -53,25 +53,45 @@
         <div class="form-group">
           <label for="taskDueDate">Due Date</label>
 
-          <input
-            type="date"
-            class="form-control"
-            id="taskDueDate"
-            [ngModel]="
-              currentStudentTask
-                ? changeDateFormat(currentStudentTask.taskDueDate)
-                : null
-            "
-            name="taskDueDate"
-            required
-            #taskDueDate="ngModel"
-          />
+          <div *ngIf="currentStudentTask === undefined">
+            <input
+              type="date"
+              class="form-control"
+              id="taskDueDate"
+              [ngModel]="selectedDate ? changeDateFormat(selectedDate) : null"
+              name="taskDueDate"
+              required
+              #taskDueDate="ngModel"
+            />
 
-          <span
-            class="form-text validation-msg"
-            *ngIf="!taskDueDate.valid && taskDueDate.touched"
-            >Please select a date.</span
-          >
+            <span
+              class="form-text validation-msg"
+              *ngIf="!taskDueDate.valid && taskDueDate.touched"
+              >Please select a date.</span
+            >
+          </div>
+
+          <div *ngIf="currentStudentTask !== undefined">
+            <input
+              type="date"
+              class="form-control"
+              id="taskDueDate"
+              [ngModel]="
+                currentStudentTask
+                  ? changeDateFormat(currentStudentTask.taskDueDate)
+                  : null
+              "
+              name="taskDueDate"
+              required
+              #taskDueDate="ngModel"
+            />
+
+            <span
+              class="form-text validation-msg"
+              *ngIf="!taskDueDate.valid && taskDueDate.touched"
+              >Please select a date.</span
+            >
+          </div>
         </div>
 
         <button

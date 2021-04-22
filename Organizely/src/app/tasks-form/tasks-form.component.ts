@@ -7,6 +7,7 @@ import { StudentTask } from '../shared/models/student-task.model';
 import { StudentTasksService } from '../shared/student-tasks.service';
 
 import convertToDate from '../shared/utils/convertToDate';
+import { CalendarService } from '../shared/calendar.service';
 
 @Component({
   selector: 'app-tasks-form',
@@ -16,10 +17,11 @@ import convertToDate from '../shared/utils/convertToDate';
 export class TasksFormComponent implements OnInit, OnDestroy {
   priorityOptions: string[] = ['Low', 'Medium', 'High'];
 
-  currentStudentTaskId: number;
   currentStudentTask: StudentTask;
 
   submitted: boolean = false;
+
+  selectedDate: Date;
 
   studentTaskSub: Subscription;
 
@@ -27,31 +29,33 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     private datePipe: DatePipe,
     private route: ActivatedRoute,
     private router: Router,
-    private studentTasksService: StudentTasksService
+    private studentTasksService: StudentTasksService,
+    private calendarService: CalendarService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       if (params['id'] === undefined) {
-        return;
+        this.calendarService.currentDate.subscribe((data) => {
+          this.selectedDate = data;
+        });
+      } else {
+        this.studentTaskSub = this.studentTasksService
+          .getStudentTask(+params['id'])
+          .subscribe(
+            (studentTask: StudentTask) => {
+              this.currentStudentTask = studentTask;
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
       }
-
-      this.studentTaskSub = this.studentTasksService
-        .getStudentTask(+params['id'])
-        .subscribe(
-          (studentTask: StudentTask) => {
-            this.currentStudentTaskId = studentTask.studentTaskId;
-            this.currentStudentTask = studentTask;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
     });
   }
 
   onSubmit(studentTaskForm: NgForm) {
-    if (this.currentStudentTaskId === undefined) {
+    if (this.currentStudentTask === undefined) {
       this.addStudentTask(studentTaskForm);
     } else {
       this.updateStudentTask(studentTaskForm);
@@ -62,18 +66,18 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-  addStudentTask(studentTaskForm: NgForm) {
+  addStudentTask(studentTaskForm: NgForm): void {
     const value = studentTaskForm.value;
-    const studentId = 0;
+    const studentTaskId = 0;
 
-    const newTask = new StudentTask(
-      studentId,
+    const newStudentTask = new StudentTask(
+      studentTaskId,
       value.studentTaskName,
       value.priority,
       convertToDate(value.taskDueDate, 'due')
     );
 
-    this.studentTasksService.createStudentTask(newTask).subscribe(
+    this.studentTasksService.createStudentTask(newStudentTask).subscribe(
       (data: StudentTask) => {
         console.log(data);
         this.submitted = true;
@@ -85,12 +89,12 @@ export class TasksFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateStudentTask(studentTaskForm: NgForm) {
+  updateStudentTask(studentTaskForm: NgForm): void {
     if (confirm('Are you sure you want to update this task?')) {
       const value = studentTaskForm.value;
 
       const updatedStudentTask = new StudentTask(
-        this.currentStudentTaskId,
+        this.currentStudentTask.studentTaskId,
         value.studentTaskName,
         value.priority,
         convertToDate(value.taskDueDate, 'due')
@@ -98,18 +102,13 @@ export class TasksFormComponent implements OnInit, OnDestroy {
 
       this.studentTasksService
         .updateStudentTask(updatedStudentTask.studentTaskId, updatedStudentTask)
-        .subscribe(
-          (data: void) => {
-            console.log(
-              `${updatedStudentTask.studentTaskName} task updated successfully.`
-            );
-            this.submitted = true;
-            this.router.navigate(['/', 'organizely', 'tasks']);
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
+        .subscribe((data: void) => {
+          console.log(
+            `${updatedStudentTask.studentTaskName} task updated successfully.`
+          );
+          this.submitted = true;
+          this.router.navigate(['/', 'organizely', 'tasks']);
+        });
     }
   }
 
