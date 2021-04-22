@@ -7,3 +7,7 @@ select.ng-invalid.ng-touched {
 .validation-msg {
   color: red;
 }
+
+.lg-badge {
+  font-size: 16px;
+}
