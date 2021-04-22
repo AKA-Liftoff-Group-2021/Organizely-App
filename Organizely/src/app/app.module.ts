@@ -29,6 +29,7 @@ import { SignupPageComponent } from './signup-page/signup-page.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { UpcomingListComponent } from './upcoming-list/upcoming-list.component';
 
 FullCalendarModule.registerPlugins([
   listPlugin,
@@ -56,6 +57,7 @@ FullCalendarModule.registerPlugins([
     SignupFormComponent,
     LoginPageComponent,
     LoginFormComponent,
+    UpcomingListComponent,
   ],
   imports: [
     BrowserModule,
