@@ -1,0 +1,22 @@
+######################
+# Logs and databases #
+######################
+*.log
+*.sqlite
+
+###############
+# Directories #
+###############
+bin/
+obj/
+
+###################
+# Compiled source #
+###################
+*.dll
+*.pdb
+*.cache
+*.suo
+
+
+###### possibly include DesignTimeBuild/.dtbcache.v2
