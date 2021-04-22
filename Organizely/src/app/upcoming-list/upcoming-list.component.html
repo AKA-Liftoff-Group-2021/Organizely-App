@@ -1,0 +1,13 @@
+<h4>{{ currentDate | date: "fullDate" }}</h4>
+<h4>Coming Up Next Week</h4>
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let event of upcomingEvents">
+    <span
+      class="badge"
+      [ngClass]="event.assignmentName ? 'badge-danger' : 'badge-success'"
+      >{{ event.assignmentName ? "Assignment" : "Task" }}</span
+    >
+    {{ event.assignmentName || event.studentTaskName }}
+  </li>
+</ul>
