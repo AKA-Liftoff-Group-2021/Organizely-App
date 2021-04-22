@@ -64,7 +64,6 @@ namespace OrganizelyAPI.Controllers
             }
 
             return Ok(new Response { Status = "Success", Message = "New user created successfully." });
-            //return StatusCode(201);
         }
 
         [HttpPost]
@@ -75,7 +74,7 @@ namespace OrganizelyAPI.Controllers
 
             var existingUser = await _userManager.FindByNameAsync(userLogin.Username);
 
-            if (existingUser != null || await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))
+            if (existingUser != null && await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))// TODO change this to &&
             {
                 var key = Encoding.UTF8.GetBytes(_configuration.GetSection("JWTSettings:Secret").Value); // or use applicationsettings
                 var secret = new SymmetricSecurityKey(key);
@@ -83,24 +82,21 @@ namespace OrganizelyAPI.Controllers
                 {
                     Subject = new ClaimsIdentity(new List<Claim>
                    {
-                        new Claim(ClaimTypes.Name, userLogin.Username),   // OR USE ID?
-                        //new Claim("UserID")
+                        new Claim(ClaimTypes.Name, userLogin.Username),
                         //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     }),
-                    Expires = DateTime.UtcNow.AddDays(1),
+                    Expires = DateTime.UtcNow.AddHours(6),
                     SigningCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256)
                 };
 
                 var jwtTokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = jwtTokenHandler.CreateToken(tokenDescriptor);
                 var jwtToken = jwtTokenHandler.WriteToken(securityToken);
-                //return Ok(jwtToken); // returns the token as the body
                 //return Ok(new { token = jwtToken }); // returns the token as a JSON body with "token" as property and the actual token as value
                 return Ok(new AuthResponse { IsAuthSuccessful = true, Token = jwtToken });
             }
 
-            return Unauthorized(new AuthResponse { ErrorMessage = "Invalid Authentication" });
-            //return Unauthorized();
+            return Unauthorized(new AuthResponse { ErrorMessage = "Login failed, unathorized user." });
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
@@ -13,17 +14,18 @@ using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //[Authorize]
+    //[Authorize(AuthenticationSchemes = "JwtBearer")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
     {
         private readonly StudentDbContext _context;
-
-        public CourseController(StudentDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public CourseController(StudentDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+           _userManager = userManager;
         }
 
         //<summary> Returns all courses associated with a student ID</summary>
@@ -32,7 +34,9 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            var courses = await _context.Courses.Select(c =>     //Include(s => s.Student)
+            //var user = await _userManager.GetUserAsync(HttpContext.User);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var courses = await _context.Courses.Where(u => u.UserId == user.Id).Include(u => u.User).Select(c =>    
                    new CourseDTO()
                    {
                        CourseId = c.CourseId,
@@ -45,8 +49,8 @@ namespace OrganizelyAPI.Controllers
                        EndRecur = c.EndRecur,
                        SemesterSeason = c.SemesterSeason,
                        SemesterYear = c.SemesterYear,
-                       //StudentId = c.StudentId,
-                       //Student = c.Student
+                       UserId = c.UserId,
+                       //User = c.User
                    }).ToListAsync();
 
             if (courses == null)
@@ -61,8 +65,9 @@ namespace OrganizelyAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
-           // Student theStudent = await _context.Courses.FindAsync(Course.StudentId);
-            var course = await _context.Courses.Select(c =>             //.Include(s => s.Student)
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //var course = await _context.Courses.Where(u => u.UserId == user.Id).Include(u => u.User).Select(c =>
+            var course = await _context.Courses.Where(u => u.UserId == user.Id).Include(u => u.User).Select(c =>
                     new CourseDTO()
                     {
                         CourseId = c.CourseId,              
@@ -75,8 +80,8 @@ namespace OrganizelyAPI.Controllers
                         EndRecur = c.EndRecur,
                         SemesterSeason = c.SemesterSeason,
                         SemesterYear = c.SemesterYear,
-                        //StudentId = c.StudentId,
-                        //Student = c.Student
+                        UserId = c.UserId,
+                        //User = c.User
                     }).SingleOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
@@ -93,7 +98,10 @@ namespace OrganizelyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse([FromBody] CourseDTO courseDTO)
         {
-            //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);          //march 22
+            //try this next time: var user = await _userManager.GetUserAsync(HttpContext.User);
+            //try if it shows current logged in user:
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //var user = await _userManager.FindByIdAsync(courseDTO.UserId);    
             Course newCourse = new()
             {
                 CourseName = courseDTO.CourseName,
@@ -105,7 +113,8 @@ namespace OrganizelyAPI.Controllers
                 EndRecur = courseDTO.EndRecur,
                 SemesterSeason = courseDTO.SemesterSeason,
                 SemesterYear = courseDTO.SemesterYear,
-                //Student = theStudent
+                UserId = user.Id,
+                //User = c.User
             };
 
             _context.Courses.Add(newCourse);
@@ -120,7 +129,8 @@ namespace OrganizelyAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCourse(int id, [FromBody] CourseDTO courseDTO)
         {
-            //Student theStudent = await _context.Students.FindAsync(courseDTO.StudentId);         
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //var user = await _userManager.FindByIdAsync(courseDTO.UserId); // check if its better to find by user.identity.name
             Course courseToUpdate = await _context.Courses.FindAsync(id);
             if (id != courseToUpdate.CourseId)
             {
@@ -136,7 +146,8 @@ namespace OrganizelyAPI.Controllers
             courseToUpdate.EndRecur = courseDTO.EndRecur;
             courseToUpdate.SemesterSeason = courseDTO.SemesterSeason;
             courseToUpdate.SemesterYear = courseDTO.SemesterYear;
-            //Student = theStudent
+            courseToUpdate.UserId = user.Id;
+                //User = c.User
 
             _context.Entry(courseToUpdate).State = EntityState.Modified; 
 
@@ -164,6 +175,9 @@ namespace OrganizelyAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
         {
+            //var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //Where(u => u.UserId == user.Id)
+
             var course = await _context.Courses.FindAsync(id);
             if (course == null)
             {

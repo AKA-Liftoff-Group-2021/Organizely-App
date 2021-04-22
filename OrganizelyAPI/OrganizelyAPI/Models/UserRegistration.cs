@@ -10,7 +10,7 @@ namespace OrganizelyAPI.Models
     {
 
         [Required(ErrorMessage = "Username is required")]
-        [MaxLength(20), MinLength(2)]
+        [MaxLength(30), MinLength(2)]
         public string Username { get; set; }
 
         [MaxLength(50), MinLength(2)]
