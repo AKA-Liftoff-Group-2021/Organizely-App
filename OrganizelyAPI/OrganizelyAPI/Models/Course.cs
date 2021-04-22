@@ -42,6 +42,9 @@ namespace OrganizelyAPI.Models
         //public string StudentId { get; set; }            // temporarily hide until user sign up is set up
         //public Student Student { get; set; }
 
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
 
         // public ICollection<Assignment> Assignments { get; set; }            // March 18, 2021
     }

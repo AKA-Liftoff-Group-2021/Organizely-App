@@ -18,17 +18,11 @@ using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
     {
-        //private readonly StudentDbContext _context;
-
-        //public StudentController(StudentDbContext context)
-        //{
-        //    _context = context;
-        //}
-
         private readonly UserManager<ApplicationUser> _userManager;
 
         public StudentController(UserManager<ApplicationUser> userManager)
@@ -36,43 +30,47 @@ namespace OrganizelyAPI.Controllers
             _userManager = userManager;
         }
 
-
-        [Authorize]
         [HttpGet]
         // GET: api/Student
-        //[HttpGet("{id}")]
-        // GET: api/Student/5
         // [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)] 
-        public async Task<Object> GetStudent() // (int id)
+        public async Task<IActionResult> GetStudent() // (int id)
         {
-           // string username = User. First(u => u.Type == "Username").Value; // WRONG, TODO: CHANGE VALUE
-            string username = User.Claims.First(u => u.Type == "Username").Value;
-            var student = await _userManager.FindByNameAsync(username);
-            //or  var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-            //var student = await _userManager.Students.Select(s =>
-            //       new StudentDTO()
-            //       {
-            //           StudentId = s.StudentId,
-            //           Username = s.Username,
-            //           FirstName = s.FirstName,
-            //           LastName = s.LastName,
-            //       }).SingleOrDefaultAsync(s => s.StudentId == id);
-
-            if (student == null)
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            //return Ok(student);
-            return new
+            StudentDTO student = new()
             {
-                //student.Id,
-                student.FirstName,
-                student.LastName,
-                student.UserName,
-                student.Email
+                Username = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
             };
+            return Ok(student);
         }
+
+        //// DELETE: api/Student/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteStudent(int id)//or username
+        //{
+        //    var user = await _userManager.FindByNameAsync(User.Identity.Name);//or findbyId
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.AspNetUsers.Remove(user);
+        //    await _context.SaveChangesAsync();
+
+        //    return NoContent();
+        //}
+
+        //private bool StudentExists(int id)
+        //{
+        //    return _context.AspNetUsers.Any(e => e.Id == id);
+        //}
 
 
         //// POST: api/Student
@@ -127,26 +125,7 @@ namespace OrganizelyAPI.Controllers
         //    return NoContent();
         //}
 
-        //// DELETE: api/Student/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteStudent(int id)
-        //{
-        //    var student = await _context.Students.FindAsync(id);
-        //    if (student == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    _context.Students.Remove(student);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-
-        //private bool StudentExists(int id)
-        //{
-        //    return _context.Students.Any(e => e.StudentId == id);
-        //}
 
     }
 }

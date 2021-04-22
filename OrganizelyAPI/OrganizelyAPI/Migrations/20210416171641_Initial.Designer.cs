@@ -9,7 +9,7 @@ using OrganizelyAPI.Data;
 namespace OrganizelyAPI.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    [Migration("20210415163209_Initial")]
+    [Migration("20210416171641_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -277,7 +277,12 @@ namespace OrganizelyAPI.Migrations
                     b.Property<string>("TeacherName")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("CourseId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Course");
                 });
@@ -364,6 +369,15 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("OrganizelyAPI.Models.Course", b =>
+                {
+                    b.HasOne("OrganizelyAPI.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

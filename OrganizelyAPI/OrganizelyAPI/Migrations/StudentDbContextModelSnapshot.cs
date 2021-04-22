@@ -275,7 +275,12 @@ namespace OrganizelyAPI.Migrations
                     b.Property<string>("TeacherName")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("CourseId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Course");
                 });
@@ -362,6 +367,15 @@ namespace OrganizelyAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("OrganizelyAPI.Models.Course", b =>
+                {
+                    b.HasOne("OrganizelyAPI.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
