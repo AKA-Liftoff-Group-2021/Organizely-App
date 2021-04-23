@@ -5,7 +5,7 @@
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let event of upcomingEvents">
       <span
-        class="badge"
+        class="badge lg-badge"
         [ngClass]="event.assignmentName ? 'badge-danger' : 'badge-success'"
         >{{ event.assignmentName ? "Assignment" : "Task" }}</span
       >
