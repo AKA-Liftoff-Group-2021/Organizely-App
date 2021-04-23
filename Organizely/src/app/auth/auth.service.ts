@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -29,6 +33,15 @@ export class AuthService {
       'https://localhost:44394/api/Authentication/Login',
       formData
     );
+  }
+
+  getStudent() {
+    return this.http.get('https://localhost:44394/api/Student', {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
   }
 
   private handleError(errorRes: HttpErrorResponse) {
