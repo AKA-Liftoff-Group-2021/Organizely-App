@@ -92,17 +92,17 @@ namespace OrganizelyAPI
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
                 //options.Password.RequiredUniqueChars = 1;
-                //options.User.RequireUniqueEmail = true;
+                options.User.RequireUniqueEmail = true;
             });
 
             services.AddCors();
 
             // JWT Authentication
             services.AddAuthentication(options => {
-                options.DefaultAuthenticateScheme = "JwtBearer"; // JwtBearerDefaults.AuthenticationScheme; 
-                options.DefaultChallengeScheme = "JwtBearer"; // JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = "JwtBearer";  //JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer("JwtBearer", jwt => {            // JWT Bearer
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; //"JwtBearer";
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(jwt => {            // JWT Bearer //   }).AddJwtBearer("JwtBearer", jwt => {     
                 var key = Encoding.UTF8.GetBytes(Configuration["JWTSettings:Secret"]); //ToString() if using applicationSettings
 
                 jwt.RequireHttpsMetadata = false;
@@ -113,7 +113,7 @@ namespace OrganizelyAPI
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false, //
-                    //ValidAudience = Configuration["JWTSettings:ValidAudience"],
+                    ValidAudience = Configuration["JWTSettings:ValidAudience"],
                     ValidateLifetime = true, //
                     //RequireExpirationTime = false,
                     //ClockSkew = TimeSpan.A
