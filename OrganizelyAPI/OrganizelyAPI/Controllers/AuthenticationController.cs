@@ -37,10 +37,9 @@ namespace OrganizelyAPI.Controllers
         public async Task<IActionResult> Register([FromBody] UserRegistration userRegistration)
         {
             var userExists = await _userManager.FindByNameAsync(userRegistration.Username);
-            if (userExists != null || !ModelState.IsValid)
+            if (userExists != null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response
-                { Status = "Error", Message = "User already exists!" });
+                return BadRequest(new Response { Message = "User already exists." }); 
             }
 
             ApplicationUser newUser = new()
@@ -51,19 +50,15 @@ namespace OrganizelyAPI.Controllers
                 FirstName = userRegistration.FirstName,
                 LastName = userRegistration.LastName
             };
-
+            
             var newUserCreated = await _userManager.CreateAsync(newUser, userRegistration.Password);
-
             if (!newUserCreated.Succeeded)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response
-                { Status = "Error", Message = "User creation failed. Please check user details and try again." });
-
-                //var errors = result.Errors.Select(e => e.Description);
-                //return BadRequest(new Response { Errors = errors });
+                var errors = newUserCreated.Errors.Select(e => e.Description);
+                return BadRequest(new Response { Message = "", Errors = errors });
             }
 
-            return Ok(new Response { Status = "Success", Message = "New user created successfully." });
+            return Ok(new Response { Message = "New user created successfully." });
         }
 
         [HttpPost]
@@ -73,8 +68,7 @@ namespace OrganizelyAPI.Controllers
         {
 
             var existingUser = await _userManager.FindByNameAsync(userLogin.Username);
-
-            if (existingUser != null && await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))// TODO change this to &&
+            if (existingUser != null && await _userManager.CheckPasswordAsync(existingUser, userLogin.Password))
             {
                 var key = Encoding.UTF8.GetBytes(_configuration.GetSection("JWTSettings:Secret").Value); // or use applicationsettings
                 var secret = new SymmetricSecurityKey(key);
@@ -92,8 +86,8 @@ namespace OrganizelyAPI.Controllers
                 var jwtTokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = jwtTokenHandler.CreateToken(tokenDescriptor);
                 var jwtToken = jwtTokenHandler.WriteToken(securityToken);
-                //return Ok(new { token = jwtToken }); // returns the token as a JSON body with "token" as property and the actual token as value
-                return Ok(new AuthResponse { IsAuthSuccessful = true, Token = jwtToken });
+               
+                return Ok(new AuthResponse { Token = jwtToken });
             }
 
             return Unauthorized(new AuthResponse { ErrorMessage = "Login failed, unathorized user." });

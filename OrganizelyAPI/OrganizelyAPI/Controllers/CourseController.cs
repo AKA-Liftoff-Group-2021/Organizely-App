@@ -15,7 +15,8 @@ using OrganizelyAPI.ViewModels;
 namespace OrganizelyAPI.Controllers
 {
     //[Authorize(AuthenticationSchemes = "JwtBearer")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]   
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
