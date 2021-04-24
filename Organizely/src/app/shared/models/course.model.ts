@@ -8,7 +8,7 @@ export class Course {
   public daysOfWeek: string[];
   public semesterSeason: string;
   public semesterYear: number;
-  // public userId: string;
+  public userId: string;
   public teacherName?: string;
 
   constructor(
@@ -21,7 +21,7 @@ export class Course {
     daysOfWeek: string[],
     semesterSeason: string,
     semesterYear: number,
-    // userId: string,
+    userId: string,
     teacherName?: string
   ) {
     this.courseId = courseId;
@@ -33,7 +33,7 @@ export class Course {
     this.daysOfWeek = daysOfWeek;
     this.semesterSeason = semesterSeason;
     this.semesterYear = semesterYear;
-    // this.userId = userId;
+    this.userId = userId;
     this.teacherName = teacherName;
   }
 }

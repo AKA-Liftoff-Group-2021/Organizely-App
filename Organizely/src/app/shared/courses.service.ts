@@ -12,23 +12,29 @@ export class CoursesService {
   constructor(private http: HttpClient) {}
 
   getCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.courseURL);
+    return this.http.get<Course[]>(this.courseURL, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
   }
 
   getCourse(courseId: number): Observable<Course> {
     return this.http.get<Course>(`${this.courseURL}/${courseId}`, {
       headers: new HttpHeaders({
         Accept: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       }),
     });
   }
-
-  // TODO: create a method to transform data for calendar and agenda views
 
   createCourse(course: Course): Observable<Course> {
     return this.http.post<Course>(this.courseURL, course, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       }),
     });
   }
@@ -37,11 +43,17 @@ export class CoursesService {
     return this.http.put<void>(`${this.courseURL}/${courseId}`, course, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       }),
     });
   }
 
   deleteCourse(courseId: number): Observable<void> {
-    return this.http.delete<void>(`${this.courseURL}/${courseId}`);
+    return this.http.delete<void>(`${this.courseURL}/${courseId}`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
   }
 }
