@@ -1,7 +1,7 @@
-import { Course } from '../models/course.model';
+/* import { Course } from '../models/course.model';
 
 export const COURSES: Course[] = [
-  {
+ /*  {
     courseId: 1,
     courseName: 'Lift Off',
     startTime: '17:30:00',
@@ -25,4 +25,5 @@ export const COURSES: Course[] = [
     semesterYear: 2020,
     teacherName: 'Chetna',
   },
-];
+]; */
+

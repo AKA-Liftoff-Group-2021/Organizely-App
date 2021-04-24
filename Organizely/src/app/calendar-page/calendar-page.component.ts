@@ -19,8 +19,6 @@ import { StudentTasksService } from '../shared/student-tasks.service';
 
 import createCalendarEvents from '../shared/utils/createCalendarEvents';
 
-import { Modal } from 'bootstrap';
-
 @Component({
   selector: 'app-calendar-page',
   templateUrl: './calendar-page.component.html',
