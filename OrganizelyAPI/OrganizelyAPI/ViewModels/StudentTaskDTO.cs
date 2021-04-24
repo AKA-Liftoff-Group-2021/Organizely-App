@@ -1,6 +1,7 @@
 ﻿using OrganizelyAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,8 +17,8 @@ namespace OrganizelyAPI.ViewModels
 
         public DateTime TaskDueDate { get; set; }
 
-
-        /*public int StudentId { get; set; } <<(Hidden until sign up is completed)
-        public Student Student { get; set; }*/
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }
