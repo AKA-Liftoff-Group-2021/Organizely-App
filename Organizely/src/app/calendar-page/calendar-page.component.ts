@@ -19,19 +19,20 @@ import { StudentTasksService } from '../shared/student-tasks.service';
 
 import createCalendarEvents from '../shared/utils/createCalendarEvents';
 
+import { Modal } from 'bootstrap';
+
 @Component({
   selector: 'app-calendar-page',
   templateUrl: './calendar-page.component.html',
   styleUrls: ['./calendar-page.component.css'],
 })
 export class CalendarPageComponent implements OnInit, OnDestroy {
-  showModal: boolean = false;
   selectedDate: Date;
 
   calendarVisible: boolean = true;
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
-    dateClick: this.handleDateClick.bind(this),
+    dateClick: this.addEvent.bind(this),
     headerToolbar: {
       left: 'title',
       right: 'today prev,next',
@@ -47,6 +48,8 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
   studentTasks: StudentTask[];
 
   calendarSub: Subscription;
+
+  calendarModal;
 
   constructor(
     private router: Router,
@@ -91,23 +94,23 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  handleDateClick(selectInfo: DateSelectArg) {
+  addEvent(selectInfo: DateSelectArg) {
     this.calendarService.changeDate(selectInfo['date']);
-    this.showModal = true;
-  }
 
-  hide() {
-    this.showModal = false;
+    this.calendarModal = $('#calendarModal').modal();
   }
 
   onSubmit(eventType: string) {
     if (eventType === 'course') {
+      this.calendarModal?.toggle();
       this.router.navigate(['/', 'organizely', 'classform']);
     }
     if (eventType === 'assignment') {
+      this.calendarModal?.toggle();
       this.router.navigate(['/', 'organizely', 'assignmentform']);
     }
     if (eventType === 'task') {
+      this.calendarModal?.toggle();
       this.router.navigate(['/', 'organizely', 'taskform']);
     }
   }
