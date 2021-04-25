@@ -160,3 +160,4 @@ C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\Organ
 C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\ref\OrganizelyAPI.dll
 C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.pdb
 C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.genruntimeconfig.cache
+C:\Users\user\source\repos\Organizely-Project\Organizely-App\OrganizelyAPI\OrganizelyAPI\obj\Debug\net5.0\OrganizelyAPI.csprojAssemblyReference.cache

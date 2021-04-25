@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
 using OrganizelyAPI.ViewModels;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace OrganizelyAPI.Controllers
 {
@@ -19,21 +21,27 @@ namespace OrganizelyAPI.Controllers
     {
         private readonly StudentDbContext _context;
 
-        public QuotesController(StudentDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public QuotesController(StudentDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
 
         // GET: api/Quotes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<QuotesDTO>>> GetQuotes()
         {
-            var quotes = await _context.Quotes.Select(q =>
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var quotes = await _context.Quotes.Where(u => u.UserId == user.Id).Include(u => u.User).Select(q =>
+            
             new QuotesDTO()
             {
                 QuoteId = q.QuoteId,
                 Content = q.Content,
                 Author = q.Author,
+                UserId = q.UserId,
 
             }).ToListAsync();
 
@@ -99,10 +107,12 @@ namespace OrganizelyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<QuotesDTO>> PostQuotes(QuotesDTO quotesDTO)
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
             Quotes newQuote = new Quotes
             {
                 Content = quotesDTO.Content,
                 Author = quotesDTO.Author,
+                User = quotesDTO.User,
               
             };
 
