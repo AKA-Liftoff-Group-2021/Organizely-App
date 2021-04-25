@@ -20,5 +20,10 @@ namespace OrganizelyAPI.Models
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string Author { get; set; }
+
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
+
     }
 }
