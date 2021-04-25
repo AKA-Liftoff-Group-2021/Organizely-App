@@ -24,8 +24,8 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "datetime")]
         public DateTime TaskDueDate { get; set; } // There was a DateTime? here..
 
-        /*[Column(TypeName = "integer")]   <<(Hidden until sign up is completed)
-        public int StudentId { get; set; }
-        public Student Student { get; set; }*/
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }
