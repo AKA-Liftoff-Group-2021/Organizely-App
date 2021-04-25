@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { ApplicationUser } from '../shared/models/application-user.model';
 import { RegistrationResponseData } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-form',
@@ -10,7 +11,8 @@ import { RegistrationResponseData } from '../auth/auth.service';
   styleUrls: ['./signup-form.component.css'],
 })
 export class SignupFormComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -29,7 +31,7 @@ export class SignupFormComponent implements OnInit {
       (data: RegistrationResponseData) => {
         console.log(data);
         //this.submitted = true;
-        //this.router.navigate(['/', 'organizely', 'assignments']);
+        this.router.navigate(['organizely/login']);
       },
       (error: any) => {
         console.log(error);

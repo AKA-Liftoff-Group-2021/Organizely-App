@@ -54,11 +54,8 @@ export class AuthService {
       case 'Passwords do not match.':
         errorMessage = 'Passwords do not match!';
         break;
-      case 'EMAIL_NOT_FOUND':
-        errorMessage = 'This email does not exist.';
-        break;
-      case 'INVALID_PASSWORD':
-        errorMessage = 'This password is not correct.';
+      case 'User already exists.':
+        errorMessage = 'User already exists!';
         break;
     }
     return throwError(errorMessage);

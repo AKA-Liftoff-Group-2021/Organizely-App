@@ -8,7 +8,6 @@ import {
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Subscription } from 'rxjs';
-
 import { AssignmentsService } from '../shared/assignments.service';
 import { CalendarService } from '../shared/calendar.service';
 import { CoursesService } from '../shared/courses.service';
@@ -16,10 +15,7 @@ import { Assignment } from '../shared/models/assignment.model';
 import { Course } from '../shared/models/course.model';
 import { StudentTask } from '../shared/models/student-task.model';
 import { StudentTasksService } from '../shared/student-tasks.service';
-
 import createCalendarEvents from '../shared/utils/createCalendarEvents';
-
-import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-calendar-page',
@@ -28,7 +24,6 @@ import { Modal } from 'bootstrap';
 })
 export class CalendarPageComponent implements OnInit, OnDestroy {
   selectedDate: Date;
-
   calendarVisible: boolean = true;
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
@@ -42,15 +37,11 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
     selectable: true,
     eventClick: this.updateEvent.bind(this),
   };
-
   assignments: Assignment[];
   courses: Course[];
   studentTasks: StudentTask[];
-
   calendarSub: Subscription;
-
   calendarModal;
-
   constructor(
     private router: Router,
     private coursesService: CoursesService,
@@ -58,27 +49,22 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
     private assignmentsService: AssignmentsService,
     private calendarService: CalendarService
   ) {}
-
   ngOnInit(): void {
     this.coursesService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
-
       this.assignmentsService
         .getAssignments()
         .subscribe((data: Assignment[]) => {
           this.assignments = data;
-
           this.studentTasksService.getStudentTasks().subscribe(
             (data: StudentTask[]) => {
               this.studentTasks = data;
-
               // TODO: Determine if this function should be done inside pipe()
               this.calendarOptions.events = createCalendarEvents(
                 this.courses,
                 this.studentTasks,
                 this.assignments
               );
-
               console.log(this.calendarOptions.events);
             },
             (error: any) => {
@@ -88,18 +74,14 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
           );
         });
     });
-
     this.calendarSub = this.calendarService.currentDate.subscribe(
       (date) => (this.selectedDate = date)
     );
   }
-
   addEvent(selectInfo: DateSelectArg) {
     this.calendarService.changeDate(selectInfo['date']);
-
-    this.calendarModal = $('#calendarModal').modal();
+    this.calendarModal = (<any>$('#calendarModal')).modal();
   }
-
   onSubmit(eventType: string) {
     if (eventType === 'course') {
       this.calendarModal?.toggle();
@@ -114,7 +96,6 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
       this.router.navigate(['/', 'organizely', 'taskform']);
     }
   }
-
   updateEvent(clickInfo: EventClickArg) {
     if (confirm('Are you sure you want to update this event?')) {
       if (clickInfo.event.extendedProps['eventType'] === 'course') {
@@ -132,7 +113,6 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
           clickInfo.event.id,
         ]);
       }
-
       if (clickInfo.event.extendedProps['eventType'] === 'assignment') {
         this.router.navigate([
           '/',
@@ -143,7 +123,6 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
       }
     }
   }
-
   ngOnDestroy() {
     this.calendarSub.unsubscribe();
   }
