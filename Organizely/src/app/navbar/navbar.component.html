@@ -45,23 +45,26 @@
             height="90"
           />
         </li>
-        <li style="color: white; align-content: center">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <!-- Welcome, {{ currentUser["firstName"] }}! -->
-            Welcome, [Username]!
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#" (click)="onLogout()">Logout</a>
-          </div>
-        </li>
+        <div class="dropdown show">
+          <li style="color: white; align-content: center">
+            <a
+              class="btn btn-dark dropdown-toggle"
+              href="#"
+              role="button"
+              id="navbarDropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <!-- Welcome, {{ currentUser["firstName"] }}! -->
+              Welcome, [Username]!
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right bg-dark text-white" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item bg-dark text-white" href="#" (click)="onLogout()" style="text-align: center;">Logout</a>
+            </div>
+          </li>
+        </div>  
       </ul>
     </div>
   </div>

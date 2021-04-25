@@ -33,6 +33,8 @@ import { UpcomingListComponent } from './upcoming-list/upcoming-list.component';
 
 import * as $ from 'jquery';
 import { ajax } from "jquery";
+import { AnonymousLayoutComponent } from './anonymous-layout/anonymous-layout.component';
+import { AuthenticatedLayoutComponent } from './authenticated-layout/authenticated-layout.component';
 
 
 
@@ -63,6 +65,8 @@ FullCalendarModule.registerPlugins([
     LoginPageComponent,
     LoginFormComponent,
     UpcomingListComponent,
+    AnonymousLayoutComponent,
+    AuthenticatedLayoutComponent,
   ],
   imports: [
     BrowserModule,
