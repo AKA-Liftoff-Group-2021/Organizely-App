@@ -2,3 +2,39 @@
   *ngIf="calendarVisible"
   [options]="calendarOptions"
 ></full-calendar>
+
+<div class="modal fade" id="calendarModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add an Event</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <select #eventType>
+          <option value="course">Course</option>
+          <option value="assignment">Assignment</option>
+          <option value="task">Task</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-dismiss="modal"
+          (click)="onSubmit(eventType.value)"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

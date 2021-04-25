@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from '../shared/models/assignment.model';
 
@@ -17,7 +18,9 @@ export class AssignmentsPageComponent implements OnInit {
   }
 
   getAllAssignments() {
-    this.assignmentsService.getAssignments().subscribe(
+    this.assignmentsService.getAssignments()
+    .pipe(map(data => data.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()))
+  ).subscribe(
       (data: Assignment[]) => {
           this.assignments = data;
           console.log(data);

@@ -4,51 +4,58 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AssignmentsService } from '../shared/assignments.service';
+import { CalendarService } from '../shared/calendar.service';
 import { CoursesService } from '../shared/courses.service';
 import { Assignment } from '../shared/models/assignment.model';
 import { Course } from '../shared/models/course.model';
 import convertToDate from '../shared/utils/convertToDate';
 
-
 @Component({
   selector: 'app-assignments-form',
   templateUrl: './assignments-form.component.html',
-  styleUrls: ['./assignments-form.component.css']
+  styleUrls: ['./assignments-form.component.css'],
 })
 export class AssignmentsFormComponent implements OnInit {
   courses: Course[];
   submitted: boolean = false;
+
+  selectedDate: Date;
 
   currentAssignmentId: number;
   currentAssignment: Assignment;
 
   assignmentSub: Subscription;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private assignmentsService: AssignmentsService,
     private coursesService: CoursesService,
-    private datePipe: DatePipe) { }
+    private calendarService: CalendarService,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.getAllCourses();
 
     this.route.params.subscribe((params: Params) => {
       if (params['id'] === undefined) {
-        return;
+        this.calendarService.currentDate.subscribe((data) => {
+          this.selectedDate = data;
+        });
+      } else {
+        this.assignmentSub = this.assignmentsService
+          .getAssignment(+params['id'])
+          .subscribe(
+            (assignment: Assignment) => {
+              this.currentAssignmentId = assignment.assignmentId;
+              this.currentAssignment = assignment;
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
       }
-
-      this.assignmentSub = this.assignmentsService
-        .getAssignment(+params['id'])
-        .subscribe(
-          (assignment: Assignment) => {
-            this.currentAssignmentId = assignment.assignmentId;
-            this.currentAssignment = assignment;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
     });
   }
 
@@ -84,7 +91,8 @@ export class AssignmentsFormComponent implements OnInit {
       assignmentId,
       value.assignmentName,
       convertToDate(value.dueDate, 'due'),
-      value.courseId);
+      value.courseId
+    );
 
     this.assignmentsService.createAssignment(newAssignment).subscribe(
       (data: Assignment) => {
@@ -114,7 +122,7 @@ export class AssignmentsFormComponent implements OnInit {
         .subscribe(
           (data: void) => {
             console.log(
-              `${updatedAssignment.assignmentName} task updated successfully.`
+              `${updatedAssignment.assignmentName} assignment updated successfully.`
             );
             this.submitted = true;
             this.router.navigate(['/', 'organizely', 'assignments']);
@@ -131,5 +139,4 @@ export class AssignmentsFormComponent implements OnInit {
       this.assignmentSub.unsubscribe();
     }
   }
-
 }

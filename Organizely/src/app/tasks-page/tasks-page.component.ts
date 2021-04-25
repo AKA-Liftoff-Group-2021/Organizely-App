@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+
 import { StudentTask } from '../shared/models/student-task.model';
 import { StudentTasksService } from '../shared/student-tasks.service';
 
@@ -19,15 +21,27 @@ export class TasksPageComponent implements OnInit {
   }
 
   getAllStudentTasks() {
-    this.studentTasksService.getStudentTasks().subscribe(
-      (data: StudentTask[]) => {
-        this.studentTasks = data;
-      },
-      (error: any) => {
-        console.log(error);
-      },
-      () => console.log('All done getting your tasks.')
-    );
+    this.studentTasksService
+      .getStudentTasks()
+      .pipe(
+        map((data) =>
+          data.sort(
+            (a, b) =>
+              new Date(a.taskDueDate).getTime() -
+              new Date(b.taskDueDate).getTime()
+          )
+        )
+      )
+      .subscribe(
+        (data: StudentTask[]) => {
+          this.studentTasks = data;
+          console.log(this.studentTasks);
+        },
+        (error: any) => {
+          console.log(error);
+        },
+        () => console.log('All done getting your tasks.')
+      );
   }
 
   stylePriorityBadge(priority: string): string {

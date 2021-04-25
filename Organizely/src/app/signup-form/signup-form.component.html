@@ -1,8 +1,16 @@
+<div class="bg-dark text-white">
+  <br>
+  <br>
+  <h1 style="text-align: center; font-size: 50pt;">Organizely</h1>
+  <br>
+  <br>  
+</div>
+<br>
 <br>
 <div class="container">
     <div class="row">
       <div class="col">
-        <h1 style="text-align: center;">Create an Account</h1>
+        <h2 style="text-align: center;">Create an Account</h2>
 <br>
         <form (ngSubmit)="onCreateAccount(signupForm)" #signupForm="ngForm">
           <div class="form-group">
@@ -90,10 +98,27 @@
             >Please enter a password.</span>
           </div>
 
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              ngModel
+              name="confirmPassword"
+              required
+              #confirmPassword="ngModel"
+            />
+
+            <span class="form-text validation-msg"
+            *ngIf="!confirmPassword.valid && confirmPassword.touched"
+            >Please enter a password again.</span>
+          </div>
+
           
           
           <br>
-          <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid" style="float: center;">Create an Account</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid" style="float: center;" (click)="onCreateAccount(signupForm)">Create an Account</button>
         </form>
         <br>
         <p>Already have an account? Please <a routerLink="/organizely/login">log in!</a></p>

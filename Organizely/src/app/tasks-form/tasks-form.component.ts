@@ -7,6 +7,7 @@ import { StudentTask } from '../shared/models/student-task.model';
 import { StudentTasksService } from '../shared/student-tasks.service';
 
 import convertToDate from '../shared/utils/convertToDate';
+import { CalendarService } from '../shared/calendar.service';
 
 @Component({
   selector: 'app-tasks-form',
@@ -20,31 +21,36 @@ export class TasksFormComponent implements OnInit, OnDestroy {
 
   submitted: boolean = false;
 
+  selectedDate: Date;
+
   studentTaskSub: Subscription;
 
   constructor(
     private datePipe: DatePipe,
     private route: ActivatedRoute,
     private router: Router,
-    private studentTasksService: StudentTasksService
+    private studentTasksService: StudentTasksService,
+    private calendarService: CalendarService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       if (params['id'] === undefined) {
-        return;
+        this.calendarService.currentDate.subscribe((data) => {
+          this.selectedDate = data;
+        });
+      } else {
+        this.studentTaskSub = this.studentTasksService
+          .getStudentTask(+params['id'])
+          .subscribe(
+            (studentTask: StudentTask) => {
+              this.currentStudentTask = studentTask;
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
       }
-
-      this.studentTaskSub = this.studentTasksService
-        .getStudentTask(+params['id'])
-        .subscribe(
-          (studentTask: StudentTask) => {
-            this.currentStudentTask = studentTask;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
     });
   }
 
