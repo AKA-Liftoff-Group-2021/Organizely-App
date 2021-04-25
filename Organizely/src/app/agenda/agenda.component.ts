@@ -113,6 +113,7 @@ export class AgendaComponent implements OnInit {
   onSaveQuote(quote: Quote) {
     const quoteId = 0;
     let savedQuote = new Quote(quoteId, quote.content, quote.author);
+    // let savedQuote = new Quote(quoteId, quote.content, quote.author, quote.userId);
     console.log(savedQuote);
   }
 }

@@ -74,6 +74,7 @@ export class TasksFormComponent implements OnInit, OnDestroy {
       studentTaskId,
       value.studentTaskName,
       value.priority,
+      value.userId,
       convertToDate(value.taskDueDate, 'due')
     );
 
@@ -97,6 +98,7 @@ export class TasksFormComponent implements OnInit, OnDestroy {
         this.currentStudentTask.studentTaskId,
         value.studentTaskName,
         value.priority,
+        value.userId,
         convertToDate(value.taskDueDate, 'due')
       );
 

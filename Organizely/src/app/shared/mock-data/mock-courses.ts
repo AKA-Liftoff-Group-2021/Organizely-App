@@ -1,7 +1,7 @@
-/* import { Course } from '../models/course.model';
+import { Course } from '../models/course.model';
 
 export const COURSES: Course[] = [
- /*  {
+  {
     courseId: 1,
     courseName: 'Lift Off',
     startTime: '17:30:00',
@@ -11,6 +11,7 @@ export const COURSES: Course[] = [
     daysOfWeek: ['1'],
     semesterSeason: 'Winter',
     semesterYear: 2021,
+    userId: '1',
     teacherName: 'Mike',
   },
   {
@@ -23,7 +24,7 @@ export const COURSES: Course[] = [
     daysOfWeek: ['1', '3'],
     semesterSeason: 'Fall',
     semesterYear: 2020,
+    userId: '1',
     teacherName: 'Chetna',
   },
-]; */
-
+];
