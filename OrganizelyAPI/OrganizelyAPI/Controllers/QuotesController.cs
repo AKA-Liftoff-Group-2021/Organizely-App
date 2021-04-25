@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace OrganizelyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class QuotesController : ControllerBase
     {
         private readonly StudentDbContext _context;
@@ -24,35 +26,55 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/Quotes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Quotes>>> GetQuotes()
+        public async Task<ActionResult<IEnumerable<QuotesDTO>>> GetQuotes()
         {
-            return await _context.Quotes.ToListAsync();
-        }
+            var quotes = await _context.Quotes.Select(q =>
+            new QuotesDTO()
+            {
+                QuoteId = q.QuoteId,
+                Content = q.Content,
+                Author = q.Author,
 
-        // GET: api/Quotes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Quotes>> GetQuotes(int id)
-        {
-            var quotes = await _context.Quotes.FindAsync(id);
+            }).ToListAsync();
 
             if (quotes == null)
             {
                 return NotFound();
+            }
+            return quotes; 
+        }
+
+        // GET: api/Quotes/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<QuotesDTO>> GetQuotes(int id)
+        {
+            var quotes = await _context.Quotes.Select(q =>
+            new QuotesDTO()
+            {
+                QuoteId = q.QuoteId,
+                Content = q.Content,
+                Author = q.Author,
+
+            }).SingleOrDefaultAsync(a => a.QuoteId == id);
+
+            if (quotes == null)
+            {
+                return NotFound("Quote Id does not exist");
             }
 
             return quotes;
         }
 
         // PUT: api/Quotes/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuotes(int id, Quotes quotes)
+        /*[HttpPut("{id}")]
+        public async Task<IActionResult> PutQuotes(int id, QuotesDTO quotesDTO)
         {
-            if (id != quotes.QuoteId)
+            if (id != quotesDTO.QuoteId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(quotes).State = EntityState.Modified;
+            _context.Entry(quotesDTO).State = EntityState.Modified;
 
             try
             {
@@ -71,16 +93,23 @@ namespace OrganizelyAPI.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST: api/Quotes
         [HttpPost]
-        public async Task<ActionResult<Quotes>> PostQuotes(Quotes quotes)
+        public async Task<ActionResult<QuotesDTO>> PostQuotes(QuotesDTO quotesDTO)
         {
-            _context.Quotes.Add(quotes);
+            Quotes newQuote = new Quotes
+            {
+                Content = quotesDTO.Content,
+                Author = quotesDTO.Author,
+              
+            };
+
+            _context.Quotes.Add(newQuote);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuotes", new { id = quotes.QuoteId }, quotes);
+            return CreatedAtAction("GetQuotes", new { id = quotesDTO.QuoteId }, quotesDTO);
         }
 
         // DELETE: api/Quotes/5

@@ -24,6 +24,6 @@ namespace OrganizelyAPI.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentTask> StudentTasks { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<OrganizelyAPI.Models.Quotes> Quotes { get; set; }
+        public DbSet<Quotes> Quotes { get; set; }
     }
 }

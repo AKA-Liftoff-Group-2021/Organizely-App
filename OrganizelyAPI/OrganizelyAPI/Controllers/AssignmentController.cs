@@ -24,7 +24,6 @@ namespace OrganizelyAPI.Controllers
             _context = context;
         }
 
-        //<summary> Returns all assisgnments associated with a assignment ID</summary>
         // GET: api/Assignment
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAssignments()
@@ -48,7 +47,6 @@ namespace OrganizelyAPI.Controllers
             return assignments;
         }
 
-        //<summary> Returns assignment detail/s for the given id</summary>
         // GET: api/Assignment/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AssignmentDTO>> GetAssignment(int id)
