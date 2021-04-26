@@ -32,9 +32,9 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAssignments()
         {
-            //var assignments = await _context.Assignments.Include(c => c.Course).Select(a =>
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var assignments = await _context.Assignments.Where(u => u.UserId == user.Id).Include(u => u.User).Include(c => c.Course).Select(a =>
+            var assignments = await _context.Assignments.Include(c => c.Course).Select(a =>
+           //var assignments = await _context.Assignments.Where(u => u.UserId == user.Id).Include(u => u.User).Include(c => c.Course).Select(a =>
            
             new AssignmentDTO()
             {
@@ -43,7 +43,7 @@ namespace OrganizelyAPI.Controllers
                 DueDate = a.DueDate,
                 CourseId = a.CourseId, 
                 Course = a.Course,
-                UserId = a.UserId,
+                //UserId = a.UserId,
 
             }).ToListAsync();
 
@@ -69,7 +69,7 @@ namespace OrganizelyAPI.Controllers
                             DueDate = a.DueDate,
                             CourseId = a.CourseId,
                             Course = a.Course,
-                            UserId = a.UserId,    // Newly added..
+                            //UserId = a.UserId,    // Newly added..
 
                         }).SingleOrDefaultAsync(a => a.AssignmentId == id);
      
@@ -94,7 +94,7 @@ namespace OrganizelyAPI.Controllers
             assignmentToUpdate.AssignmentName = assignmentDTO.AssignmentName;
             assignmentToUpdate.DueDate = assignmentDTO.DueDate;
             assignmentToUpdate.CourseId = assignmentDTO.CourseId;
-            assignmentToUpdate.UserId = assignmentDTO.UserId; // Newly added..
+            //assignmentToUpdate.UserId = assignmentDTO.UserId; // Newly added..
 
             _context.Entry(assignmentToUpdate).State = EntityState.Modified;
 
@@ -127,7 +127,7 @@ namespace OrganizelyAPI.Controllers
             {
                 AssignmentName = assignmentDTO.AssignmentName,
                 DueDate = assignmentDTO.DueDate,
-                UserId = assignmentDTO.UserId,    // Newly Added..
+                //UserId = assignmentDTO.UserId,    // Newly Added..
                 Course = theCourse,
             };
 

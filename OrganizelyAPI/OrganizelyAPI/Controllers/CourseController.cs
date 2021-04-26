@@ -29,6 +29,7 @@ namespace OrganizelyAPI.Controllers
            _userManager = userManager;
         }
 
+
         //<summary> Returns all courses associated with a student ID</summary>
 
         // GET: api/Course
@@ -100,7 +101,6 @@ namespace OrganizelyAPI.Controllers
         public async Task<ActionResult<Course>> PostCourse([FromBody] CourseDTO courseDTO)
         {
             //try this next time: var user = await _userManager.GetUserAsync(HttpContext.User);
-            //try if it shows current logged in user:
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             //var user = await _userManager.FindByIdAsync(courseDTO.UserId);    
             Course newCourse = new()

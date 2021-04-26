@@ -19,14 +19,18 @@ namespace OrganizelyAPI.ViewModels
         [Required]
         public DateTime DueDate { get; set; }
 
-        [Required]
+        //[Required] // no need to add required, ef core knows it is a foreign key, you can add the attribute [ForeignKey("CourseId")] but that is optional
+        //public int CourseId { get; set; }
+
+        ////[Required] // no need to add required, ef core knows it is a foreign key
+        //public Course Course { get; set; }
+
+        //[ForeignKey("UserId")]  // this is not needed, it is not directly related to the userId
+        //public string UserId { get; set; }
+        //public ApplicationUser User { get; set; }
+
+        [ForeignKey("CourseId")]
         public int CourseId { get; set; }
-
-        //[Required]
         public Course Course { get; set; }
-
-        [ForeignKey("UserId")]
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
     }
 }

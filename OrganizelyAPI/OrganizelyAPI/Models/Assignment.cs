@@ -21,12 +21,12 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "datetime")]
         public DateTime DueDate { get; set; }
 
-        [Column(TypeName = "integer")]  
+        [ForeignKey("CourseId")]
         public int CourseId { get; set; }
         public Course Course { get; set; }
 
-        [ForeignKey("UserId")]
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        //[ForeignKey("UserId")]            // this is not needed, it is not directly related to the userId
+        //public string UserId { get; set; }
+        //public ApplicationUser User { get; set; }
     }
 }
