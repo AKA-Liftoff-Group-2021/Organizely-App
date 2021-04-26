@@ -1,55 +1,39 @@
 <div class="dropdown">
-  <button
-    class="btn btn-secondary dropdown-toggle"
-    type="button"
-    id="dropdownMenuButton"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
     &#43; Add
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" routerLink="/organizely/classform">Class</a>
-    <a class="dropdown-item" routerLink="/organizely/assignmentform"
-      >Assignment</a
-    >
+    <a class="dropdown-item" routerLink="/organizely/assignmentform">Assignment</a>
     <a class="dropdown-item" routerLink="/organizely/taskform">Task</a>
   </div>
 </div>
 <br />
 
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-9">
-      <full-calendar
-        *ngIf="calendarVisible"
-        [options]="calendarOptions"
-      ></full-calendar>
+      <full-calendar *ngIf="calendarVisible" [options]="calendarOptions"></full-calendar>
     </div>
     <div class="col-sm-3">
-      <div class="blockquote" *ngFor="let quote of quotes">
-        <p class="text-center" style="font-size: 15pt; font-style: italic">
-          "{{ quote.content }}"
-        </p>
-        <p class="text-center" style="font-size: 11pt">- {{ quote.author }}</p>
-        <br />
-        <button
-          type="submit"
-          class="btn btn-dark btn-sm"
-          style="float: right; margin-right: 10px"
-          #quote
-          (click)="onSaveQuote(quote)"
-        >
-          Save Quote
-        </button>
-      </div>
-      <br>
-      <br>
-      <br>
-      <div style="text-align: center;">
-        <app-upcoming-list></app-upcoming-list>
-      </div>
+        <div class="blockquote" *ngFor="let quote of quotes; let i=index" #quote>
+          <p class="text-center" style="font-size: 15pt; font-style: italic">
+            "{{ quote.content }}"
+          </p>
+          <p class="text-center" style="font-size: 11pt">- {{ quote.author }}</p>
+          <br />
+          <button type="submit" class="btn btn-dark btn-sm" style="float: right; margin-right: 10px" (click)="onSaveQuote(quote)">
+            Save Quote
+          </button>
+        </div>
+    
+    <br>
+    <br>
+    <br>
+    <div style="text-align: center;">
+      <app-upcoming-list></app-upcoming-list>
     </div>
   </div>
 </div>

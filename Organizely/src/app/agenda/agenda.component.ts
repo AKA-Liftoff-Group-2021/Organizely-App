@@ -15,6 +15,7 @@ import createCalendarEvents from '../shared/utils/createCalendarEvents';
 import { Router } from '@angular/router';
 import { QuotesService } from '../quotes.service';
 import { Quote } from '../shared/models/quote.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-agenda',
@@ -38,7 +39,7 @@ export class AgendaComponent implements OnInit {
   courses: Course[] = [];
   studentTasks: StudentTask[] = [];
   assignments: Assignment[] = [];
-  quotes = [];
+  quotes: Quote[] = [];
 
   constructor(
     private router: Router,
@@ -112,8 +113,26 @@ export class AgendaComponent implements OnInit {
 
   onSaveQuote(quote: Quote) {
     const quoteId = 0;
-    let savedQuote = new Quote(quoteId, quote.content, quote.author);
-    // let savedQuote = new Quote(quoteId, quote.content, quote.author, quote.userId);
+    //const userId = '7f2ee707-af1e-479a-a562-2323ecb7c606';
+    
+
+    
+    //let savedQuote = new Quote(quoteId, quote.content, quote.author);
+    const savedQuote = new Quote(
+      quoteId, 
+      quote.content,
+      quote.author,
+      quote.userId);
+      
     console.log(savedQuote);
+
+    this.quotesService.saveQuote(savedQuote).subscribe(
+      (data: Quote) => {
+        console.log(data);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
-}
+  }

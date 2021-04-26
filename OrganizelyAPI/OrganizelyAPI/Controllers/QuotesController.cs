@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace OrganizelyAPI.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class QuotesController : ControllerBase
     {
         private readonly StudentDbContext _context;
@@ -56,21 +57,23 @@ namespace OrganizelyAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<QuotesDTO>> GetQuotes(int id)
         {
-            var quotes = await _context.Quotes.Select(q =>
-            new QuotesDTO()
-            {
-                QuoteId = q.QuoteId,
-                Content = q.Content,
-                Author = q.Author,
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var quotes = await _context.Quotes.Where(u => u.UserId == user.Id).Include(u => u.User).Select(q => 
+                new QuotesDTO()
+                {
+                    QuoteId = q.QuoteId,
+                    Content = q.Content,
+                    Author = q.Author,
+                    UserId = q.UserId,
 
-            }).SingleOrDefaultAsync(a => a.QuoteId == id);
+                }).SingleOrDefaultAsync(q => q.QuoteId == id);
 
             if (quotes == null)
             {
-                return NotFound("Quote Id does not exist");
+                return NotFound();
             }
 
-            return quotes;
+            return Ok(quotes);
         }
 
         // PUT: api/Quotes/5
@@ -105,21 +108,21 @@ namespace OrganizelyAPI.Controllers
 
         // POST: api/Quotes
         [HttpPost]
-        public async Task<ActionResult<QuotesDTO>> PostQuotes(QuotesDTO quotesDTO)
+        public async Task<ActionResult<Quotes>> PostQuotes([FromBody] QuotesDTO quotesDTO)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Quotes newQuote = new Quotes
+            Quotes newQuote = new()
             {
                 Content = quotesDTO.Content,
                 Author = quotesDTO.Author,
-                User = quotesDTO.User,
+                UserId = user.Id,
               
             };
 
             _context.Quotes.Add(newQuote);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuotes", new { id = quotesDTO.QuoteId }, quotesDTO);
+            return CreatedAtAction("GetQuotes", new { id = newQuote.QuoteId }, newQuote);
         }
 
         // DELETE: api/Quotes/5
