@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
@@ -19,16 +20,22 @@ namespace OrganizelyAPI.Controllers
     {
         private readonly StudentDbContext _context;
 
-        public AssignmentController(StudentDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public AssignmentController(StudentDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Assignment
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAssignments()
         {
-            var assignments = await _context.Assignments.Include(c => c.Course).Select(a => 
+            //var assignments = await _context.Assignments.Include(c => c.Course).Select(a =>
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var assignments = await _context.Assignments.Where(u => u.UserId == user.Id).Include(u => u.User).Include(c => c.Course).Select(a =>
+           
             new AssignmentDTO()
             {
                 AssignmentId = a.AssignmentId, 
@@ -36,6 +43,7 @@ namespace OrganizelyAPI.Controllers
                 DueDate = a.DueDate,
                 CourseId = a.CourseId, 
                 Course = a.Course,
+                UserId = a.UserId,
 
             }).ToListAsync();
 
