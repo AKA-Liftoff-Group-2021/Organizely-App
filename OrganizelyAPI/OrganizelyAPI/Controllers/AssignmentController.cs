@@ -129,7 +129,7 @@ namespace OrganizelyAPI.Controllers
                                     join Course in _context.Courses
                                     on Assignment.CourseId equals Course.CourseId
                                     where Course.UserId == user.Id
-                                    select new AssignmentDTO
+                                    select new Assignment
                                     {
                                         AssignmentId = Assignment.AssignmentId,
                                         AssignmentName = Assignment.AssignmentName,
