@@ -42,7 +42,8 @@ namespace OrganizelyAPI.Controllers
                                     AssignmentId = Assignment.AssignmentId,
                                     AssignmentName = Assignment.AssignmentName,
                                     DueDate = Assignment.DueDate,
-                                    CourseId = Course.CourseId
+                                    CourseId = Course.CourseId,
+                                    Course = Course
                                 }).ToListAsync();
 
             if (assignments == null)
@@ -88,7 +89,8 @@ namespace OrganizelyAPI.Controllers
                                          AssignmentId = Assignment.AssignmentId,
                                          AssignmentName = Assignment.AssignmentName,
                                          DueDate = Assignment.DueDate,
-                                         CourseId = Course.CourseId
+                                         CourseId = Course.CourseId,
+                                         Course = Course
                                      }).SingleOrDefaultAsync(a => a.AssignmentId == id);
 
             if (assignment == null)
@@ -132,7 +134,8 @@ namespace OrganizelyAPI.Controllers
                                         AssignmentId = Assignment.AssignmentId,
                                         AssignmentName = Assignment.AssignmentName,
                                         DueDate = Assignment.DueDate,
-                                        CourseId = Course.CourseId
+                                        CourseId = Course.CourseId,
+                                        Course = Course
                                     }).SingleOrDefaultAsync(a => a.AssignmentId == id);
 
             //Assignment assignmentToUpdate = await _context.Assignments.FindAsync(id);
@@ -180,6 +183,7 @@ namespace OrganizelyAPI.Controllers
                 DueDate = assignmentDTO.DueDate,
                 //UserId = assignmentDTO.UserId,    // Newly Added..
                 Course = theCourse,
+                CourseId = theCourse.CourseId
             };
 
             _context.Assignments.Add(newAssignment);
