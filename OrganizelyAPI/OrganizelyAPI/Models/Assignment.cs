@@ -24,5 +24,9 @@ namespace OrganizelyAPI.Models
         [Column(TypeName = "integer")]  
         public int CourseId { get; set; }
         public Course Course { get; set; }
+
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

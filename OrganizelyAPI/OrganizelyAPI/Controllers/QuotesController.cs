@@ -108,10 +108,10 @@ namespace OrganizelyAPI.Controllers
 
         // POST: api/Quotes
         [HttpPost]
-        public async Task<ActionResult<Quotes>> PostQuotes([FromBody] QuotesDTO quotesDTO)
+        public async Task<ActionResult<QuotesDTO>> PostQuotes([FromBody] QuotesDTO quotesDTO)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Quotes newQuote = new()
+            QuoteSet newQuote = new()
             {
                 Content = quotesDTO.Content,
                 Author = quotesDTO.Author,
