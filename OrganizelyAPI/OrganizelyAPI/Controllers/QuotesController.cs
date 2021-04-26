@@ -42,7 +42,7 @@ namespace OrganizelyAPI.Controllers
                 QuoteId = q.QuoteId,
                 Content = q.Content,
                 Author = q.Author,
-                UserId = q.UserId,
+                UserId = user.Id,
 
             }).ToListAsync();
 
@@ -64,7 +64,7 @@ namespace OrganizelyAPI.Controllers
                     QuoteId = q.QuoteId,
                     Content = q.Content,
                     Author = q.Author,
-                    UserId = q.UserId,
+                    UserId = user.Id,
 
                 }).SingleOrDefaultAsync(q => q.QuoteId == id);
 
@@ -115,8 +115,7 @@ namespace OrganizelyAPI.Controllers
             {
                 Content = quotesDTO.Content,
                 Author = quotesDTO.Author,
-                UserId = user.Id,
-              
+                UserId = user.Id,  
             };
 
             _context.QuoteSet.Add(newQuote);
