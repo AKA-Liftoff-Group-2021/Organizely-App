@@ -39,6 +39,7 @@ namespace OrganizelyAPI.Controllers
                  StudentTaskName = s.StudentTaskName, 
                  TaskDueDate = s.TaskDueDate,
                  Priority = s.Priority,
+                 UserId = s.UserId,   // Newly added..
               // StudentId = s.StudentId,
 
              }).ToListAsync();
@@ -62,6 +63,7 @@ namespace OrganizelyAPI.Controllers
                 StudentTaskName = s.StudentTaskName,
                 TaskDueDate = s.TaskDueDate,
                 Priority = s.Priority,
+                UserId = s.UserId,    // Newly added..
             //  StudentId = s.StudentId,
 
             }).FirstOrDefaultAsync(s => s.StudentTaskId == id);
