@@ -20,8 +20,7 @@ export class QuotesPageComponent implements OnInit {
     this.quotesService.getQuotes().subscribe(
       (data: Quote[]) => {
         this.savedQuotes = data;
-        console.log('Data type: ', typeof this.savedQuotes);
-        console.log(this.savedQuotes);
+        console.log(data);
       },
       (error: any) => {
         console.log(error);

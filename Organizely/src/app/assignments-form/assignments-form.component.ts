@@ -91,8 +91,7 @@ export class AssignmentsFormComponent implements OnInit {
       assignmentId,
       value.assignmentName,
       convertToDate(value.dueDate, 'due'),
-      value.courseId,
-      value.userId
+      value.courseId
     );
 
     this.assignmentsService.createAssignment(newAssignment).subscribe(
@@ -115,8 +114,7 @@ export class AssignmentsFormComponent implements OnInit {
         this.currentAssignmentId,
         value.assignmentName,
         convertToDate(value.dueDate, 'due'),
-        value.courseId,
-        value.userId
+        value.courseId
       );
 
       this.assignmentsService
