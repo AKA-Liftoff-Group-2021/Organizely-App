@@ -31,6 +31,13 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { UpcomingListComponent } from './upcoming-list/upcoming-list.component';
 
+import * as $ from 'jquery';
+import { ajax } from "jquery";
+import { AnonymousLayoutComponent } from './anonymous-layout/anonymous-layout.component';
+import { AuthenticatedLayoutComponent } from './authenticated-layout/authenticated-layout.component';
+
+
+
 FullCalendarModule.registerPlugins([
   listPlugin,
   timeGridPlugin,
@@ -58,13 +65,15 @@ FullCalendarModule.registerPlugins([
     LoginPageComponent,
     LoginFormComponent,
     UpcomingListComponent,
+    AnonymousLayoutComponent,
+    AuthenticatedLayoutComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FullCalendarModule,
-    FormsModule,
+    FormsModule,    
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

@@ -128,6 +128,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
       this.selectedDays,
       value.semesterSeason,
       value.semesterYear,
+      value.userId,
       value.teacherName
     );
 
@@ -165,6 +166,7 @@ export class ClassesFormComponent implements OnInit, OnDestroy {
         this.selectedDays,
         value.semesterSeason,
         value.semesterYear,
+        value.userId,
         value.teacherName
       );
 

@@ -13,8 +13,9 @@ import { AssignmentsService } from '../shared/assignments.service';
 
 import createCalendarEvents from '../shared/utils/createCalendarEvents';
 import { Router } from '@angular/router';
-import { QuotesService } from '../quotes.service';
+import { QuotesService } from '../shared/quotes.service';
 import { Quote } from '../shared/models/quote.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-agenda',
@@ -38,7 +39,9 @@ export class AgendaComponent implements OnInit {
   courses: Course[] = [];
   studentTasks: StudentTask[] = [];
   assignments: Assignment[] = [];
-  quotes = [];
+  quotes: Quote[] = [];
+
+  quotesToast;
 
   constructor(
     private router: Router,
@@ -50,7 +53,6 @@ export class AgendaComponent implements OnInit {
 
   ngOnInit(): void {
     this.quotes = this.quotesService.getQuote();
-    console.log(this.quotes);
 
     this.coursesService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
@@ -112,7 +114,28 @@ export class AgendaComponent implements OnInit {
 
   onSaveQuote(quote: Quote) {
     const quoteId = 0;
-    let savedQuote = new Quote(quoteId, quote.content, quote.author);
-    console.log(savedQuote);
+
+    const savedQuote = new Quote(
+      quoteId,
+      quote.content,
+      quote.author,
+      quote.userId
+    );
+
+    this.quotesService.saveQuote(savedQuote).subscribe(
+      (data: Quote) => {
+        console.log(data);
+
+        let options = {
+          delay: 3000,
+        };
+
+        this.quotesToast = (<any>$('div.toast')).toast(options);
+        this.quotesToast = (<any>$('div.toast')).toast('show');
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -9,18 +9,21 @@ using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
 using OrganizelyAPI.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace OrganizelyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StudentTaskController : ControllerBase
     {
         private readonly StudentDbContext _context;
-
-        public StudentTaskController(StudentDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public StudentTaskController(StudentDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/StudentTask
@@ -28,13 +31,15 @@ namespace OrganizelyAPI.Controllers
         public async Task<ActionResult<IEnumerable<StudentTaskDTO>>> GetStudentTasks()
         {
             //Student theStudent = await _context.Courses.FindAsync(StudentTask.StudentId);
-            var studentTasks = await _context.StudentTasks.Select(s => //.Include(c => c.Student)
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var studentTasks = await _context.StudentTasks.Where(u => u.UserId == user.Id).Include(u => u.User).Select(s =>
              new StudentTaskDTO()
              {
                  StudentTaskId = s.StudentTaskId,
-                 StudentTaskName = s.StudentTaskName, //Added StudentTaskName
+                 StudentTaskName = s.StudentTaskName, 
                  TaskDueDate = s.TaskDueDate,
                  Priority = s.Priority,
+                 UserId = s.UserId,   // Newly added..
               // StudentId = s.StudentId,
 
              }).ToListAsync();
@@ -50,13 +55,15 @@ namespace OrganizelyAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentTaskDTO>> GetStudentTask(int id)
         {
-            var studentTask = await _context.StudentTasks.Select(s =>
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var studentTask = await _context.StudentTasks.Where(u => u.UserId == user.Id).Include(u => u.User).Select(s =>
             new StudentTaskDTO()
             {
                 StudentTaskId = s.StudentTaskId,
                 StudentTaskName = s.StudentTaskName,
                 TaskDueDate = s.TaskDueDate,
                 Priority = s.Priority,
+                UserId = s.UserId,    // Newly added..
             //  StudentId = s.StudentId,
 
             }).FirstOrDefaultAsync(s => s.StudentTaskId == id);
@@ -83,6 +90,7 @@ namespace OrganizelyAPI.Controllers
             taskToUpdate.Priority = studentTaskDTO.Priority;
             taskToUpdate.StudentTaskName = studentTaskDTO.StudentTaskName;
             taskToUpdate.TaskDueDate = studentTaskDTO.TaskDueDate;
+            taskToUpdate.UserId = studentTaskDTO.User.Id; // Added UserId
             //student 
             _context.Entry(taskToUpdate).State = EntityState.Modified;
 
@@ -114,6 +122,7 @@ namespace OrganizelyAPI.Controllers
                 StudentTaskName = studentTaskDTO.StudentTaskName,
                 TaskDueDate = studentTaskDTO.TaskDueDate,
                 Priority = studentTaskDTO.Priority,
+                UserId = studentTaskDTO.UserId, // Added UserId
             };
 
             _context.StudentTasks.Add(newStudentTask);

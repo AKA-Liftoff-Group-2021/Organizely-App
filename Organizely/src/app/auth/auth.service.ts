@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -31,6 +35,15 @@ export class AuthService {
     );
   }
 
+  getStudent() {
+    return this.http.get('https://localhost:44394/api/Student', {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
+  }
+
   private handleError(errorRes: HttpErrorResponse) {
     // TODO: Figure out why user signup triggers error handler when signup successful
     let errorMessage = 'An unknown error occured!';
@@ -41,11 +54,8 @@ export class AuthService {
       case 'Passwords do not match.':
         errorMessage = 'Passwords do not match!';
         break;
-      case 'EMAIL_NOT_FOUND':
-        errorMessage = 'This email does not exist.';
-        break;
-      case 'INVALID_PASSWORD':
-        errorMessage = 'This password is not correct.';
+      case 'User already exists.':
+        errorMessage = 'User already exists!';
         break;
     }
     return throwError(errorMessage);
