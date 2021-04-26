@@ -1,15 +1,26 @@
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 <h1 class="text-center">Saved Quotes</h1>
-<br>
-<br>
-<div *ngFor="let quote of quotes; let i=index">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action flex-column align-middle text-center ">
-            <p class="mb-1" style="font-size: 21px; font-style: italic;">"{{ quote.content }}"</p>
-            <small>- {{ quote.author }}</small>
-            <button type="button" class="btn btn-dark btn-sm" style="float: right; margin-right: 7px;">Delete</button>
-        </li>
-    </ul>
+<br />
+<br />
+<div *ngFor="let quote of savedQuotes; let i = index">
+  <ul class="list-group list-group-flush">
+    <li
+      class="list-group-item list-group-item-action flex-column align-middle text-center"
+    >
+      <p class="mb-1" style="font-size: 21px; font-style: italic">
+        "{{ quote.content }}"
+      </p>
+      <small>- {{ quote.author }}</small>
+      <button
+        type="button"
+        class="btn btn-dark btn-sm"
+        style="float: right; margin-right: 7px"
+        (click)="onDeleteQuote(quote.quoteId)"
+      >
+        Delete
+      </button>
+    </li>
+  </ul>
 </div>
