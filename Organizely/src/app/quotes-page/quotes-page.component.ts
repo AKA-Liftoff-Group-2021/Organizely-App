@@ -1,27 +1,49 @@
 import { Component, OnInit } from '@angular/core';
+import { QuotesService } from '../shared/quotes.service';
+import { Quote } from '../shared/models/quote.model';
 
 @Component({
   selector: 'app-quotes-page',
   templateUrl: './quotes-page.component.html',
-  styleUrls: ['./quotes-page.component.css']
+  styleUrls: ['./quotes-page.component.css'],
 })
 export class QuotesPageComponent implements OnInit {
-  quotes = [
-    {content: 'The price of greatness is responsibility.',
-    author: 'Winston Churchill'},
-    {content: 'The beginning of knowledge is the discovery of something we do not understand.',
-    author: 'Frank Herbert'},
-    {content: 'Those that know, do. Those that understand, teach.',
-    author: 'Aristotle'},
-    {content: 'Each misfortune you encounter will carry in it the seed of tomorrows good luck.',
-    author: 'Og Mandino'},
-    {content: "Don't wait. The time will never be just right.",
-    author: 'Napoleon Hill'},
-  ];
+  savedQuotes: Quote[] = [];
 
-  constructor() { }
+  constructor(private quotesService: QuotesService) {}
 
   ngOnInit(): void {
+    this.getSavedQuotes();
   }
 
+  getSavedQuotes() {
+    this.quotesService.getQuotes().subscribe(
+      (data: Quote[]) => {
+        this.savedQuotes = data;
+        console.log('Data type: ', typeof this.savedQuotes);
+        console.log(this.savedQuotes);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  onDeleteQuote(id: number) {
+    if (confirm('Are you sure you want to delete this quote?')) {
+      this.quotesService.deleteQuote(id).subscribe(
+        (data) => {
+          let quoteIndex: number = this.savedQuotes.findIndex(
+            (quote) => quote.quoteId === id
+          );
+
+          this.savedQuotes.splice(quoteIndex, 1);
+        },
+        (error: any) => {
+          console.log(error);
+        },
+        () => console.log('Quote deleted successfully.')
+      );
+    }
+  }
 }

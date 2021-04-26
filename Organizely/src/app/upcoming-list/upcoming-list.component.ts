@@ -66,6 +66,8 @@ export class UpcomingListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.upcomingListSub.unsubscribe();
+    if (this.upcomingListSub !== undefined) {
+      this.upcomingListSub.unsubscribe();
+    }
   }
 }
