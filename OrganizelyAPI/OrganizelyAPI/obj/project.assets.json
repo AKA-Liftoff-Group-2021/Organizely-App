@@ -564,10 +564,10 @@
           "lib/netstandard2.1/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/5.0.4": {
+      "Microsoft.EntityFrameworkCore.Tools/5.0.5": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "5.0.4"
+          "Microsoft.EntityFrameworkCore.Design": "5.0.5"
         },
         "compile": {
           "lib/netstandard2.1/_._": {}
@@ -1121,19 +1121,19 @@
           "lib/netstandard2.0/SQLitePCLRaw.provider.dynamic_cdecl.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore/6.1.1": {
+      "Swashbuckle.AspNetCore/6.1.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
-          "Swashbuckle.AspNetCore.Swagger": "6.1.1",
-          "Swashbuckle.AspNetCore.SwaggerGen": "6.1.1",
-          "Swashbuckle.AspNetCore.SwaggerUI": "6.1.1"
+          "Swashbuckle.AspNetCore.Swagger": "6.1.3",
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.1.3",
+          "Swashbuckle.AspNetCore.SwaggerUI": "6.1.3"
         },
         "build": {
           "build/Swashbuckle.AspNetCore.props": {}
         }
       },
-      "Swashbuckle.AspNetCore.Swagger/6.1.1": {
+      "Swashbuckle.AspNetCore.Swagger/6.1.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.OpenApi": "1.2.3"
@@ -1148,10 +1148,10 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Swashbuckle.AspNetCore.SwaggerGen/6.1.1": {
+      "Swashbuckle.AspNetCore.SwaggerGen/6.1.3": {
         "type": "package",
         "dependencies": {
-          "Swashbuckle.AspNetCore.Swagger": "6.1.1"
+          "Swashbuckle.AspNetCore.Swagger": "6.1.3"
         },
         "compile": {
           "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
@@ -1160,7 +1160,7 @@
           "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore.SwaggerUI/6.1.1": {
+      "Swashbuckle.AspNetCore.SwaggerUI/6.1.3": {
         "type": "package",
         "compile": {
           "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
@@ -3075,17 +3075,17 @@
         "microsoft.entityframeworkcore.sqlserver.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Tools/5.0.4": {
-      "sha512": "ldiZtmhBXJBvBHLUUglCL2n0RFoaXwR3fnvY0Tn0U70V4gafA2ny7vf1d/Gh4ai9qyj/wVJOj4RN8HAy4wjqTw==",
+    "Microsoft.EntityFrameworkCore.Tools/5.0.5": {
+      "sha512": "YfEG6UQumR2+L/c2c/mdwNH9vRA2KscsCgKCI/REh8KZL65dfoRSkTzLknJ1ai+WK/GM8EI1eClfAyZCTIMhOQ==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.tools/5.0.4",
+      "path": "microsoft.entityframeworkcore.tools/5.0.5",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.1/_._",
-        "microsoft.entityframeworkcore.tools.5.0.4.nupkg.sha512",
+        "microsoft.entityframeworkcore.tools.5.0.5.nupkg.sha512",
         "microsoft.entityframeworkcore.tools.nuspec",
         "tools/EntityFrameworkCore.PS2.psd1",
         "tools/EntityFrameworkCore.PS2.psm1",
@@ -4155,22 +4155,22 @@
         "sqlitepclraw.provider.dynamic_cdecl.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore/6.1.1": {
-      "sha512": "qeGNdISDXqZT2oYWwFWgCiYTnJFxU3qYzZ+xyM/iU/kvI/KWlJGHTxlhLb3giAFxFZM5nRgkHGFb8yfNgr7+kQ==",
+    "Swashbuckle.AspNetCore/6.1.3": {
+      "sha512": "NjPt/1hmsb0DT+YkTBsU+zHzsRObJUoAgNk78GLlCQzfHrXXUXX3eWm/WDPl31CyD3f55gzbGWotrYRQ+CyXfQ==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore/6.1.1",
+      "path": "swashbuckle.aspnetcore/6.1.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "build/Swashbuckle.AspNetCore.props",
-        "swashbuckle.aspnetcore.6.1.1.nupkg.sha512",
+        "swashbuckle.aspnetcore.6.1.3.nupkg.sha512",
         "swashbuckle.aspnetcore.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.Swagger/6.1.1": {
-      "sha512": "JbLsVspdKevDJ6NZT+uP06Zfr1iCDbFjmIvUyoG88GgFkM/Daaq2EGUAG7INZl+FEcoVxPG9A+yWRik75ATGbw==",
+    "Swashbuckle.AspNetCore.Swagger/6.1.3": {
+      "sha512": "gHXukdWLzGgXHP0xhvqhwqb4hes82jIndGTA2kTKXqLsh7+O2mvOAhRapYC5Z32Ok4k87C2UjtXUV+Tfxiw2vQ==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swagger/6.1.1",
+      "path": "swashbuckle.aspnetcore.swagger/6.1.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4183,14 +4183,14 @@
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.xml",
-        "swashbuckle.aspnetcore.swagger.6.1.1.nupkg.sha512",
+        "swashbuckle.aspnetcore.swagger.6.1.3.nupkg.sha512",
         "swashbuckle.aspnetcore.swagger.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.SwaggerGen/6.1.1": {
-      "sha512": "kfoGF5scayoUVXo9wIN8OgvdYJr97V/yPdSrLNXcvbthOCU1vXTv8HJQMJ3OGyG9CpIAp2wfHI2gCmvbVKkMCQ==",
+    "Swashbuckle.AspNetCore.SwaggerGen/6.1.3": {
+      "sha512": "RhR606gEIni8vV8319b5tr0S3hA0M2rfy8qG91k8Vh06cHXVElvU/DmSDgNkujatffWqfxzgdW0gahp0rm5n1w==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swaggergen/6.1.1",
+      "path": "swashbuckle.aspnetcore.swaggergen/6.1.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4203,14 +4203,14 @@
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
-        "swashbuckle.aspnetcore.swaggergen.6.1.1.nupkg.sha512",
+        "swashbuckle.aspnetcore.swaggergen.6.1.3.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggergen.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.SwaggerUI/6.1.1": {
-      "sha512": "NlR3zDm0kGWNClJWPzWrGBoQn4SY6Fgpz9D5p30bKsUYzFfM7L5vVo88BktpUyCJb6zHtCOsazN+vzQn7NVjUg==",
+    "Swashbuckle.AspNetCore.SwaggerUI/6.1.3": {
+      "sha512": "IivAWH0mPBPCBv+qaI3YBtz+zamBffiLQE+OTNpIhDHvvqCj//9gb4VgZWrWVnmoc1WqCf61dGreu24hKiEFDQ==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swaggerui/6.1.1",
+      "path": "swashbuckle.aspnetcore.swaggerui/6.1.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4223,7 +4223,7 @@
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
-        "swashbuckle.aspnetcore.swaggerui.6.1.1.nupkg.sha512",
+        "swashbuckle.aspnetcore.swaggerui.6.1.3.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
     },
@@ -7814,26 +7814,26 @@
       "Microsoft.EntityFrameworkCore.Design >= 5.0.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.4",
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.5",
-      "Microsoft.EntityFrameworkCore.Tools >= 5.0.4",
+      "Microsoft.EntityFrameworkCore.Tools >= 5.0.5",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
       "Microsoft.VisualStudio.Web.CodeGeneration.Utils >= 5.0.2",
-      "Swashbuckle.AspNetCore >= 6.1.1"
+      "Swashbuckle.AspNetCore >= 6.1.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {}
+    "C:\\Users\\racir\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+      "projectUniqueName": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
       "projectName": "OrganizelyAPI",
-      "projectPath": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
+      "projectPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+      "packagesPath": "C:\\Users\\racir\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\racir\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7889,7 +7889,7 @@
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[5.0.4, )"
+            "version": "[5.0.5, )"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
@@ -7901,7 +7901,7 @@
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
-            "version": "[6.1.1, )"
+            "version": "[6.1.3, )"
           }
         },
         "imports": [

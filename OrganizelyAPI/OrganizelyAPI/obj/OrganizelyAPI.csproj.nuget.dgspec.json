@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj": {}
+    "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj": {
+    "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+        "projectUniqueName": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
         "projectName": "OrganizelyAPI",
-        "projectPath": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\Organizely-Project\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
+        "projectPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\OrganizelyAPI.csproj",
+        "packagesPath": "C:\\Users\\racir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\racir\\source\\repos\\LaunchCode\\LiftOff\\OrganizelyAngularCSharpApp\\Organizely-App\\OrganizelyAPI\\OrganizelyAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\racir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -70,7 +70,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.5, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -82,7 +82,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.1.1, )"
+              "version": "[6.1.3, )"
             }
           },
           "imports": [

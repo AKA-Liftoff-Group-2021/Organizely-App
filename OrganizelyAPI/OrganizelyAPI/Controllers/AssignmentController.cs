@@ -32,59 +32,110 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAssignments()
         {
-            //var assignments = await _context.Assignments.Include(c => c.Course).Select(a =>
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var assignments = await _context.Assignments.Where(u => u.UserId == user.Id).Include(u => u.User).Include(c => c.Course).Select(a =>
-           
-            new AssignmentDTO()
-            {
-                AssignmentId = a.AssignmentId, 
-                AssignmentName = a.AssignmentName,
-                DueDate = a.DueDate,
-                CourseId = a.CourseId, 
-                Course = a.Course,
-                UserId = a.UserId,
-
-            }).ToListAsync();
+            var assignments = await (from Assignment in _context.Assignments
+                                join Course in _context.Courses
+                                on Assignment.CourseId equals Course.CourseId
+                                where Course.UserId == user.Id
+                                select new AssignmentDTO
+                                {
+                                    AssignmentId = Assignment.AssignmentId,
+                                    AssignmentName = Assignment.AssignmentName,
+                                    DueDate = Assignment.DueDate,
+                                    CourseId = Course.CourseId
+                                }).ToListAsync();
 
             if (assignments == null)
             {
                 return NotFound();
             }
-           
+
             return assignments;
+
+            // var assignments = await _context.Assignments.Include(c => c.Course).Select(a =>
+            ////var assignments = await _context.Assignments.Where(u => u.UserId == user.Id).Include(u => u.User).Include(c => c.Course).Select(a =>
+
+            // new AssignmentDTO()
+            // {
+            //     AssignmentId = a.AssignmentId, 
+            //     AssignmentName = a.AssignmentName,
+            //     DueDate = a.DueDate,
+            //     CourseId = a.CourseId, 
+            //     Course = a.Course,
+            //     //UserId = a.UserId,
+
+            // }).ToListAsync();
+            //if (assignments == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return assignments;
         }
 
         // GET: api/Assignment/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AssignmentDTO>> GetAssignment(int id)
         {
-            //var assignment = await _context.Assignments.FindAsync(id);
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var assignment = await _context.Assignments.Include(c => c.Course).Select(a =>
-                        new AssignmentDTO()
-                        {
-                            AssignmentId = a.AssignmentId,
-                            AssignmentName = a.AssignmentName,
-                            DueDate = a.DueDate,
-                            CourseId = a.CourseId,
-                            Course = a.Course,
-                            UserId = a.UserId,    // Newly added..
 
-                        }).SingleOrDefaultAsync(a => a.AssignmentId == id);
-     
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var assignment = await (from Assignment in _context.Assignments
+                                     join Course in _context.Courses
+                                     on Assignment.CourseId equals Course.CourseId
+                                     where Course.UserId == user.Id
+                                     select new AssignmentDTO
+                                     {
+                                         AssignmentId = Assignment.AssignmentId,
+                                         AssignmentName = Assignment.AssignmentName,
+                                         DueDate = Assignment.DueDate,
+                                         CourseId = Course.CourseId
+                                     }).SingleOrDefaultAsync(a => a.AssignmentId == id);
+
             if (assignment == null)
             {
-                return NotFound("Assignment Id does not exist");
+                return NotFound();
             }
+
             return assignment;
+            ////var assignment = await _context.Assignments.FindAsync(id);
+            //var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //var assignment = await _context.Assignments.Include(c => c.Course).Select(a =>
+            //            new AssignmentDTO()
+            //            {
+            //                AssignmentId = a.AssignmentId,
+            //                AssignmentName = a.AssignmentName,
+            //                DueDate = a.DueDate,
+            //                CourseId = a.CourseId,
+            //                Course = a.Course,
+            //                //UserId = a.UserId,    // Newly added..
+
+            //            }).SingleOrDefaultAsync(a => a.AssignmentId == id);
+     
+            //if (assignment == null)
+            //{
+            //    return NotFound("Assignment Id does not exist");
+            //}
+            //return assignment;
         }
 
         // PUT: api/Assignment/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAssignment(int id, AssignmentDTO assignmentDTO)
-        {
-            Assignment assignmentToUpdate = await _context.Assignments.FindAsync(id);
+        { 
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var assignmentToUpdate = await (from Assignment in _context.Assignments
+                                    join Course in _context.Courses
+                                    on Assignment.CourseId equals Course.CourseId
+                                    where Course.UserId == user.Id
+                                    select new AssignmentDTO
+                                    {
+                                        AssignmentId = Assignment.AssignmentId,
+                                        AssignmentName = Assignment.AssignmentName,
+                                        DueDate = Assignment.DueDate,
+                                        CourseId = Course.CourseId
+                                    }).SingleOrDefaultAsync(a => a.AssignmentId == id);
+
+            //Assignment assignmentToUpdate = await _context.Assignments.FindAsync(id);
 
             if (id != assignmentToUpdate.AssignmentId)
             {
@@ -94,7 +145,7 @@ namespace OrganizelyAPI.Controllers
             assignmentToUpdate.AssignmentName = assignmentDTO.AssignmentName;
             assignmentToUpdate.DueDate = assignmentDTO.DueDate;
             assignmentToUpdate.CourseId = assignmentDTO.CourseId;
-            assignmentToUpdate.UserId = assignmentDTO.UserId; // Newly added..
+            //assignmentToUpdate.UserId = assignmentDTO.UserId; // Newly added..
 
             _context.Entry(assignmentToUpdate).State = EntityState.Modified;
 
@@ -127,7 +178,7 @@ namespace OrganizelyAPI.Controllers
             {
                 AssignmentName = assignmentDTO.AssignmentName,
                 DueDate = assignmentDTO.DueDate,
-                UserId = assignmentDTO.UserId,    // Newly Added..
+                //UserId = assignmentDTO.UserId,    // Newly Added..
                 Course = theCourse,
             };
 

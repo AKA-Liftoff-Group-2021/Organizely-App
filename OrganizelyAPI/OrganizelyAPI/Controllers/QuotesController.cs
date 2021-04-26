@@ -32,17 +32,17 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/Quotes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<QuotesDTO>>> GetQuote() //s
+        public async Task<ActionResult<IEnumerable<QuotesDTO>>> GetQuotes() //s
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var quotes = await _context.Quotes.Where(u => u.UserId == user.Id).Include(u => u.User).Select(q =>
+            var quotes = await _context.QuoteSet.Where(u => u.UserId == user.Id).Include(u => u.User).Select(q =>
             
             new QuotesDTO()
             {
                 QuoteId = q.QuoteId,
                 Content = q.Content,
                 Author = q.Author,
-                UserId = q.UserId,
+                UserId = user.Id,
 
             }).ToListAsync();
 
@@ -58,22 +58,22 @@ namespace OrganizelyAPI.Controllers
         public async Task<ActionResult<QuotesDTO>> GetQuotes(int id)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var quotes = await _context.Quotes.Where(u => u.UserId == user.Id).Include(u => u.User).Select(q => 
+            var quote = await _context.QuoteSet.Where(u => u.UserId == user.Id).Include(u => u.User).Select(q => 
                 new QuotesDTO()
                 {
                     QuoteId = q.QuoteId,
                     Content = q.Content,
                     Author = q.Author,
-                    UserId = q.UserId,
+                    UserId = user.Id,
 
                 }).SingleOrDefaultAsync(q => q.QuoteId == id);
 
-            if (quotes == null)
+            if (quote == null)
             {
                 return NotFound();
             }
 
-            return Ok(quotes);
+            return Ok(quote);
         }
 
         // PUT: api/Quotes/5
@@ -111,15 +111,14 @@ namespace OrganizelyAPI.Controllers
         public async Task<ActionResult<QuotesDTO>> PostQuotes([FromBody] QuotesDTO quotesDTO)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            QuoteSet newQuote = new()
+            Quotes newQuote = new()                 
             {
                 Content = quotesDTO.Content,
                 Author = quotesDTO.Author,
-                UserId = user.Id,
-              
+                UserId = user.Id,  
             };
 
-            _context.Quotes.Add(newQuote);
+            _context.QuoteSet.Add(newQuote);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetQuotes", new { id = newQuote.QuoteId }, newQuote);
@@ -129,21 +128,21 @@ namespace OrganizelyAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuotes(int id)
         {
-            var quotes = await _context.Quotes.FindAsync(id);
-            if (quotes == null)
+            var quote = await _context.QuoteSet.FindAsync(id);
+            if (quote == null)
             {
                 return NotFound();
             }
 
-            _context.Quotes.Remove(quotes);
+            _context.QuoteSet.Remove(quote);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool QuotesExists(int id)
+        private bool QuoteExists(int id)
         {
-            return _context.Quotes.Any(e => e.QuoteId == id);
+            return _context.QuoteSet.Any(e => e.QuoteId == id);
         }
     }
 }

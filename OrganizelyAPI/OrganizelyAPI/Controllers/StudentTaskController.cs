@@ -30,7 +30,7 @@ namespace OrganizelyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentTaskDTO>>> GetStudentTasks()
         {
-            //Student theStudent = await _context.Courses.FindAsync(StudentTask.StudentId);
+
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var studentTasks = await _context.StudentTasks.Where(u => u.UserId == user.Id).Include(u => u.User).Select(s =>
              new StudentTaskDTO()
@@ -39,9 +39,8 @@ namespace OrganizelyAPI.Controllers
                  StudentTaskName = s.StudentTaskName, 
                  TaskDueDate = s.TaskDueDate,
                  Priority = s.Priority,
-                 UserId = s.UserId,   // Newly added..
-              // StudentId = s.StudentId,
-
+                 //UserId = s.UserId,   // Newly added..
+                 UserId = user.Id,
              }).ToListAsync();
 
             if (studentTasks == null)
@@ -63,8 +62,8 @@ namespace OrganizelyAPI.Controllers
                 StudentTaskName = s.StudentTaskName,
                 TaskDueDate = s.TaskDueDate,
                 Priority = s.Priority,
-                UserId = s.UserId,    // Newly added..
-            //  StudentId = s.StudentId,
+                //UserId = s.UserId,    // Newly added..
+                UserId = user.Id,
 
             }).FirstOrDefaultAsync(s => s.StudentTaskId == id);
 
@@ -80,6 +79,7 @@ namespace OrganizelyAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudentTask(int id, StudentTaskDTO studentTaskDTO)
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
             StudentTask taskToUpdate = await _context.StudentTasks.FindAsync(id);
 
             if (id != taskToUpdate.StudentTaskId)
@@ -90,8 +90,9 @@ namespace OrganizelyAPI.Controllers
             taskToUpdate.Priority = studentTaskDTO.Priority;
             taskToUpdate.StudentTaskName = studentTaskDTO.StudentTaskName;
             taskToUpdate.TaskDueDate = studentTaskDTO.TaskDueDate;
-            taskToUpdate.UserId = studentTaskDTO.User.Id; // Added UserId
-            //student 
+            //taskToUpdate.UserId = studentTaskDTO.User.Id; // Added UserId
+            taskToUpdate.UserId = user.Id; // Added UserId
+
             _context.Entry(taskToUpdate).State = EntityState.Modified;
 
             try
@@ -117,12 +118,14 @@ namespace OrganizelyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<StudentTaskDTO>> PostStudentTask(StudentTaskDTO studentTaskDTO)
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
             StudentTask newStudentTask = new StudentTask
             {
                 StudentTaskName = studentTaskDTO.StudentTaskName,
                 TaskDueDate = studentTaskDTO.TaskDueDate,
                 Priority = studentTaskDTO.Priority,
-                UserId = studentTaskDTO.UserId, // Added UserId
+                //UserId = studentTaskDTO.UserId, // Added UserId
+                UserId = user.Id,
             };
 
             _context.StudentTasks.Add(newStudentTask);

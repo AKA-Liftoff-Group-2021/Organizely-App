@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace OrganizelyAPI.Models
 {
     [Table("Quotes")]
-    public class QuoteSet
+    public class Quotes         
     {
         [Key]
         public int QuoteId { get; set; }
