@@ -32,7 +32,7 @@ namespace OrganizelyAPI.Controllers
 
         // GET: api/Quotes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<QuotesDTO>>> GetQuotes()
+        public async Task<ActionResult<IEnumerable<QuotesDTO>>> GetQuote() //s
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var quotes = await _context.Quotes.Where(u => u.UserId == user.Id).Include(u => u.User).Select(q =>
