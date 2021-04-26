@@ -13,7 +13,7 @@ import { AssignmentsService } from '../shared/assignments.service';
 
 import createCalendarEvents from '../shared/utils/createCalendarEvents';
 import { Router } from '@angular/router';
-import { QuotesService } from '../quotes.service';
+import { QuotesService } from '../shared/quotes.service';
 import { Quote } from '../shared/models/quote.model';
 import { NgForm } from '@angular/forms';
 
@@ -114,16 +114,15 @@ export class AgendaComponent implements OnInit {
   onSaveQuote(quote: Quote) {
     const quoteId = 0;
     //const userId = '7f2ee707-af1e-479a-a562-2323ecb7c606';
-    
 
-    
     //let savedQuote = new Quote(quoteId, quote.content, quote.author);
     const savedQuote = new Quote(
-      quoteId, 
+      quoteId,
       quote.content,
       quote.author,
-      quote.userId);
-      
+      quote.userId
+    );
+
     console.log(savedQuote);
 
     this.quotesService.saveQuote(savedQuote).subscribe(
@@ -135,4 +134,4 @@ export class AgendaComponent implements OnInit {
       }
     );
   }
-  }
+}
