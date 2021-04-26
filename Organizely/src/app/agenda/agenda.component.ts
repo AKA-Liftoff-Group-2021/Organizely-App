@@ -41,6 +41,8 @@ export class AgendaComponent implements OnInit {
   assignments: Assignment[] = [];
   quotes: Quote[] = [];
 
+  quotesToast;
+
   constructor(
     private router: Router,
     private coursesService: CoursesService,
@@ -51,7 +53,6 @@ export class AgendaComponent implements OnInit {
 
   ngOnInit(): void {
     this.quotes = this.quotesService.getQuote();
-    console.log(this.quotes);
 
     this.coursesService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
@@ -124,6 +125,13 @@ export class AgendaComponent implements OnInit {
     this.quotesService.saveQuote(savedQuote).subscribe(
       (data: Quote) => {
         console.log(data);
+
+        let options = {
+          delay: 3000,
+        };
+
+        this.quotesToast = (<any>$('div.toast')).toast(options);
+        this.quotesToast = (<any>$('div.toast')).toast('show');
       },
       (error: any) => {
         console.log(error);

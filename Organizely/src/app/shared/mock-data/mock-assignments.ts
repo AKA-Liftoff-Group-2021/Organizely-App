@@ -5,7 +5,7 @@ export const Assignments: Assignment[] = [
     assignmentId: 1,
     assignmentName: 'Essay about Hemingway',
     dueDate: new Date(2021, 3, 1),
-    // userId: '1',
+    userId: '1',
     courseId: 1,
   },
   /* {

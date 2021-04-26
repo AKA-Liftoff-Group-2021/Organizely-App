@@ -124,6 +124,8 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy() {
-    this.calendarSub.unsubscribe();
+    if (this.calendarSub !== undefined) {
+      this.calendarSub.unsubscribe();
+    }
   }
 }
