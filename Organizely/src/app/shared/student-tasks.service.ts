@@ -12,7 +12,13 @@ export class StudentTasksService {
   constructor(private http: HttpClient) {}
 
   getStudentTasks(): Observable<StudentTask[]> {
-    return this.http.get<StudentTask[]>(this.studentTaskURL);
+    return this.http.get<StudentTask[]>(this.studentTaskURL, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
   }
 
   getStudentTask(studentTaskId: number): Observable<StudentTask> {
@@ -21,6 +27,7 @@ export class StudentTasksService {
       {
         headers: new HttpHeaders({
           Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         }),
       }
     );
@@ -30,6 +37,7 @@ export class StudentTasksService {
     return this.http.post<StudentTask>(this.studentTaskURL, studentTask, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       }),
     });
   }
@@ -44,12 +52,18 @@ export class StudentTasksService {
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         }),
       }
     );
   }
 
   deleteStudentTask(studentTaskId: number): Observable<void> {
-    return this.http.delete<void>(`${this.studentTaskURL}/${studentTaskId}`);
+    return this.http.delete<void>(`${this.studentTaskURL}/${studentTaskId}`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
   }
 }
