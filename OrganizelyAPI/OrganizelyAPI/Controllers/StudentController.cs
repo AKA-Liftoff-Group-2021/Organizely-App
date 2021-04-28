@@ -23,17 +23,25 @@ namespace OrganizelyAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly UserManager<ApplicationUser> _userManager;
 
-        public StudentController(UserManager<ApplicationUser> userManager)
+        //public StudentController(UserManager<ApplicationUser> userManager)
+        //{
+        //    _userManager = userManager;
+        //}
+
+        private readonly StudentDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        public StudentController(StudentDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _context = context;
             _userManager = userManager;
         }
 
         [HttpGet]
         // GET: api/Student
         // [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)] 
-        public async Task<IActionResult> GetStudent() // (int id)
+        public async Task<IActionResult> GetStudent() 
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user == null)
@@ -43,6 +51,7 @@ namespace OrganizelyAPI.Controllers
 
             StudentDTO student = new()
             {
+                UserId = user.Id,
                 Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -51,21 +60,27 @@ namespace OrganizelyAPI.Controllers
             return Ok(student);
         }
 
-        //// DELETE: api/Student/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteStudent(int id)//or username
-        //{
-        //    var user = await _userManager.FindByNameAsync(User.Identity.Name);//or findbyId
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //// DELETE: api/Student/5 TODO: Fix error
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteStudent(string userId)
+        {
+           
+            var isAuthenticated = User.Identity.IsAuthenticated;
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ApplicationUser loggedUser = await _context.Users.FindAsync(user.Id);
 
-        //    _context.AspNetUsers.Remove(user);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
+            if (loggedUser == null || isAuthenticated == false)
+            {
+                return NotFound();
+            }
+            
+            if (loggedUser.Id == userId || isAuthenticated == true)
+            {
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+            }
+            return NoContent();
+        }
 
         //private bool StudentExists(int id)
         //{
@@ -73,20 +88,9 @@ namespace OrganizelyAPI.Controllers
         //}
 
 
-        //// POST: api/Student
-        //[HttpPost]
-        //public async Task<ActionResult<Student>> PostStudent([FromBody] StudentDTO studentdto)
+        //private bool StudentExists(int id)
         //{
-        //    Student newStudent = new()
-        //    {
-        //        //Username = studentdto.Username,
-        //        FirstName = studentdto.FirstName,
-        //        LastName = studentdto.LastName
-        //    };
-        //    _context.Students.Add(newStudent);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetStudent", new { id = newStudent.StudentId }, newStudent);
+        //    return _context.AspNetUsers.Any(e => e.Id == id);
         //}
 
         //// PUT: api/Student/5
