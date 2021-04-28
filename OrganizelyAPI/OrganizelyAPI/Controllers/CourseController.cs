@@ -14,9 +14,7 @@ using OrganizelyAPI.ViewModels;
 
 namespace OrganizelyAPI.Controllers
 {
-    //[Authorize(AuthenticationSchemes = "JwtBearer")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]   
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
@@ -28,7 +26,6 @@ namespace OrganizelyAPI.Controllers
             _context = context;
            _userManager = userManager;
         }
-
 
         //<summary> Returns all courses associated with a student ID</summary>
 
