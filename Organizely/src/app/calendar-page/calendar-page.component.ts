@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CalendarOptions,
@@ -22,7 +22,7 @@ import createCalendarEvents from '../shared/utils/createCalendarEvents';
   templateUrl: './calendar-page.component.html',
   styleUrls: ['./calendar-page.component.css'],
 })
-export class CalendarPageComponent implements OnInit, OnDestroy {
+export class CalendarPageComponent implements OnInit {
   selectedDate: Date;
   calendarVisible: boolean = true;
   calendarOptions: CalendarOptions = {
@@ -40,8 +40,8 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
   assignments: Assignment[];
   courses: Course[];
   studentTasks: StudentTask[];
-  calendarSub: Subscription;
   calendarModal;
+
   constructor(
     private router: Router,
     private coursesService: CoursesService,
@@ -49,6 +49,7 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
     private assignmentsService: AssignmentsService,
     private calendarService: CalendarService
   ) {}
+
   ngOnInit(): void {
     this.coursesService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
@@ -74,9 +75,6 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
           );
         });
     });
-    this.calendarSub = this.calendarService.currentDate.subscribe(
-      (date) => (this.selectedDate = date)
-    );
   }
   addEvent(selectInfo: DateSelectArg) {
     this.calendarService.changeDate(selectInfo['date']);
@@ -121,11 +119,6 @@ export class CalendarPageComponent implements OnInit, OnDestroy {
           clickInfo.event.id,
         ]);
       }
-    }
-  }
-  ngOnDestroy() {
-    if (this.calendarSub !== undefined) {
-      this.calendarSub.unsubscribe();
     }
   }
 }

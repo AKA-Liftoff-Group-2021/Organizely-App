@@ -41,10 +41,12 @@ export class UpcomingListComponent implements OnInit, OnDestroy {
           .subscribe((studentTasks: StudentTask[]) => {
             this.studentTasks = studentTasks;
 
+            this.currentDate = new Date();
+
+            this.calendarService.changeDate(this.currentDate);
+
             this.upcomingListSub = this.calendarService.currentDate.subscribe(
               (date) => {
-                this.currentDate = new Date(date);
-
                 let newDate = new Date(this.currentDate);
 
                 let dateOneCalculation = newDate.setDate(newDate.getDate() + 7);
