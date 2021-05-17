@@ -48,7 +48,24 @@ Organizely will help college students manage their coursework online. Students w
 - [Maricar Walters](https://github.com/mlwalters)
 - [Andrea Pruitt](https://github.com/DreaP)
 
-  
+
+
+## Screenshots
+
+Swagger User Interface for the Web API built with C#/.NET 
+
+![Web API ](assets/Web_API_SwaggerUI.jpg)
+
+![Web API ](assets/Web_API_SwaggerUI2.jpg)
+
+
+
+Swagger UI Bearer authentication
+
+![Web API ](assets/Swagger_UI_Bearer_authentication.jpg)
+
+
+
 ## Run Locally
 
 1. Clone the project
