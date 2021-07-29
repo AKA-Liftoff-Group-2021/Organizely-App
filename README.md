@@ -52,7 +52,23 @@ Organizely will help college students manage their coursework online. Students w
 
 ## Screenshots
 
-Swagger User Interface for the Web API built with C#/.NET 
+**Registration and log in page to the front-end app built with Angular**
+
+![Registration/login page](assets/Organizely_signup_login.jpg)
+
+**Dashboard page**
+
+![Organizely dashboard](assets/organizely_dashboard.jpg)
+
+
+
+**Classes page**
+
+![Classes page](assets/classes_view.jpg)
+
+
+
+**Swagger User Interface for the Web API built with C#/.NET** 
 
 ![Web API ](assets/Web_API_SwaggerUI.jpg)
 
@@ -60,7 +76,7 @@ Swagger User Interface for the Web API built with C#/.NET
 
 
 
-Swagger UI Bearer authentication
+**Swagger UI Bearer authentication**
 
 ![Web API ](assets/Swagger_UI_Bearer_authentication.jpg)
 
