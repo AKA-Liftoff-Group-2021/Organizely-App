@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,13 +26,12 @@ namespace OrganizelyAPI.Controllers
            _userManager = userManager;
         }
 
+        // TODO: Update XML documentation
         //<summary> Returns all courses associated with a student ID</summary>
-
         // GET: api/Course
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            //var user = await _userManager.GetUserAsync(HttpContext.User);
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var courses = await _context.Courses.Where(u => u.UserId == user.Id).Include(u => u.User).Select(c =>    
                    new CourseDTO()
@@ -49,7 +47,6 @@ namespace OrganizelyAPI.Controllers
                        SemesterSeason = c.SemesterSeason,
                        SemesterYear = c.SemesterYear,
                        UserId = c.UserId,
-                       //User = c.User
                    }).ToListAsync();
 
             if (courses == null)
@@ -65,7 +62,6 @@ namespace OrganizelyAPI.Controllers
         public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            //var course = await _context.Courses.Where(u => u.UserId == user.Id).Include(u => u.User).Select(c =>
             var course = await _context.Courses.Where(u => u.UserId == user.Id).Include(u => u.User).Select(c =>
                     new CourseDTO()
                     {
@@ -80,7 +76,6 @@ namespace OrganizelyAPI.Controllers
                         SemesterSeason = c.SemesterSeason,
                         SemesterYear = c.SemesterYear,
                         UserId = c.UserId,
-                        //User = c.User
                     }).SingleOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
@@ -99,7 +94,6 @@ namespace OrganizelyAPI.Controllers
         {
             //try this next time: var user = await _userManager.GetUserAsync(HttpContext.User);
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            //var user = await _userManager.FindByIdAsync(courseDTO.UserId);    
             Course newCourse = new()
             {
                 CourseName = courseDTO.CourseName,
@@ -112,7 +106,6 @@ namespace OrganizelyAPI.Controllers
                 SemesterSeason = courseDTO.SemesterSeason,
                 SemesterYear = courseDTO.SemesterYear,
                 UserId = user.Id,
-                //User = c.User
             };
 
             _context.Courses.Add(newCourse);
@@ -128,7 +121,6 @@ namespace OrganizelyAPI.Controllers
         public async Task<IActionResult> PutCourse(int id, [FromBody] CourseDTO courseDTO)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            //var user = await _userManager.FindByIdAsync(courseDTO.UserId); // check if its better to find by user.identity.name
             Course courseToUpdate = await _context.Courses.FindAsync(id);
             if (id != courseToUpdate.CourseId)
             {
@@ -145,7 +137,6 @@ namespace OrganizelyAPI.Controllers
             courseToUpdate.SemesterSeason = courseDTO.SemesterSeason;
             courseToUpdate.SemesterYear = courseDTO.SemesterYear;
             courseToUpdate.UserId = user.Id;
-                //User = c.User
 
             _context.Entry(courseToUpdate).State = EntityState.Modified; 
 
@@ -173,9 +164,6 @@ namespace OrganizelyAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
         {
-            //var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            //Where(u => u.UserId == user.Id)
-
             var course = await _context.Courses.FindAsync(id);
             if (course == null)
             {

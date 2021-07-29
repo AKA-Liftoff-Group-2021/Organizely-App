@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Data;
@@ -39,7 +38,6 @@ namespace OrganizelyAPI.Controllers
                  StudentTaskName = s.StudentTaskName, 
                  TaskDueDate = s.TaskDueDate,
                  Priority = s.Priority,
-                 //UserId = s.UserId,   // Newly added..
                  UserId = user.Id,
              }).ToListAsync();
 
@@ -62,7 +60,6 @@ namespace OrganizelyAPI.Controllers
                 StudentTaskName = s.StudentTaskName,
                 TaskDueDate = s.TaskDueDate,
                 Priority = s.Priority,
-                //UserId = s.UserId,    // Newly added..
                 UserId = user.Id,
 
             }).FirstOrDefaultAsync(s => s.StudentTaskId == id);
@@ -90,7 +87,6 @@ namespace OrganizelyAPI.Controllers
             taskToUpdate.Priority = studentTaskDTO.Priority;
             taskToUpdate.StudentTaskName = studentTaskDTO.StudentTaskName;
             taskToUpdate.TaskDueDate = studentTaskDTO.TaskDueDate;
-            //taskToUpdate.UserId = studentTaskDTO.User.Id; // Added UserId
             taskToUpdate.UserId = user.Id; // Added UserId
 
             _context.Entry(taskToUpdate).State = EntityState.Modified;
@@ -124,7 +120,6 @@ namespace OrganizelyAPI.Controllers
                 StudentTaskName = studentTaskDTO.StudentTaskName,
                 TaskDueDate = studentTaskDTO.TaskDueDate,
                 Priority = studentTaskDTO.Priority,
-                //UserId = studentTaskDTO.UserId, // Added UserId
                 UserId = user.Id,
             };
 

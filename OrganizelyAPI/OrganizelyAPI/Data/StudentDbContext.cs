@@ -2,14 +2,10 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OrganizelyAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OrganizelyAPI.Data
 {
-    public class StudentDbContext : IdentityDbContext<ApplicationUser> // from DbContext 
+    public class StudentDbContext : IdentityDbContext<ApplicationUser> 
     {
         public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)
         {

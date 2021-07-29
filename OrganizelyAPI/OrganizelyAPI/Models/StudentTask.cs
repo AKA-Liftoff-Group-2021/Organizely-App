@@ -22,7 +22,7 @@ namespace OrganizelyAPI.Models
         public string StudentTaskName { get; set; }
 
         [Column(TypeName = "datetime")]
-        public DateTime TaskDueDate { get; set; } // There was a DateTime? here..
+        public DateTime TaskDueDate { get; set; } 
 
         [ForeignKey("UserId")]
         public string UserId { get; set; }

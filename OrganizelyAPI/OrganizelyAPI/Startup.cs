@@ -8,18 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OrganizelyAPI.Data;
 using OrganizelyAPI.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace OrganizelyAPI
 {
@@ -66,7 +62,6 @@ namespace OrganizelyAPI
                                 }
                             },
                             new string[] {}
-
                     }
                 });
             });
@@ -112,9 +107,9 @@ namespace OrganizelyAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false, //
+                    ValidateAudience = false, 
                     ValidAudience = Configuration["JWTSettings:ValidAudience"],
-                    ValidateLifetime = true, //
+                    ValidateLifetime = true, 
                     //RequireExpirationTime = false,
                     //ClockSkew = TimeSpan.A
                 };

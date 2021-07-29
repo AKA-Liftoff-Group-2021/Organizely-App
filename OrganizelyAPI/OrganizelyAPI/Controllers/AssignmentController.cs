@@ -52,26 +52,6 @@ namespace OrganizelyAPI.Controllers
             }
 
             return assignments;
-
-            // var assignments = await _context.Assignments.Include(c => c.Course).Select(a =>
-            ////var assignments = await _context.Assignments.Where(u => u.UserId == user.Id).Include(u => u.User).Include(c => c.Course).Select(a =>
-
-            // new AssignmentDTO()
-            // {
-            //     AssignmentId = a.AssignmentId, 
-            //     AssignmentName = a.AssignmentName,
-            //     DueDate = a.DueDate,
-            //     CourseId = a.CourseId, 
-            //     Course = a.Course,
-            //     //UserId = a.UserId,
-
-            // }).ToListAsync();
-            //if (assignments == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return assignments;
         }
 
         // GET: api/Assignment/5
@@ -99,25 +79,6 @@ namespace OrganizelyAPI.Controllers
             }
 
             return assignment;
-            ////var assignment = await _context.Assignments.FindAsync(id);
-            //var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            //var assignment = await _context.Assignments.Include(c => c.Course).Select(a =>
-            //            new AssignmentDTO()
-            //            {
-            //                AssignmentId = a.AssignmentId,
-            //                AssignmentName = a.AssignmentName,
-            //                DueDate = a.DueDate,
-            //                CourseId = a.CourseId,
-            //                Course = a.Course,
-            //                //UserId = a.UserId,    // Newly added..
-
-            //            }).SingleOrDefaultAsync(a => a.AssignmentId == id);
-     
-            //if (assignment == null)
-            //{
-            //    return NotFound("Assignment Id does not exist");
-            //}
-            //return assignment;
         }
 
         // PUT: api/Assignment/5
@@ -138,8 +99,6 @@ namespace OrganizelyAPI.Controllers
                                         Course = Course
                                     }).SingleOrDefaultAsync(a => a.AssignmentId == id);
 
-            //Assignment assignmentToUpdate = await _context.Assignments.FindAsync(id);
-
             if (id != assignmentToUpdate.AssignmentId)
             {
                 return BadRequest("Requested Id does not match any assignment.");
@@ -148,7 +107,6 @@ namespace OrganizelyAPI.Controllers
             assignmentToUpdate.AssignmentName = assignmentDTO.AssignmentName;
             assignmentToUpdate.DueDate = assignmentDTO.DueDate;
             assignmentToUpdate.CourseId = assignmentDTO.CourseId;
-            //assignmentToUpdate.UserId = assignmentDTO.UserId; // Newly added..
 
             _context.Entry(assignmentToUpdate).State = EntityState.Modified;
 
@@ -181,7 +139,6 @@ namespace OrganizelyAPI.Controllers
             {
                 AssignmentName = assignmentDTO.AssignmentName,
                 DueDate = assignmentDTO.DueDate,
-                //UserId = assignmentDTO.UserId,    // Newly Added..
                 Course = theCourse,
                 CourseId = theCourse.CourseId
             };

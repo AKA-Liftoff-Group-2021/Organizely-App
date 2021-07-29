@@ -23,13 +23,6 @@ namespace OrganizelyAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        //private readonly UserManager<ApplicationUser> _userManager;
-
-        //public StudentController(UserManager<ApplicationUser> userManager)
-        //{
-        //    _userManager = userManager;
-        //}
-
         private readonly StudentDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         public StudentController(StudentDbContext context, UserManager<ApplicationUser> userManager)
@@ -60,7 +53,7 @@ namespace OrganizelyAPI.Controllers
             return Ok(student);
         }
 
-        //// DELETE: api/Student/5 TODO: Fix error
+        //// DELETE: api/Student/5 
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteStudent(string userId)
         {
@@ -128,8 +121,5 @@ namespace OrganizelyAPI.Controllers
 
         //    return NoContent();
         //}
-
-
-
     }
 }
