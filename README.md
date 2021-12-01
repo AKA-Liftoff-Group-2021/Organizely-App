@@ -25,7 +25,7 @@ Organizely will help college students manage their coursework online. Students w
 - HTML5
 - CSS3
 
-**Server:** 
+**Server (API):** 
 
 - C#
 - ASP.NET 5
